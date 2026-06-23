@@ -19,24 +19,24 @@ export function FlowShell({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen surface-dark">
+    <div className="min-h-screen bg-background">
       <div
-        className="pointer-events-none fixed inset-0 opacity-[0.04]"
+        className="pointer-events-none fixed inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+            "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       />
 
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-charcoal/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-white/10 text-offwhite">
-              <Activity className="size-5 text-accent" />
+            <span className="grid size-9 place-items-center rounded-xl bg-secondary text-foreground">
+              <Activity className="size-5 text-primary" />
             </span>
-            <span className="font-display text-lg font-bold tracking-tight text-offwhite">
-              PhysioFlex<span className="text-accent">.</span>
+            <span className="font-display text-lg font-bold tracking-tight text-foreground">
+              PhysioFlex<span className="text-primary">.</span>
             </span>
           </Link>
 
@@ -51,10 +51,10 @@ export function FlowShell({
                       className={cn(
                         "grid size-7 place-items-center rounded-full border text-xs font-semibold transition-all",
                         active
-                          ? "border-accent bg-accent text-charcoal"
+                          ? "border-primary bg-primary text-offwhite"
                           : done
-                            ? "border-accent/50 bg-accent/15 text-accent"
-                            : "border-white/15 text-white/40",
+                            ? "border-primary/50 bg-primary/15 text-primary"
+                            : "border-border text-muted-foreground",
                       )}
                     >
                       {done ? <Check className="size-3.5" /> : i + 1}
@@ -62,12 +62,12 @@ export function FlowShell({
                     <span
                       className={cn(
                         "text-xs font-medium",
-                        active ? "text-offwhite" : "text-white/40",
+                        active ? "text-foreground" : "text-muted-foreground",
                       )}
                     >
                       {label}
                     </span>
-                    {i < FLOW_STEPS.length - 1 && <span className="h-px w-5 bg-white/15" />}
+                    {i < FLOW_STEPS.length - 1 && <span className="h-px w-5 bg-border" />}
                   </div>
                 );
               })}
@@ -76,7 +76,7 @@ export function FlowShell({
 
           <Link
             to="/dashboard"
-            className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-white/70 transition-colors hover:text-offwhite"
+            className="rounded-full border border-border bg-secondary px-4 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
           >
             My Progress
           </Link>
