@@ -21,6 +21,7 @@ import { Route as ProgramsIndexRouteImport } from './routes/programs.index'
 import { Route as SpecialistsIdRouteImport } from './routes/specialists.$id'
 import { Route as PhysioLoginRouteImport } from './routes/physio/login'
 import { Route as PhysioDashboardRouteImport } from './routes/physio/dashboard'
+import { Route as LoginUserRouteImport } from './routes/login.user'
 import { Route as AssessmentStartRouteImport } from './routes/assessment.start'
 import { Route as AssessmentResultsRouteImport } from './routes/assessment.results'
 import { Route as LoginUserSignupRouteImport } from './routes/login.user.signup'
@@ -87,6 +88,11 @@ const PhysioDashboardRoute = PhysioDashboardRouteImport.update({
   path: '/physio/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginUserRoute = LoginUserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => LoginRoute,
+} as any)
 const AssessmentStartRoute = AssessmentStartRouteImport.update({
   id: '/start',
   path: '/start',
@@ -98,14 +104,14 @@ const AssessmentResultsRoute = AssessmentResultsRouteImport.update({
   getParentRoute: () => AssessmentRoute,
 } as any)
 const LoginUserSignupRoute = LoginUserSignupRouteImport.update({
-  id: '/user/signup',
-  path: '/user/signup',
-  getParentRoute: () => LoginRoute,
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => LoginUserRoute,
 } as any)
 const LoginUserProfileRoute = LoginUserProfileRouteImport.update({
-  id: '/user/profile',
-  path: '/user/profile',
-  getParentRoute: () => LoginRoute,
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => LoginUserRoute,
 } as any)
 const AssessmentPainDetailsAreaRoute =
   AssessmentPainDetailsAreaRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
+  '/login/user': typeof LoginUserRouteWithChildren
   '/physio/dashboard': typeof PhysioDashboardRoute
   '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
+  '/login/user': typeof LoginUserRouteWithChildren
   '/physio/dashboard': typeof PhysioDashboardRoute
   '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
+  '/login/user': typeof LoginUserRouteWithChildren
   '/physio/dashboard': typeof PhysioDashboardRoute
   '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/assessment/results'
     | '/assessment/start'
+    | '/login/user'
     | '/physio/dashboard'
     | '/physio/login'
     | '/specialists/$id'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/assessment/results'
     | '/assessment/start'
+    | '/login/user'
     | '/physio/dashboard'
     | '/physio/login'
     | '/specialists/$id'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/assessment/results'
     | '/assessment/start'
+    | '/login/user'
     | '/physio/dashboard'
     | '/physio/login'
     | '/specialists/$id'
@@ -333,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PhysioDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login/user': {
+      id: '/login/user'
+      path: '/user'
+      fullPath: '/login/user'
+      preLoaderRoute: typeof LoginUserRouteImport
+      parentRoute: typeof LoginRoute
+    }
     '/assessment/start': {
       id: '/assessment/start'
       path: '/start'
@@ -349,17 +368,17 @@ declare module '@tanstack/react-router' {
     }
     '/login/user/signup': {
       id: '/login/user/signup'
-      path: '/user/signup'
+      path: '/signup'
       fullPath: '/login/user/signup'
       preLoaderRoute: typeof LoginUserSignupRouteImport
-      parentRoute: typeof LoginRoute
+      parentRoute: typeof LoginUserRoute
     }
     '/login/user/profile': {
       id: '/login/user/profile'
-      path: '/user/profile'
+      path: '/profile'
       fullPath: '/login/user/profile'
       preLoaderRoute: typeof LoginUserProfileRouteImport
-      parentRoute: typeof LoginRoute
+      parentRoute: typeof LoginUserRoute
     }
     '/assessment/pain-details/$area': {
       id: '/assessment/pain-details/$area'
@@ -387,14 +406,26 @@ const AssessmentRouteWithChildren = AssessmentRoute._addFileChildren(
   AssessmentRouteChildren,
 )
 
-interface LoginRouteChildren {
+interface LoginUserRouteChildren {
   LoginUserProfileRoute: typeof LoginUserProfileRoute
   LoginUserSignupRoute: typeof LoginUserSignupRoute
 }
 
-const LoginRouteChildren: LoginRouteChildren = {
+const LoginUserRouteChildren: LoginUserRouteChildren = {
   LoginUserProfileRoute: LoginUserProfileRoute,
   LoginUserSignupRoute: LoginUserSignupRoute,
+}
+
+const LoginUserRouteWithChildren = LoginUserRoute._addFileChildren(
+  LoginUserRouteChildren,
+)
+
+interface LoginRouteChildren {
+  LoginUserRoute: typeof LoginUserRouteWithChildren
+}
+
+const LoginRouteChildren: LoginRouteChildren = {
+  LoginUserRoute: LoginUserRouteWithChildren,
 }
 
 const LoginRouteWithChildren = LoginRoute._addFileChildren(LoginRouteChildren)

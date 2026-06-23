@@ -1,9 +1,9 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Outlet, useLocation } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Activity, Users, Stethoscope } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
-  component: LoginPage,
+  component: LoginLayout,
   meta: () => [
     {
       title: "Login - PhysioFlex",
@@ -12,8 +12,17 @@ export const Route = createFileRoute("/login")({
   ],
 });
 
-function LoginPage() {
+function LoginLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Only show the role selection on the /login route itself
+  const isRoleSelectionPage = location.pathname === "/login";
+
+  if (!isRoleSelectionPage) {
+    // If we're on a child route, just render the outlet
+    return <Outlet />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center px-4">
