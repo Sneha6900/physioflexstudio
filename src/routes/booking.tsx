@@ -45,12 +45,12 @@ function BookingPage() {
           <span className="mx-auto grid size-16 place-items-center rounded-full bg-accent text-charcoal">
             <Check className="size-8" />
           </span>
-          <h1 className="mt-6 font-display text-3xl font-bold text-offwhite">Booking confirmed!</h1>
-          <p className="mt-2 text-white/65">
+          <h1 className="mt-6 font-display text-3xl font-bold text-foreground">Booking confirmed!</h1>
+          <p className="mt-2 text-muted-foreground">
             Your recovery session is scheduled. A confirmation has been sent to your account.
           </p>
 
-          <div className="mt-8 space-y-3 rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-left text-sm">
+          <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-6 text-left text-sm">
             <Row icon={User} k="Specialist" v={specialist?.name ?? "PhysioFlex specialist"} />
             <Row icon={MapPin} k="Location" v={studio} />
             <Row icon={CalendarCheck} k="Date" v={`${dateLabel?.dow}, ${dateLabel?.label}`} />
@@ -74,26 +74,26 @@ function BookingPage() {
     <FlowShell step={4}>
       <Link
         to="/specialists"
-        className="inline-flex items-center gap-2 text-sm text-white/55 transition-colors hover:text-offwhite"
+        className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="size-4" /> Back to specialists
       </Link>
 
-      <h1 className="mt-6 font-display text-4xl font-bold tracking-tight text-offwhite sm:text-5xl">
+      <h1 className="mt-6 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
         Book your session
       </h1>
-      <p className="mt-3 max-w-xl text-lg text-white/60">
+      <p className="mt-3 max-w-xl text-lg text-muted-foreground">
         Pick your Bangalore studio, date and time. Free reschedule up to 24 hours before.
       </p>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-6">
           {specialist && (
-            <div className="flex items-center gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+            <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-5">
               <img src={specialist.img} alt={specialist.name} className="size-16 rounded-2xl object-cover" />
               <div>
-                <div className="font-display text-lg font-bold text-offwhite">{specialist.name}</div>
-                <div className="flex items-center gap-1 text-sm text-white/55">
+                <div className="font-display text-lg font-bold text-foreground">{specialist.name}</div>
+                <div className="flex items-center gap-1 text-sm text-muted-foreground">
                   <Star className="size-3.5 fill-accent text-accent" /> {specialist.rating} · {specialist.spec}
                 </div>
               </div>
@@ -123,7 +123,7 @@ function BookingPage() {
                     "rounded-2xl border px-4 py-3 text-center transition-all",
                     date === d.iso
                       ? "border-accent bg-accent text-charcoal"
-                      : "border-white/15 bg-white/5 text-white/70 hover:border-accent/50",
+                      : "border-border bg-muted/50 text-muted-foreground hover:border-accent/50",
                   )}
                 >
                   <div className="text-xs opacity-70">{d.dow}</div>
@@ -146,8 +146,8 @@ function BookingPage() {
 
         {/* summary */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7">
-            <h2 className="font-display text-xl font-bold text-offwhite">Summary</h2>
+          <div className="rounded-[2rem] border border-border bg-card p-7">
+            <h2 className="font-display text-xl font-bold text-foreground">Summary</h2>
             <div className="mt-5 space-y-3 text-sm">
               <Row icon={User} k="Specialist" v={specialist?.name ?? "Any available"} />
               <Row icon={MapPin} k="Studio" v={studio} />
@@ -164,7 +164,7 @@ function BookingPage() {
             >
               Confirm Booking
             </Button>
-            <p className="mt-3 text-center text-xs text-white/40">
+            <p className="mt-3 text-center text-xs text-muted-foreground">
               No payment required now — pay at the studio.
             </p>
           </div>
@@ -184,8 +184,8 @@ function Block({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-      <h2 className="flex items-center gap-2 font-display text-lg font-bold text-offwhite">
+    <div className="rounded-3xl border border-border bg-card p-6">
+      <h2 className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
         <Icon className="size-5 text-accent" /> {title}
       </h2>
       <div className="mt-4">{children}</div>
@@ -209,7 +209,7 @@ function Pill({
         "rounded-full border px-4 py-2 text-sm font-medium transition-all",
         active
           ? "border-accent bg-accent text-charcoal"
-          : "border-white/15 bg-white/5 text-white/70 hover:border-accent/50",
+          : "border-border bg-muted/50 text-muted-foreground hover:border-accent/50",
       )}
     >
       {children}
@@ -231,8 +231,8 @@ function Row({
       <span className="grid size-8 place-items-center rounded-lg bg-accent/15 text-accent">
         <Icon className="size-4" />
       </span>
-      <span className="text-white/50">{k}</span>
-      <span className="ml-auto font-semibold text-offwhite">{v}</span>
+      <span className="text-muted-foreground">{k}</span>
+      <span className="ml-auto font-semibold text-foreground">{v}</span>
     </div>
   );
 }

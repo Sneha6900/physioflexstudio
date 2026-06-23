@@ -45,7 +45,7 @@ export function Journey() {
         <div className="mt-14 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           {/* Stepper */}
           <div className="relative">
-            <div className="absolute left-[1.35rem] top-3 bottom-3 w-px bg-white/10" />
+            <div className="absolute left-[1.35rem] top-3 bottom-3 w-px bg-border" />
             <div
               className="absolute left-[1.35rem] top-3 w-px bg-accent transition-all duration-500"
               style={{ height: `${(active / (steps.length - 1)) * 100}%` }}
@@ -60,7 +60,7 @@ export function Journey() {
                       onClick={() => setActive(i)}
                       className={cn(
                         "group flex w-full items-center gap-4 rounded-2xl p-3 text-left transition-all",
-                        isActive ? "bg-white/8" : "hover:bg-white/5",
+                        isActive ? "bg-background shadow-[var(--shadow-soft)]" : "hover:bg-background/60",
                       )}
                     >
                       <span
@@ -70,19 +70,19 @@ export function Journey() {
                             ? "border-accent bg-accent text-charcoal"
                             : isDone
                               ? "border-accent/60 bg-accent/15 text-accent"
-                              : "border-white/15 bg-charcoal text-white/50",
+                              : "border-border bg-muted text-muted-foreground",
                         )}
                       >
                         {isDone ? <Check className="size-5" /> : <s.icon className="size-5" />}
                       </span>
                       <span>
-                        <span className="block text-xs uppercase tracking-widest text-white/40">
+                        <span className="block text-xs uppercase tracking-widest text-muted-foreground">
                           Step {s.n}
                         </span>
                         <span
                           className={cn(
                             "block font-display text-base font-semibold",
-                            isActive ? "text-offwhite" : "text-white/70",
+                            isActive ? "text-foreground" : "text-muted-foreground",
                           )}
                         >
                           {s.title}
@@ -96,7 +96,7 @@ export function Journey() {
           </div>
 
           {/* Panel */}
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <div className="rounded-[2rem] border border-border bg-card p-6 shadow-[var(--shadow-soft)] sm:p-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -119,7 +119,7 @@ export function Journey() {
               >
                 Back
               </Button>
-              <span className="text-xs text-white/40">
+              <span className="text-xs text-muted-foreground">
                 {active + 1} / {steps.length}
               </span>
               <Button
@@ -148,7 +148,7 @@ export function Journey() {
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="font-display text-2xl font-bold text-offwhite">{title}</h3>
+      <h3 className="font-display text-2xl font-bold text-foreground">{title}</h3>
       <div className="mt-5">{children}</div>
     </div>
   );
@@ -179,7 +179,7 @@ function StepContent({
                   "rounded-full border px-4 py-2 text-sm font-medium transition-all",
                   part === b
                     ? "border-accent bg-accent text-charcoal"
-                    : "border-white/15 bg-white/5 text-white/70 hover:border-accent/50",
+                    : "border-border bg-background text-muted-foreground hover:border-accent/50",
                 )}
               >
                 {b}
@@ -203,10 +203,10 @@ function StepContent({
           {metrics.map((m) => (
             <div key={m.label}>
               <div className="mb-2 flex justify-between text-sm">
-                <span className="text-white/70">{m.label}</span>
+                <span className="text-muted-foreground">{m.label}</span>
                 <span className="font-semibold text-accent">{m.tag}</span>
               </div>
-              <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
+              <div className="h-2.5 overflow-hidden rounded-full bg-muted">
                 <motion.div
                   className="h-full rounded-full bg-accent"
                   initial={{ width: 0 }}
@@ -216,8 +216,8 @@ function StepContent({
               </div>
             </div>
           ))}
-          <div className="flex gap-3 rounded-2xl bg-white/5 p-4 text-sm text-white/60">
-            <span className="font-semibold text-offwhite">Duration:</span> 3+ weeks · worsens when
+          <div className="flex gap-3 rounded-2xl bg-muted/60 p-4 text-sm text-muted-foreground">
+            <span className="font-semibold text-foreground">Duration:</span> 3+ weeks · worsens when
             sitting
           </div>
         </div>
@@ -241,12 +241,12 @@ function StepContent({
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.15 }}
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+              className="flex items-center gap-3 rounded-2xl border border-border bg-muted/40 p-4"
             >
               <span className="grid size-8 place-items-center rounded-full bg-accent/15 text-accent">
                 <Check className="size-4" />
               </span>
-              <span className="text-sm text-white/75">{f}</span>
+              <span className="text-sm text-muted-foreground">{f}</span>
               <span className="ml-auto text-xs font-medium text-accent">Processed</span>
             </motion.div>
           ))}
@@ -268,7 +268,7 @@ function StepContent({
           {plan.map((p) => (
             <div
               key={p}
-              className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm font-medium text-white/80"
+              className="rounded-2xl border border-border bg-muted/40 p-4 text-sm font-medium text-foreground"
             >
               <Target className="mb-2 size-5 text-accent" />
               {p}
@@ -300,16 +300,16 @@ function StepContent({
           {modes.map((m) => (
             <div
               key={m.title}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors hover:border-accent/50"
+              className="rounded-2xl border border-border bg-muted/40 p-5 transition-colors hover:border-accent/50"
             >
               <span className="grid size-11 place-items-center rounded-xl bg-accent/15 text-accent">
                 <m.icon className="size-5" />
               </span>
-              <h4 className="mt-4 font-display text-lg font-bold text-offwhite">{m.title}</h4>
-              <p className="mt-1 text-xs text-white/55">{m.for}</p>
+              <h4 className="mt-4 font-display text-lg font-bold text-foreground">{m.title}</h4>
+              <p className="mt-1 text-xs text-muted-foreground">{m.for}</p>
               <ul className="mt-3 space-y-2">
                 {m.points.map((p) => (
-                  <li key={p} className="flex items-center gap-2 text-sm text-white/75">
+                  <li key={p} className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Check className="size-4 text-accent" /> {p}
                   </li>
                 ))}
@@ -347,9 +347,9 @@ function StepContent({
     <Panel title="Track your progress">
       <div className="grid grid-cols-2 gap-3">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div key={s.label} className="rounded-2xl border border-border bg-muted/40 p-5">
             <div className="font-display text-3xl font-bold text-accent">{s.value}</div>
-            <div className="mt-1 text-xs text-white/55">{s.label}</div>
+            <div className="mt-1 text-xs text-muted-foreground">{s.label}</div>
           </div>
         ))}
       </div>
@@ -367,13 +367,13 @@ function Field({
   value: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="flex items-center gap-3 rounded-2xl border border-border bg-muted/40 p-4">
       <span className="grid size-9 place-items-center rounded-lg bg-accent/15 text-accent">
         <Icon className="size-4" />
       </span>
       <div>
-        <div className="text-xs uppercase tracking-wide text-white/40">{label}</div>
-        <div className="text-sm font-semibold text-offwhite">{value}</div>
+        <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
+        <div className="text-sm font-semibold text-foreground">{value}</div>
       </div>
     </div>
   );

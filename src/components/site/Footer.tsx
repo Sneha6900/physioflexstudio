@@ -17,19 +17,19 @@ const groups = [
 
 export function Footer() {
   return (
-    <footer className="surface-dark">
+    <footer className="surface-dark border-t border-border">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid size-9 place-items-center rounded-xl bg-white/10">
-                <Activity className="size-5 text-accent" />
+              <span className="grid size-9 place-items-center rounded-xl bg-primary/10">
+                <Activity className="size-5 text-primary" />
               </span>
-              <span className="font-display text-lg font-bold">
+              <span className="font-display text-lg font-bold text-foreground">
                 PhysioFlex<span className="text-accent">.</span>
               </span>
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               An AI-powered mobility and recovery ecosystem. Move better, recover faster, and
               measure every step of your progress.
             </p>
@@ -37,13 +37,13 @@ export function Footer() {
 
           {groups.map((g) => (
             <div key={g.title}>
-              <h4 className="font-display text-sm font-semibold text-white/90">{g.title}</h4>
+              <h4 className="font-display text-sm font-semibold text-foreground">{g.title}</h4>
               <ul className="mt-4 space-y-3">
                 {g.links.map((l) => (
                   <li key={l}>
                     <a
                       href="#top"
-                      className="text-sm text-white/55 transition-colors hover:text-accent"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {l}
                     </a>
@@ -54,7 +54,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground sm:flex-row">
           <p>© {new Date().getFullYear()} PhysioFlex Studio. Bangalore, India.</p>
           <p>Built for performance. Designed for recovery.</p>
         </div>

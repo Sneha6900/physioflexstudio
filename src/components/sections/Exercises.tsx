@@ -38,7 +38,7 @@ const exercises = [
 const levelColor: Record<string, string> = {
   Beginner: "bg-accent/15 text-primary",
   Intermediate: "bg-chart-4/20 text-foreground",
-  Advanced: "bg-charcoal text-offwhite",
+  Advanced: "bg-primary/15 text-primary",
 };
 
 export function Exercises() {

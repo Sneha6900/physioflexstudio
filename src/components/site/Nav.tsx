@@ -40,7 +40,7 @@ export function Nav() {
           )}
         >
           <a href="#top" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-charcoal text-offwhite">
+            <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Activity className="size-5 text-accent" />
             </span>
             <span className="font-display text-lg font-bold tracking-tight">

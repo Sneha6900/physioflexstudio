@@ -7,12 +7,12 @@ export function FinalCta() {
   return (
     <section className="bg-background">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-        <div className="relative overflow-hidden rounded-[2.5rem] surface-dark px-6 py-20 text-center sm:px-12">
+        <div className="relative overflow-hidden rounded-[2.5rem] surface-dark border border-border px-6 py-20 text-center shadow-[var(--shadow-soft)] sm:px-12">
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.05]"
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
               backgroundImage:
-                "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+                "linear-gradient(to right, oklch(0.49 0.082 168) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.49 0.082 168) 1px, transparent 1px)",
               backgroundSize: "56px 56px",
             }}
           />
@@ -21,7 +21,7 @@ export function FinalCta() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="relative mx-auto max-w-3xl font-display text-4xl font-extrabold tracking-tight text-offwhite text-balance sm:text-6xl"
+            className="relative mx-auto max-w-3xl font-display text-4xl font-extrabold tracking-tight text-foreground text-balance sm:text-6xl"
           >
             Your Recovery Journey <span className="ink-underline">Starts Today.</span>
           </motion.h2>
@@ -30,7 +30,7 @@ export function FinalCta() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative mx-auto mt-5 max-w-xl text-lg text-white/65"
+            className="relative mx-auto mt-5 max-w-xl text-lg text-muted-foreground"
           >
             Intelligent assessment, personalized plans, and expert support — all in one seamless
             experience.

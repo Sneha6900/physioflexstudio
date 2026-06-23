@@ -79,7 +79,7 @@
   --radius: 1rem;
 
   /* Brand palette - Vanilla Cream Theme */
-  --charcoal: oklch(0.3 0.01 85);
+  --charcoal: oklch(0.25 0.01 85);
   --offwhite: oklch(0.98 0.01 85);
   --forest: oklch(0.49 0.082 168);
   --emerald: oklch(0.74 0.14 165);
@@ -177,8 +177,8 @@
 
 /* Reusable brand surfaces */
 @utility surface-dark {
-  background-color: var(--charcoal);
-  color: var(--offwhite);
+  background-color: var(--secondary);
+  color: var(--foreground);
 }
 
 @utility glass {

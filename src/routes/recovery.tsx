@@ -51,10 +51,10 @@ function RecoveryPage() {
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             Self-Guided Recovery
           </span>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-offwhite sm:text-5xl">
+          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Today's recovery session
           </h1>
-          <p className="mt-3 max-w-xl text-lg text-white/60">
+          <p className="mt-3 max-w-xl text-lg text-muted-foreground">
             Your {(data.area ?? "mobility").toLowerCase()} program for today. Complete each exercise and log your progress.
           </p>
         </div>
@@ -80,14 +80,14 @@ function RecoveryPage() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
         {/* schedule */}
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+        <div className="rounded-[2rem] border border-border bg-card p-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-xl font-bold text-offwhite">Daily exercise schedule</h2>
-            <span className="text-sm text-white/45">
+            <h2 className="font-display text-xl font-bold text-foreground">Daily exercise schedule</h2>
+            <span className="text-sm text-muted-foreground">
               {completedCount}/{exercises.length} done
             </span>
           </div>
-          <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+          <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
             <motion.div
               className="h-full rounded-full bg-accent"
               animate={{ width: `${progress}%` }}
@@ -103,21 +103,21 @@ function RecoveryPage() {
                   key={ex.name}
                   className={cn(
                     "flex items-center gap-4 rounded-2xl border p-3 transition-all",
-                    isDone ? "border-accent/40 bg-accent/[0.06]" : "border-white/10 bg-white/[0.02]",
+                    isDone ? "border-accent/40 bg-accent/[0.06]" : "border-border bg-muted/30",
                   )}
                 >
                   <div className="relative size-20 shrink-0 overflow-hidden rounded-xl">
                     <img src={ex.thumb} alt={ex.name} className="h-full w-full object-cover" />
-                    <span className="absolute inset-0 grid place-items-center bg-charcoal/30">
-                      <Play className="size-5 fill-offwhite text-offwhite" />
+                    <span className="absolute inset-0 grid place-items-center bg-foreground/20">
+                      <Play className="size-5 fill-offwhite text-foreground" />
                     </span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display font-bold text-offwhite">{ex.name}</h3>
-                    <p className="text-xs text-white/50">
+                    <h3 className="font-display font-bold text-foreground">{ex.name}</h3>
+                    <p className="text-xs text-muted-foreground">
                       {ex.duration} · {ex.difficulty}
                     </p>
-                    <p className="mt-1 truncate text-xs text-white/45">{ex.benefits}</p>
+                    <p className="mt-1 truncate text-xs text-muted-foreground">{ex.benefits}</p>
                   </div>
                   <Button
                     variant={isDone ? "hero" : "heroOutline"}
@@ -140,7 +140,7 @@ function RecoveryPage() {
             >
               <div className="flex items-center gap-3">
                 <Trophy className="size-6 text-accent" />
-                <span className="font-semibold text-offwhite">Session complete — great work!</span>
+                <span className="font-semibold text-foreground">Session complete — great work!</span>
               </div>
               <Button variant="hero" size="sm" className="rounded-full" asChild>
                 <Link to="/dashboard">
@@ -153,8 +153,8 @@ function RecoveryPage() {
 
         {/* side: goals + week + reports */}
         <div className="space-y-6">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="font-display text-lg font-bold text-offwhite">Recovery goals</h2>
+          <div className="rounded-[2rem] border border-border bg-card p-6">
+            <h2 className="font-display text-lg font-bold text-foreground">Recovery goals</h2>
             <ul className="mt-4 space-y-3">
               {dailyGoals.map((g, i) => (
                 <li key={g}>
@@ -165,43 +165,43 @@ function RecoveryPage() {
                     <span
                       className={cn(
                         "grid size-6 shrink-0 place-items-center rounded-full border transition-all",
-                        goals[i] ? "border-accent bg-accent text-charcoal" : "border-white/20 text-transparent",
+                        goals[i] ? "border-accent bg-accent text-charcoal" : "border-border text-transparent",
                       )}
                     >
                       <Check className="size-3.5" />
                     </span>
-                    <span className={cn(goals[i] ? "text-white/45 line-through" : "text-white/80")}>{g}</span>
+                    <span className={cn(goals[i] ? "text-muted-foreground line-through" : "text-muted-foreground")}>{g}</span>
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="font-display text-lg font-bold text-offwhite">This week</h2>
+          <div className="rounded-[2rem] border border-border bg-card p-6">
+            <h2 className="font-display text-lg font-bold text-foreground">This week</h2>
             <div className="mt-4 flex justify-between">
               {week.map((d, i) => (
                 <div key={d} className="flex flex-col items-center gap-2">
                   <span
                     className={cn(
                       "grid size-9 place-items-center rounded-xl text-xs font-bold",
-                      i === 0 ? "bg-accent text-charcoal" : "bg-white/5 text-white/40",
+                      i === 0 ? "bg-accent text-charcoal" : "bg-muted/50 text-muted-foreground",
                     )}
                   >
                     {i === 0 ? <Check className="size-4" /> : ""}
                   </span>
-                  <span className="text-[10px] text-white/40">{d}</span>
+                  <span className="text-[10px] text-muted-foreground">{d}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+          <div className="rounded-[2rem] border border-border bg-card p-6">
             <div className="flex items-center gap-2 text-accent">
               <LineChart className="size-5" />
-              <h2 className="font-display text-lg font-bold text-offwhite">Weekly report</h2>
+              <h2 className="font-display text-lg font-bold text-foreground">Weekly report</h2>
             </div>
-            <p className="mt-3 text-sm text-white/60">
+            <p className="mt-3 text-sm text-muted-foreground">
               Complete your sessions to unlock a detailed weekly report with mobility and pain trends.
             </p>
             <Button variant="heroOutline" className="mt-4 w-full rounded-full" asChild>
@@ -226,13 +226,13 @@ function StatCard({
   value: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+    <div className="flex items-center gap-3 rounded-3xl border border-border bg-card p-5">
       <span className="grid size-11 place-items-center rounded-xl bg-accent/15 text-accent">
         <Icon className="size-5" />
       </span>
       <div>
-        <div className="font-display text-2xl font-bold text-offwhite">{value}</div>
-        <div className="text-xs text-white/45">{label}</div>
+        <div className="font-display text-2xl font-bold text-foreground">{value}</div>
+        <div className="text-xs text-muted-foreground">{label}</div>
       </div>
     </div>
   );

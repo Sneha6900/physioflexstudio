@@ -51,7 +51,7 @@ export function FlowShell({
                       className={cn(
                         "grid size-7 place-items-center rounded-full border text-xs font-semibold transition-all",
                         active
-                          ? "border-primary bg-primary text-offwhite"
+                          ? "border-primary bg-primary text-primary-foreground"
                           : done
                             ? "border-primary/50 bg-primary/15 text-primary"
                             : "border-border text-muted-foreground",

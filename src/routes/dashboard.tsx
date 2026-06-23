@@ -59,10 +59,10 @@ function DashboardPage() {
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             Progress Dashboard
           </span>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-offwhite sm:text-5xl">
+          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Your recovery, measured
           </h1>
-          <p className="mt-3 max-w-xl text-lg text-white/60">
+          <p className="mt-3 max-w-xl text-lg text-muted-foreground">
             {hasStarted
               ? `Tracking your ${(data.area ?? "").toLowerCase()} recovery progress over time.`
               : "Complete an assessment to start tracking your recovery."}
@@ -84,7 +84,7 @@ function DashboardPage() {
 
       {!hasStarted && (
         <div className="mt-8 flex flex-col items-start gap-4 rounded-[2rem] border border-accent/30 bg-accent/[0.06] p-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-white/75">No assessment yet — let's build your personalized plan.</p>
+          <p className="text-muted-foreground">No assessment yet — let's build your personalized plan.</p>
           <Button variant="hero" className="rounded-full" asChild>
             <Link to="/assessment">
               Start Assessment <ArrowRight className="size-4" />
@@ -101,7 +101,7 @@ function DashboardPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6"
+            className="rounded-[2rem] border border-border bg-card p-6"
           >
             <span className="grid size-11 place-items-center rounded-xl bg-accent/15 text-accent">
               <m.icon className="size-5" />
@@ -110,8 +110,8 @@ function DashboardPage() {
               +{m.value}
               {m.suffix}
             </div>
-            <div className="mt-1 text-sm text-white/55">{m.label}</div>
-            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div className="mt-1 text-sm text-muted-foreground">{m.label}</div>
+            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className="h-full rounded-full bg-accent"
                 initial={{ width: 0 }}
@@ -125,8 +125,8 @@ function DashboardPage() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
         {/* recovery timeline */}
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-          <h2 className="font-display text-xl font-bold text-offwhite">Recovery timeline</h2>
+        <div className="rounded-[2rem] border border-border bg-card p-6">
+          <h2 className="font-display text-xl font-bold text-foreground">Recovery timeline</h2>
           <div className="mt-6 space-y-5">
             {timeline.map((t, i) => (
               <div key={t.week} className="flex gap-4">
@@ -134,15 +134,15 @@ function DashboardPage() {
                   <span className="grid size-8 place-items-center rounded-full bg-accent/15 text-xs font-bold text-accent">
                     {i + 1}
                   </span>
-                  {i < timeline.length - 1 && <span className="my-1 w-px flex-1 bg-white/10" />}
+                  {i < timeline.length - 1 && <span className="my-1 w-px flex-1 bg-muted" />}
                 </div>
                 <div className="flex-1 pb-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-display font-bold text-offwhite">{t.week}</span>
-                    <span className="text-xs text-white/45">Pain {t.pain}/10</span>
+                    <span className="font-display font-bold text-foreground">{t.week}</span>
+                    <span className="text-xs text-muted-foreground">Pain {t.pain}/10</span>
                   </div>
-                  <p className="text-sm text-white/55">{t.note}</p>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <p className="text-sm text-muted-foreground">{t.note}</p>
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
                     <motion.div
                       className="h-full rounded-full bg-accent"
                       initial={{ width: 0 }}
@@ -159,26 +159,26 @@ function DashboardPage() {
         {/* side: index + session history */}
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-accent/30 bg-accent/[0.06] p-6 text-center">
-            <div className="text-xs uppercase tracking-widest text-white/45">Current Recovery Index</div>
+            <div className="text-xs uppercase tracking-widest text-muted-foreground">Current Recovery Index</div>
             <div className="mt-2 font-display text-6xl font-bold text-accent">{scores.recoveryIndex}</div>
-            <p className="mt-2 text-sm text-white/55">
+            <p className="mt-2 text-sm text-muted-foreground">
               {scores.recoveryIndex >= 70
                 ? "Excellent trajectory — keep it up."
                 : "Steadily improving — stay consistent."}
             </p>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="font-display text-lg font-bold text-offwhite">Session history</h2>
+          <div className="rounded-[2rem] border border-border bg-card p-6">
+            <h2 className="font-display text-lg font-bold text-foreground">Session history</h2>
             <ul className="mt-4 space-y-3 text-sm">
               {data.booking && (
                 <li className="flex items-start gap-3">
                   <CalendarCheck className="mt-0.5 size-4 text-accent" />
                   <div>
-                    <div className="font-semibold text-offwhite">
+                    <div className="font-semibold text-foreground">
                       Studio session{specialist ? ` · ${specialist.name}` : ""}
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-white/45">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <MapPin className="size-3" /> {data.booking.studio} · {bookingDay?.label} ·{" "}
                       {data.booking.time}
                     </div>
@@ -188,21 +188,21 @@ function DashboardPage() {
               <li className="flex items-start gap-3">
                 <Activity className="mt-0.5 size-4 text-accent" />
                 <div>
-                  <div className="font-semibold text-offwhite">AI assessment completed</div>
-                  <div className="text-xs text-white/45">
+                  <div className="font-semibold text-foreground">AI assessment completed</div>
+                  <div className="text-xs text-muted-foreground">
                     {data.area ?? "—"} · Recovery Index {scores.recoveryIndex}
                   </div>
                 </div>
               </li>
               {!data.booking && (
-                <li className="text-xs text-white/40">No studio sessions booked yet.</li>
+                <li className="text-xs text-muted-foreground">No studio sessions booked yet.</li>
               )}
             </ul>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="font-display text-lg font-bold text-offwhite">Weekly report</h2>
-            <p className="mt-2 text-sm text-white/60">
+          <div className="rounded-[2rem] border border-border bg-card p-6">
+            <h2 className="font-display text-lg font-bold text-foreground">Weekly report</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
               Pain down, mobility up. Your consistency this week is paying off — next milestone in ~
               {Math.max(1, scores.weeks - 1)} weeks.
             </p>

@@ -139,7 +139,7 @@ function StepArea({ onNext }: { onNext: () => void }) {
         sub="Tap the area on the body map or pick from the list. We'll tailor everything around it."
       />
       <div className="mt-10 grid items-center gap-8 lg:grid-cols-[300px_1fr]">
-        <div className="mx-auto h-[26rem] w-44 rounded-[2rem] border border-white/10 bg-white/[0.03] p-4">
+        <div className="mx-auto h-[26rem] w-44 rounded-[2rem] border border-border bg-card p-4">
           <BodySilhouette
             selected={silhouettePart}
             onSelect={(p) => setAssessment({ area: p })}
@@ -155,19 +155,19 @@ function StepArea({ onNext }: { onNext: () => void }) {
                   "rounded-2xl border px-5 py-3 text-sm font-semibold transition-all",
                   data.area === a
                     ? "border-accent bg-accent text-charcoal"
-                    : "border-white/15 bg-white/5 text-white/75 hover:border-accent/50 hover:text-offwhite",
+                    : "border-border bg-muted/50 text-muted-foreground hover:border-accent/50 hover:text-foreground",
                 )}
               >
                 {a}
               </button>
             ))}
           </div>
-          <div className="mt-8 flex items-center gap-4 rounded-2xl bg-white/5 p-5">
+          <div className="mt-8 flex items-center gap-4 rounded-2xl bg-muted/50 p-5">
             <span className="grid size-12 place-items-center rounded-xl bg-accent/15 text-accent">
               <Activity className="size-6" />
             </span>
             <div>
-              <div className="text-xs uppercase tracking-widest text-white/40">Selected area</div>
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">Selected area</div>
               <div className="font-display text-2xl font-bold text-accent">
                 {data.area ?? "None yet"}
               </div>
@@ -211,26 +211,26 @@ function StepCustomPain({ onNext, onBack }: { onNext: () => void; onBack: () => 
       <div className="mt-10 space-y-6 max-w-2xl">
         <Card>
           <label className="block">
-            <div className="text-sm font-semibold text-offwhite mb-2">Affected Body Part</div>
+            <div className="text-sm font-semibold text-foreground mb-2">Affected Body Part</div>
             <input
               type="text"
               placeholder="e.g., Left elbow, Right knee, Lower back"
               value={bodyPart}
               onChange={(e) => setBodyPart(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border border-white/15 bg-white/5 text-offwhite placeholder:text-white/50 focus:outline-none focus:border-accent focus:bg-white/10 transition-all"
+              className="w-full px-4 py-3 rounded-2xl border border-border bg-muted/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent focus:bg-muted transition-all"
             />
           </label>
         </Card>
 
         <Card>
           <label className="block">
-            <div className="text-sm font-semibold text-offwhite mb-2">Describe Your Discomfort</div>
+            <div className="text-sm font-semibold text-foreground mb-2">Describe Your Discomfort</div>
             <textarea
               placeholder="Describe the pain, stiffness, or discomfort you're experiencing. Include when it started, what activities trigger it, and how it affects your daily life."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={5}
-              className="w-full px-4 py-3 rounded-2xl border border-white/15 bg-white/5 text-offwhite placeholder:text-white/50 focus:outline-none focus:border-accent focus:bg-white/10 transition-all resize-none"
+              className="w-full px-4 py-3 rounded-2xl border border-border bg-muted/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent focus:bg-muted transition-all resize-none"
             />
           </label>
         </Card>
@@ -238,7 +238,7 @@ function StepCustomPain({ onNext, onBack }: { onNext: () => void; onBack: () => 
         <div className="rounded-2xl border border-accent/20 bg-accent/10 p-4">
           <div className="flex gap-3">
             <Lightbulb className="size-5 text-accent flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-offwhite/90">
+            <div className="text-sm text-foreground/90">
               <p className="font-semibold">Pro tip:</p>
               <p className="mt-1">The more detailed your description, the better our AI can personalize your recovery plan.</p>
             </div>
@@ -362,9 +362,9 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
       />
 
       {loading ? (
-        <div className="mt-12 grid place-items-center rounded-[2rem] border border-white/10 bg-white/[0.03] py-20">
+        <div className="mt-12 grid place-items-center rounded-[2rem] border border-border bg-card py-20">
           <Loader2 className="size-10 animate-spin text-accent" />
-          <p className="mt-5 font-display text-lg font-semibold text-offwhite">
+          <p className="mt-5 font-display text-lg font-semibold text-foreground">
             Analyzing your assessment…
           </p>
           <div className="mt-6 w-full max-w-sm space-y-2 px-6">
@@ -374,7 +374,7 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.35 }}
-                className="flex items-center gap-2 text-sm text-white/60"
+                className="flex items-center gap-2 text-sm text-muted-foreground"
               >
                 <Check className="size-4 text-accent" /> {f}
               </motion.div>
@@ -391,8 +391,8 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
           </div>
 
           <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_1.4fr]">
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
-              <div className="text-xs uppercase tracking-widest text-white/40">Assessment summary</div>
+            <div className="rounded-[2rem] border border-border bg-card p-6">
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">Assessment summary</div>
               <dl className="mt-4 space-y-3 text-sm">
                 <Row k="Pain area" v={data.area === "Other" ? data.customPainArea || "—" : data.area ?? "—"} />
                 {data.area === "Other" && data.customPainDescription && (
@@ -410,7 +410,7 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
                 <Lightbulb className="size-5" />
                 <span className="text-xs font-semibold uppercase tracking-widest">AI insights</span>
               </div>
-              <p className="mt-4 text-lg leading-relaxed text-white/85">{aiInsight(data)}</p>
+              <p className="mt-4 text-lg leading-relaxed text-foreground">{aiInsight(data)}</p>
             </div>
           </div>
         </motion.div>
@@ -464,12 +464,12 @@ function StepPlan({
         <MiniStat icon={Clock} label="Timeline" value={`~${scores.weeks} weeks`} />
       </div>
 
-      <h3 className="mt-12 font-display text-xl font-bold text-offwhite">Recommended exercises</h3>
+      <h3 className="mt-12 font-display text-xl font-bold text-foreground">Recommended exercises</h3>
       <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {exercises.map((ex) => (
           <div
             key={ex.name}
-            className="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition-all hover:-translate-y-1 hover:border-accent/40"
+            className="group overflow-hidden rounded-3xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-accent/40"
           >
             <div className="relative aspect-video overflow-hidden">
               <img
@@ -479,44 +479,44 @@ function StepPlan({
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <span className="absolute inset-0 grid place-items-center">
-                <span className="grid size-11 place-items-center rounded-full bg-charcoal/70 text-offwhite backdrop-blur">
+                <span className="grid size-11 place-items-center rounded-full bg-background/90 text-foreground backdrop-blur">
                   <PlayIcon />
                 </span>
               </span>
-              <span className="absolute right-2 top-2 rounded-full bg-charcoal/80 px-2 py-1 text-[10px] font-semibold text-offwhite">
+              <span className="absolute right-2 top-2 rounded-full bg-foreground/80 text-background">
                 {ex.duration}
               </span>
             </div>
             <div className="p-4">
-              <h4 className="font-display text-base font-bold text-offwhite">{ex.name}</h4>
+              <h4 className="font-display text-base font-bold text-foreground">{ex.name}</h4>
               <span className="mt-1 inline-block rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold text-accent">
                 {ex.difficulty}
               </span>
-              <p className="mt-2 text-xs leading-relaxed text-white/55">{ex.benefits}</p>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{ex.benefits}</p>
             </div>
           </div>
         ))}
       </div>
 
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-          <h3 className="font-display text-lg font-bold text-offwhite">Stretching routine</h3>
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <h3 className="font-display text-lg font-bold text-foreground">Stretching routine</h3>
           <ul className="mt-4 space-y-3">
             {stretches.map((s) => (
               <li key={s.name} className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-2 text-white/80">
+                <span className="flex items-center gap-2 text-muted-foreground">
                   <Check className="size-4 text-accent" /> {s.name}
                 </span>
-                <span className="text-white/45">{s.duration}</span>
+                <span className="text-muted-foreground">{s.duration}</span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-          <h3 className="font-display text-lg font-bold text-offwhite">Daily goals</h3>
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <h3 className="font-display text-lg font-bold text-foreground">Daily goals</h3>
           <ul className="mt-4 space-y-3">
             {dailyGoals.map((g) => (
-              <li key={g} className="flex items-center gap-2 text-sm text-white/80">
+              <li key={g} className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Target className="size-4 text-accent" /> {g}
               </li>
             ))}
@@ -524,7 +524,7 @@ function StepPlan({
         </div>
       </div>
 
-      <h3 className="mt-14 text-center font-display text-2xl font-bold text-offwhite">
+      <h3 className="mt-14 text-center font-display text-2xl font-bold text-foreground">
         How would you like to recover?
       </h3>
       <div className="mx-auto mt-6 grid max-w-4xl gap-5 sm:grid-cols-2">
@@ -565,16 +565,16 @@ function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub:
       <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
         {eyebrow}
       </span>
-      <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-offwhite sm:text-5xl">
+      <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
         {title}
       </h1>
-      <p className="mt-3 text-lg text-white/60">{sub}</p>
+      <p className="mt-3 text-lg text-muted-foreground">{sub}</p>
     </div>
   );
 }
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">{children}</div>;
+  return <div className="rounded-3xl border border-border bg-card p-6">{children}</div>;
 }
 
 function FooterNav({ left, right }: { left?: React.ReactNode; right?: React.ReactNode }) {
@@ -600,7 +600,7 @@ function Slider({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-white/80">{label}</span>
+        <span className="text-sm font-semibold text-muted-foreground">{label}</span>
         <span className="font-display text-2xl font-bold text-accent">{value}</span>
       </div>
       <input
@@ -611,7 +611,7 @@ function Slider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="mt-4 w-full accent-[oklch(0.74_0.14_165)]"
       />
-      <div className="mt-1 flex justify-between text-xs text-white/40">
+      <div className="mt-1 flex justify-between text-xs text-muted-foreground">
         <span>{hint[0]}</span>
         <span>{hint[1]}</span>
       </div>
@@ -632,7 +632,7 @@ function Choices({
 }) {
   return (
     <div>
-      <span className="text-sm font-semibold text-white/80">{label}</span>
+      <span className="text-sm font-semibold text-muted-foreground">{label}</span>
       <div className="mt-3 flex flex-wrap gap-2">
         {options.map((o) => (
           <button
@@ -642,7 +642,7 @@ function Choices({
               "rounded-full border px-4 py-2 text-sm font-medium transition-all",
               value === o
                 ? "border-accent bg-accent text-charcoal"
-                : "border-white/15 bg-white/5 text-white/70 hover:border-accent/50",
+                : "border-border bg-muted/50 text-muted-foreground hover:border-accent/50",
             )}
           >
             {o}
@@ -673,7 +673,7 @@ function Ring({
       ? "oklch(0.74 0.14 165)"
       : "oklch(0.6 0.1 168)";
   return (
-    <div className="grid place-items-center rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+    <div className="grid place-items-center rounded-[2rem] border border-border bg-card p-6">
       <div className="relative size-28">
         <svg viewBox="0 0 100 100" className="size-full -rotate-90">
           <circle cx="50" cy="50" r={r} fill="none" stroke="oklch(1 0 0 / 0.08)" strokeWidth="8" />
@@ -691,20 +691,20 @@ function Ring({
             transition={{ duration: 1, ease: "easeOut" }}
           />
         </svg>
-        <span className="absolute inset-0 grid place-items-center font-display text-2xl font-bold text-offwhite">
+        <span className="absolute inset-0 grid place-items-center font-display text-2xl font-bold text-foreground">
           {value}
         </span>
       </div>
-      <span className="mt-3 text-center text-xs font-medium text-white/55">{label}</span>
+      <span className="mt-3 text-center text-xs font-medium text-muted-foreground">{label}</span>
     </div>
   );
 }
 
 function Row({ k, v }: { k: string; v: string }) {
   return (
-    <div className="flex items-center justify-between border-b border-white/5 pb-2">
-      <dt className="text-white/50">{k}</dt>
-      <dd className="font-semibold text-offwhite">{v}</dd>
+    <div className="flex items-center justify-between border-b border-border pb-2">
+      <dt className="text-muted-foreground">{k}</dt>
+      <dd className="font-semibold text-foreground">{v}</dd>
     </div>
   );
 }
@@ -719,13 +719,13 @@ function MiniStat({
   value: string;
 }) {
   return (
-    <div className="flex items-center gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+    <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-5">
       <span className="grid size-12 place-items-center rounded-xl bg-accent/15 text-accent">
         <Icon className="size-6" />
       </span>
       <div>
-        <div className="text-xs uppercase tracking-widest text-white/40">{label}</div>
-        <div className="font-display text-lg font-bold text-offwhite">{value}</div>
+        <div className="text-xs uppercase tracking-widest text-muted-foreground">{label}</div>
+        <div className="font-display text-lg font-bold text-foreground">{value}</div>
       </div>
     </div>
   );
@@ -754,17 +754,17 @@ function ModeCard({
         "flex flex-col rounded-[2rem] border p-7 transition-all hover:-translate-y-1",
         highlight
           ? "border-accent/40 bg-accent/[0.07]"
-          : "border-white/10 bg-white/[0.03] hover:border-accent/40",
+          : "border-border bg-card hover:border-accent/40",
       )}
     >
       <span className="grid size-12 place-items-center rounded-xl bg-accent/15 text-accent">
         <Icon className="size-6" />
       </span>
-      <h4 className="mt-5 font-display text-xl font-bold text-offwhite">{title}</h4>
-      <p className="mt-2 text-sm text-white/60">{desc}</p>
+      <h4 className="mt-5 font-display text-xl font-bold text-foreground">{title}</h4>
+      <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
       <ul className="mt-4 space-y-2">
         {points.map((p) => (
-          <li key={p} className="flex items-center gap-2 text-sm text-white/75">
+          <li key={p} className="flex items-center gap-2 text-sm text-muted-foreground">
             <Check className="size-4 text-accent" /> {p}
           </li>
         ))}

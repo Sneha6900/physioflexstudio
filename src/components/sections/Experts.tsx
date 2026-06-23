@@ -73,7 +73,7 @@ export function Experts() {
                   className={cn(
                     "rounded-full px-4 py-2 text-sm font-medium transition-all",
                     spec === s
-                      ? "bg-charcoal text-offwhite"
+                      ? "bg-primary text-primary-foreground"
                       : "bg-secondary text-muted-foreground hover:text-foreground",
                   )}
                 >
@@ -121,7 +121,7 @@ export function Experts() {
                     height={1024}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-charcoal/85 px-2.5 py-1 text-xs font-semibold text-offwhite backdrop-blur">
+                  <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-background/90 px-2.5 py-1 text-xs font-semibold text-foreground shadow-[var(--shadow-soft)] backdrop-blur">
                     <Star className="size-3.5 fill-accent text-accent" /> {e.rating}
                   </span>
                   <span className="absolute right-3 top-3 rounded-full bg-accent/90 px-2.5 py-1 text-xs font-semibold text-charcoal">
@@ -146,9 +146,9 @@ export function Experts() {
 
           {/* booking flow */}
           <Reveal delay={0.1}>
-            <div className="sticky top-24 rounded-3xl surface-dark p-7">
-              <h3 className="font-display text-xl font-bold text-offwhite">Book a session</h3>
-              <div className="mt-5 flex items-center gap-3 rounded-2xl bg-white/5 p-4">
+            <div className="sticky top-24 rounded-3xl surface-dark border border-border p-7 shadow-[var(--shadow-soft)]">
+              <h3 className="font-display text-xl font-bold text-foreground">Book a session</h3>
+              <div className="mt-5 flex items-center gap-3 rounded-2xl bg-background p-4 shadow-[var(--shadow-soft)]">
                 <img
                   src={active?.img}
                   alt={active?.name}
@@ -157,10 +157,10 @@ export function Experts() {
                   className="size-14 rounded-xl object-cover"
                 />
                 <div>
-                  <div className="flex items-center gap-2 font-display font-semibold text-offwhite">
+                  <div className="flex items-center gap-2 font-display font-semibold text-foreground">
                     {active?.name}
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-white/55">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Star className="size-3.5 fill-accent text-accent" /> {active?.rating} ·{" "}
                     {active?.spec}
                   </div>
@@ -168,7 +168,7 @@ export function Experts() {
               </div>
 
               <div className="mt-5">
-                <label className="text-xs uppercase tracking-widest text-white/40">
+                <label className="text-xs uppercase tracking-widest text-muted-foreground">
                   <MapPin className="mr-1 inline size-3.5" /> Bangalore studio
                 </label>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -178,7 +178,7 @@ export function Experts() {
                       onClick={() => setStudio(s)}
                       className={cn(
                         "rounded-full px-3.5 py-1.5 text-sm transition-all",
-                        studio === s ? "bg-accent text-charcoal" : "bg-white/5 text-white/70",
+                        studio === s ? "bg-accent text-charcoal" : "bg-muted text-muted-foreground hover:text-foreground",
                       )}
                     >
                       {s}
@@ -188,7 +188,7 @@ export function Experts() {
               </div>
 
               <div className="mt-5">
-                <label className="text-xs uppercase tracking-widest text-white/40">
+                <label className="text-xs uppercase tracking-widest text-muted-foreground">
                   <Clock className="mr-1 inline size-3.5" /> Time slot
                 </label>
                 <div className="mt-2 flex flex-wrap gap-2">
@@ -198,7 +198,7 @@ export function Experts() {
                       onClick={() => setSlot(s)}
                       className={cn(
                         "rounded-full px-3.5 py-1.5 text-sm transition-all",
-                        slot === s ? "bg-accent text-charcoal" : "bg-white/5 text-white/70",
+                        slot === s ? "bg-accent text-charcoal" : "bg-muted text-muted-foreground hover:text-foreground",
                       )}
                     >
                       {s}
@@ -210,7 +210,7 @@ export function Experts() {
               <Button variant="hero" className="mt-7 w-full rounded-full">
                 Confirm with {active?.name?.split(" ")[1] ?? "specialist"}
               </Button>
-              <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-white/40">
+              <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
                 <User className="size-3.5" /> Free reschedule up to 24h before
               </p>
             </div>

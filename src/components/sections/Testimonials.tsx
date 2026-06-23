@@ -52,7 +52,7 @@ export function Testimonials() {
                 “{t.quote}”
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                <span className="grid size-11 place-items-center rounded-full bg-charcoal font-display font-bold text-offwhite">
+                <span className="grid size-11 place-items-center rounded-full bg-primary font-display font-bold text-primary-foreground">
                   {t.name.charAt(0)}
                 </span>
                 <div>

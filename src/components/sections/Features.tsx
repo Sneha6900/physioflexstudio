@@ -70,7 +70,7 @@ export function Features() {
               className={cn(
                 "group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition-all duration-500 hover:-translate-y-1",
                 c.feature
-                  ? "surface-dark border-white/10 hover:border-accent/40"
+                  ? "surface-dark border-border hover:border-accent/40 shadow-[var(--shadow-soft)]"
                   : "border-border bg-card shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-card)]",
                 c.className,
               )}
@@ -78,23 +78,21 @@ export function Features() {
               <span
                 className={cn(
                   "grid size-12 place-items-center rounded-2xl",
-                  c.feature ? "bg-white/10 text-accent" : "bg-secondary text-primary",
+                  c.feature ? "bg-primary/10 text-primary" : "bg-secondary text-primary",
                 )}
               >
                 <c.icon className="size-6" />
               </span>
               <h3
                 className={cn(
-                  "mt-5 font-display text-xl font-bold",
-                  c.feature ? "text-offwhite" : "text-foreground",
+                  "mt-5 font-display text-xl font-bold text-foreground",
                 )}
               >
                 {c.title}
               </h3>
               <p
                 className={cn(
-                  "mt-2 text-sm leading-relaxed",
-                  c.feature ? "text-white/60" : "text-muted-foreground",
+                  "mt-2 text-sm leading-relaxed text-muted-foreground",
                 )}
               >
                 {c.desc}

@@ -39,7 +39,7 @@ export function SectionHeading({
         <h2
           className={cn(
             "mt-4 font-display text-4xl font-bold tracking-tight text-balance sm:text-5xl",
-            dark ? "text-offwhite" : "text-foreground",
+            "text-foreground",
           )}
         >
           {title}
@@ -50,7 +50,7 @@ export function SectionHeading({
           <p
             className={cn(
               "mt-4 text-lg leading-relaxed text-balance",
-              dark ? "text-white/60" : "text-muted-foreground",
+              "text-muted-foreground",
             )}
           >
             {description}
