@@ -16,6 +16,7 @@ import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SpecialistsIndexRouteImport } from './routes/specialists.index'
+import { Route as ProgramsIndexRouteImport } from './routes/programs.index'
 import { Route as SpecialistsIdRouteImport } from './routes/specialists.$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -53,6 +54,11 @@ const SpecialistsIndexRoute = SpecialistsIndexRouteImport.update({
   path: '/specialists/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProgramsIndexRoute = ProgramsIndexRouteImport.update({
+  id: '/programs/',
+  path: '/programs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SpecialistsIdRoute = SpecialistsIdRouteImport.update({
   id: '/specialists/$id',
   path: '/specialists/$id',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/specialists/$id': typeof SpecialistsIdRoute
+  '/programs/': typeof ProgramsIndexRoute
   '/specialists/': typeof SpecialistsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/specialists/$id': typeof SpecialistsIdRoute
+  '/programs': typeof ProgramsIndexRoute
   '/specialists': typeof SpecialistsIndexRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/specialists/$id': typeof SpecialistsIdRoute
+  '/programs/': typeof ProgramsIndexRoute
   '/specialists/': typeof SpecialistsIndexRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/recovery'
     | '/sitemap.xml'
     | '/specialists/$id'
+    | '/programs/'
     | '/specialists/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/recovery'
     | '/sitemap.xml'
     | '/specialists/$id'
+    | '/programs'
     | '/specialists'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/recovery'
     | '/sitemap.xml'
     | '/specialists/$id'
+    | '/programs/'
     | '/specialists/'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   RecoveryRoute: typeof RecoveryRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SpecialistsIdRoute: typeof SpecialistsIdRoute
+  ProgramsIndexRoute: typeof ProgramsIndexRoute
   SpecialistsIndexRoute: typeof SpecialistsIndexRoute
 }
 
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SpecialistsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/programs/': {
+      id: '/programs/'
+      path: '/programs'
+      fullPath: '/programs/'
+      preLoaderRoute: typeof ProgramsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/specialists/$id': {
       id: '/specialists/$id'
       path: '/specialists/$id'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecoveryRoute: RecoveryRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SpecialistsIdRoute: SpecialistsIdRoute,
+  ProgramsIndexRoute: ProgramsIndexRoute,
   SpecialistsIndexRoute: SpecialistsIndexRoute,
 }
 export const routeTree = rootRouteImport

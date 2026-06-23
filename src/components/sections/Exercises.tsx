@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Clock, Flame, Play, Target } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { itemVariants, Stagger } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,7 @@ const exercises = [
     benefit: "Improves hip mobility and reduces lower-body stiffness.",
   },
   {
-    img: exBack,
+    img: exShoulder,
     title: "Spinal Mobility Flow",
     level: "Intermediate",
     area: "Lower Back",
@@ -57,14 +58,14 @@ export function Exercises() {
               variants={itemVariants}
               className="group overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[var(--shadow-card)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
                 <img
                   src={e.img}
                   alt={e.title}
                   loading="lazy"
                   width={1024}
                   height={768}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
                 <span
                   className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ${levelColor[e.level]}`}
@@ -95,9 +96,11 @@ export function Exercises() {
         </Stagger>
 
         <div className="mt-12 text-center">
-          <Button variant="dark" size="xl" className="rounded-full">
-            Explore all programs
-          </Button>
+          <Link to="/programs">
+            <Button variant="dark" size="xl" className="rounded-full">
+              Explore all programs
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
