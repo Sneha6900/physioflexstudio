@@ -3,8 +3,8 @@ import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
 import { motion } from "motion/react";
 
 const items = [
-  { icon: ClipboardCheck, label: "Personalized Recovery Plans" },
-  { icon: Brain, label: "AI Mobility Analysis" },
+  { icon: ClipboardCheck, label: "Personalized Clinical Plans" },
+  { icon: Brain, label: "Clinician Mobility Assessment" },
   { icon: HandHeart, label: "Expert Assisted Sessions" },
   { icon: LineChart, label: "Progress Tracking" },
 ];

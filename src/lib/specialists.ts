@@ -1,3 +1,4 @@
+import type { PainArea, PainMarker } from "@/lib/assessment-store";
 import e1 from "@/assets/expert-1.jpg";
 import e2 from "@/assets/expert-2.jpg";
 import e3 from "@/assets/expert-3.jpg";
@@ -102,6 +103,30 @@ export const specialists: Specialist[] = [
 
 export function getSpecialist(id: string | null | undefined) {
   return specialists.find((s) => s.id === id);
+}
+
+export function recommendSpecialistForAssessment(area: PainArea | null, markers: PainMarker[], age: number | null) {
+  const defaultSpecialist = specialists[0];
+  if (!area) return defaultSpecialist;
+
+  const lowMobility = markers.some((marker) => marker.mobility === "Low");
+  const highPain = markers.some((marker) => marker.painLevel >= 8);
+
+  if (area === "Lower Back" || area === "Hip" || area === "Knee" || area === "Ankle") {
+    return specialists.find((s) => s.id === "karan-rao") ?? defaultSpecialist;
+  }
+
+  if (area === "Neck" || area === "Shoulder" || area === "Upper Back") {
+    return lowMobility || highPain
+      ? specialists.find((s) => s.id === "priya-nair") ?? defaultSpecialist
+      : specialists.find((s) => s.id === "arjun-mehta") ?? defaultSpecialist;
+  }
+
+  if (area === "Wrist") {
+    return specialists.find((s) => s.id === "arjun-mehta") ?? defaultSpecialist;
+  }
+
+  return specialists.find((s) => s.id === "sneha-iyer") ?? defaultSpecialist;
 }
 
 export const studioLocations = [

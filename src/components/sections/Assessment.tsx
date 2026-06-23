@@ -45,9 +45,9 @@ export function Assessment() {
     <section id="assessment" className="bg-background">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
         <SectionHeading
-          eyebrow="AI assessment"
-          title="Your recovery, measured precisely"
-          description="Realistic, wellness-focused metrics that turn how you feel into numbers you can track."
+          eyebrow="Clinical assessment"
+          title="Your condition, measured clinically"
+          description="Objective clinical metrics—pain severity, mobility and posture—assessed by physiotherapists and presented clearly."
         />
 
         <Reveal delay={0.1}>

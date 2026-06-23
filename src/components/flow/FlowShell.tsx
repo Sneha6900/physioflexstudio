@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export const FLOW_STEPS = [
   "Pain Area",
   "Pain Details",
-  "AI Analysis",
+  "Clinical Evaluation",
   "Recovery Plan",
   "Recovery",
 ] as const;

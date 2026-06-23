@@ -18,6 +18,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SpecialistsIndexRouteImport } from './routes/specialists.index'
 import { Route as ProgramsIndexRouteImport } from './routes/programs.index'
 import { Route as SpecialistsIdRouteImport } from './routes/specialists.$id'
+import { Route as PhysioLoginRouteImport } from './routes/physio/login'
+import { Route as PhysioDashboardRouteImport } from './routes/physio/dashboard'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -64,6 +66,16 @@ const SpecialistsIdRoute = SpecialistsIdRouteImport.update({
   path: '/specialists/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PhysioLoginRoute = PhysioLoginRouteImport.update({
+  id: '/physio/login',
+  path: '/physio/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhysioDashboardRoute = PhysioDashboardRouteImport.update({
+  id: '/physio/dashboard',
+  path: '/physio/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,6 +84,8 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/physio/dashboard': typeof PhysioDashboardRoute
+  '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
   '/programs/': typeof ProgramsIndexRoute
   '/specialists/': typeof SpecialistsIndexRoute
@@ -83,6 +97,8 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/physio/dashboard': typeof PhysioDashboardRoute
+  '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
   '/programs': typeof ProgramsIndexRoute
   '/specialists': typeof SpecialistsIndexRoute
@@ -95,6 +111,8 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/physio/dashboard': typeof PhysioDashboardRoute
+  '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
   '/programs/': typeof ProgramsIndexRoute
   '/specialists/': typeof SpecialistsIndexRoute
@@ -108,6 +126,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/recovery'
     | '/sitemap.xml'
+    | '/physio/dashboard'
+    | '/physio/login'
     | '/specialists/$id'
     | '/programs/'
     | '/specialists/'
@@ -119,6 +139,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/recovery'
     | '/sitemap.xml'
+    | '/physio/dashboard'
+    | '/physio/login'
     | '/specialists/$id'
     | '/programs'
     | '/specialists'
@@ -130,6 +152,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/recovery'
     | '/sitemap.xml'
+    | '/physio/dashboard'
+    | '/physio/login'
     | '/specialists/$id'
     | '/programs/'
     | '/specialists/'
@@ -142,6 +166,8 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   RecoveryRoute: typeof RecoveryRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  PhysioDashboardRoute: typeof PhysioDashboardRoute
+  PhysioLoginRoute: typeof PhysioLoginRoute
   SpecialistsIdRoute: typeof SpecialistsIdRoute
   ProgramsIndexRoute: typeof ProgramsIndexRoute
   SpecialistsIndexRoute: typeof SpecialistsIndexRoute
@@ -212,6 +238,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SpecialistsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/physio/login': {
+      id: '/physio/login'
+      path: '/physio/login'
+      fullPath: '/physio/login'
+      preLoaderRoute: typeof PhysioLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/physio/dashboard': {
+      id: '/physio/dashboard'
+      path: '/physio/dashboard'
+      fullPath: '/physio/dashboard'
+      preLoaderRoute: typeof PhysioDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -222,6 +262,8 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   RecoveryRoute: RecoveryRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  PhysioDashboardRoute: PhysioDashboardRoute,
+  PhysioLoginRoute: PhysioLoginRoute,
   SpecialistsIdRoute: SpecialistsIdRoute,
   ProgramsIndexRoute: ProgramsIndexRoute,
   SpecialistsIndexRoute: SpecialistsIndexRoute,

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Clock, Flame, Play, Target } from "lucide-react";
+import { Clock, Flame, Target } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { itemVariants, Stagger } from "@/components/site/Reveal";
@@ -71,9 +71,6 @@ export function Exercises() {
                   className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ${levelColor[e.level]}`}
                 >
                   {e.level}
-                </span>
-                <span className="absolute bottom-4 right-4 grid size-11 place-items-center rounded-full bg-accent text-charcoal opacity-0 transition-all duration-500 group-hover:opacity-100">
-                  <Play className="size-5 fill-charcoal" />
                 </span>
               </div>
               <div className="p-6">

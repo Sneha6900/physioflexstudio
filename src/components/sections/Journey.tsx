@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 const steps = [
   { n: 1, title: "Select Pain Area", icon: ClipboardList },
   { n: 2, title: "Describe Pain Details", icon: Activity },
-  { n: 3, title: "AI Recovery Analysis", icon: BrainCircuit },
+  { n: 3, title: "Clinical Evaluation", icon: BrainCircuit },
   { n: 4, title: "Personalized Recovery Plan", icon: Target },
   { n: 5, title: "Choose Your Recovery Mode", icon: HandHeart },
   { n: 6, title: "Book Expert Assistance", icon: CalendarCheck },
@@ -39,7 +39,7 @@ export function Journey() {
           dark
           eyebrow="Your journey"
           title="From pain point to peak mobility"
-          description="A guided, intelligent path that adapts at every step — explore how it works."
+          description="A guided, clinically-informed path that adapts at every step — explore how it works."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -137,7 +137,7 @@ export function Journey() {
 
         <div className="mt-12 text-center">
           <Button variant="hero" size="xl" className="rounded-full" asChild>
-            <Link to="/assessment">Begin your assessment</Link>
+            <Link to="/physio/login">Login</Link>
           </Button>
         </div>
       </div>
@@ -233,7 +233,7 @@ function StepContent({
       "Recovery requirements",
     ];
     return (
-      <Panel title="AI is analyzing your inputs">
+      <Panel title="Clinicians are reviewing your inputs">
         <div className="space-y-3">
           {factors.map((f, i) => (
             <motion.div
@@ -280,42 +280,29 @@ function StepContent({
   }
 
   if (index === 4) {
-    const modes = [
-      {
-        icon: User,
-        title: "Self-Guided Recovery",
-        for: "For users who can perform exercises independently.",
-        points: ["AI-guided routines", "Video demonstrations", "Daily plans & tracking"],
-      },
-      {
-        icon: HandHeart,
-        title: "Assisted Recovery",
-        for: "Elderly, post-surgery, or anyone needing physical assistance.",
-        points: ["Certified specialists", "Hands-on guidance", "Safe supervised sessions"],
-      },
-    ];
+    const mode = {
+      icon: HandHeart,
+      title: "Assisted Recovery",
+      for: "Designed for anyone who needs clinical supervision, post-surgery support, or expert guided rehabilitation.",
+      points: ["Certified specialists", "Hands-on guidance", "Safe supervised sessions"],
+    };
     return (
       <Panel title="Choose your recovery mode">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {modes.map((m) => (
-            <div
-              key={m.title}
-              className="rounded-2xl border border-border bg-muted/40 p-5 transition-colors hover:border-accent/50"
-            >
-              <span className="grid size-11 place-items-center rounded-xl bg-accent/15 text-accent">
-                <m.icon className="size-5" />
-              </span>
-              <h4 className="mt-4 font-display text-lg font-bold text-foreground">{m.title}</h4>
-              <p className="mt-1 text-xs text-muted-foreground">{m.for}</p>
-              <ul className="mt-3 space-y-2">
-                {m.points.map((p) => (
-                  <li key={p} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Check className="size-4 text-accent" /> {p}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className="grid gap-4 sm:grid-cols-1">
+          <div className="rounded-2xl border border-border bg-muted/40 p-5 transition-colors hover:border-accent/50">
+            <span className="grid size-11 place-items-center rounded-xl bg-accent/15 text-accent">
+              <mode.icon className="size-5" />
+            </span>
+            <h4 className="mt-4 font-display text-lg font-bold text-foreground">{mode.title}</h4>
+            <p className="mt-1 text-xs text-muted-foreground">{mode.for}</p>
+            <ul className="mt-3 space-y-2">
+              {mode.points.map((p) => (
+                <li key={p} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Check className="size-4 text-accent" /> {p}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Panel>
     );

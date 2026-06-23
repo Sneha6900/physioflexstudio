@@ -9,7 +9,6 @@ import {
   MapPin,
   PersonStanding,
   TrendingUp,
-  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
@@ -69,11 +68,6 @@ function DashboardPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="heroOutline" className="rounded-full" asChild>
-            <Link to="/recovery">
-              <User className="size-4" /> Self-Guided
-            </Link>
-          </Button>
           <Button variant="hero" className="rounded-full" asChild>
             <Link to="/specialists">
               <HandHeart className="size-4" /> Experts
@@ -86,8 +80,8 @@ function DashboardPage() {
         <div className="mt-8 flex flex-col items-start gap-4 rounded-[2rem] border border-accent/30 bg-accent/[0.06] p-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-muted-foreground">No assessment yet — let's build your personalized plan.</p>
           <Button variant="hero" className="rounded-full" asChild>
-            <Link to="/assessment">
-              Start Assessment <ArrowRight className="size-4" />
+            <Link to="/physio/login">
+              Login <ArrowRight className="size-4" />
             </Link>
           </Button>
         </div>
@@ -188,7 +182,7 @@ function DashboardPage() {
               <li className="flex items-start gap-3">
                 <Activity className="mt-0.5 size-4 text-accent" />
                 <div>
-                  <div className="font-semibold text-foreground">AI assessment completed</div>
+                  <div className="font-semibold text-foreground">Assessment completed</div>
                   <div className="text-xs text-muted-foreground">
                     {data.area ?? "—"} · Recovery Index {scores.recoveryIndex}
                   </div>

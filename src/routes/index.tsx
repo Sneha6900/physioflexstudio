@@ -9,24 +9,23 @@ import { Assessment } from "@/components/sections/Assessment";
 import { Exercises } from "@/components/sections/Exercises";
 import { Experts } from "@/components/sections/Experts";
 import { Progress } from "@/components/sections/Progress";
-import { Testimonials } from "@/components/sections/Testimonials";
 import { Locations } from "@/components/sections/Locations";
 import { FinalCta } from "@/components/sections/FinalCta";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PhysioFlex Studio — Move Better. Recover Faster." },
+      { title: "PhysioFlex Studio — Move Better. Feel Better." },
       {
         name: "description",
         content:
-          "AI-powered mobility assessment, personalized recovery plans, guided exercises, expert-assisted sessions, and measurable progress tracking.",
+          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and mobility improvement.",
       },
-      { property: "og:title", content: "PhysioFlex Studio — Move Better. Recover Faster." },
+      { property: "og:title", content: "PhysioFlex Studio — Move Better. Feel Better." },
       {
         property: "og:description",
         content:
-          "An AI-powered mobility and recovery ecosystem combining intelligent pain assessment, personalized exercises, and expert-assisted recovery.",
+          "A physiotherapist-supervised studio delivering clinical assessment, assisted stretching, and measurable mobility gains.",
       },
     ],
   }),
@@ -46,7 +45,6 @@ function Index() {
         <Exercises />
         <Experts />
         <Progress />
-        <Testimonials />
         <Locations />
         <FinalCta />
       </main>

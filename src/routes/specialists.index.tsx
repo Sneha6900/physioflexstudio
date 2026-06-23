@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Award, CalendarCheck, ChevronRight, Star, User } from "lucide-react";
+import { Award, CalendarCheck, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
 import { setAssessment, useAssessment } from "@/lib/assessment-store";
@@ -53,16 +53,6 @@ function SpecialistsPage() {
             Certified recovery specialists for your {(data.area ?? "recovery").toLowerCase()} — hands-on, supervised and safe.
           </p>
         </div>
-        <Button
-          variant="heroOutline"
-          className="rounded-full"
-          onClick={() => {
-            setAssessment({ journey: "self" });
-            navigate({ to: "/recovery" });
-          }}
-        >
-          <User className="size-4" /> Switch to Self-Guided
-        </Button>
       </div>
 
       {/* filters */}

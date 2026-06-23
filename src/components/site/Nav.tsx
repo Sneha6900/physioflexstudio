@@ -64,8 +64,11 @@ export function Nav() {
             <Button variant="ghost" size="sm" className="rounded-full" asChild>
               <Link to="/dashboard">My Progress</Link>
             </Button>
-            <Button variant="dark" size="sm" className="rounded-full px-5" asChild>
-              <Link to="/assessment">Start Assessment</Link>
+            <Button variant="ghost" size="sm" className="rounded-full" asChild>
+              <Link to="/login">Login</Link>
+            </Button>
+            <Button variant="ghost" size="sm" className="rounded-full" asChild>
+              <Link to="/physio/login">Physio login</Link>
             </Button>
           </div>
 
@@ -90,9 +93,14 @@ export function Nav() {
                 {l.label}
               </a>
             ))}
-            <Button variant="dark" className="mt-2 w-full rounded-2xl" asChild>
-              <Link to="/assessment" onClick={() => setOpen(false)}>
-                Start Assessment
+            <Button variant="ghost" className="mt-2 w-full rounded-2xl" asChild>
+              <Link to="/login" onClick={() => setOpen(false)}>
+                Login
+              </Link>
+            </Button>
+            <Button variant="ghost" className="mt-2 w-full rounded-2xl" asChild>
+              <Link to="/physio/login" onClick={() => setOpen(false)}>
+                Physio login
               </Link>
             </Button>
           </div>

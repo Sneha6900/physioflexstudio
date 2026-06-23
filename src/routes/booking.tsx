@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { ArrowLeft, CalendarCheck, Check, Clock, MapPin, Star, User } from "lucide-react";
+import { toDataURL } from "qrcode";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
 import { setAssessment, useAssessment } from "@/lib/assessment-store";
-import { getSpecialist, nextDays, studioLocations, timeSlots } from "@/lib/specialists";
+import {
+  getSpecialist,
+  nextDays,
+  recommendSpecialistForAssessment,
+  studioLocations,
+  specialists,
+  timeSlots,
+} from "@/lib/specialists";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/booking")({
@@ -24,17 +32,37 @@ export const Route = createFileRoute("/booking")({
 function BookingPage() {
   const data = useAssessment();
   const navigate = useNavigate();
-  const specialist = getSpecialist(data.specialistId);
   const days = nextDays(6);
 
+  const recommendation = recommendSpecialistForAssessment(data.area, data.markers, data.profile.age);
+  const selectedSpecialist = getSpecialist(data.specialistId ?? recommendation.id) ?? recommendation;
+
+  const [mode, setMode] = useState<"auto" | "manual">("auto");
+  const [selectedId, setSelectedId] = useState<string>(selectedSpecialist.id);
   const [studio, setStudio] = useState(studioLocations[0]);
   const [date, setDate] = useState(days[0].iso);
   const [time, setTime] = useState(timeSlots[1]);
+  const [ticket, setTicket] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
+  const specialist = getSpecialist(selectedId);
   const dateLabel = days.find((d) => d.iso === date);
 
+  useEffect(() => {
+    setSelectedId(selectedSpecialist.id);
+  }, [selectedSpecialist.id]);
+
+  useEffect(() => {
+    if (confirmed) {
+      const payload = `PhysioFlex Session | ${specialist?.name ?? "Assigned therapist"} | ${studio} | ${date} ${time}`;
+      toDataURL(payload)
+        .then((dataUrl) => setTicket(dataUrl))
+        .catch(() => setTicket(null));
+    }
+  }, [confirmed, date, time, specialist, studio]);
+
   if (confirmed) {
+    const bookingId = data.booking?.bookingId ?? `${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 9000 + 1000)}`;
     return (
       <FlowShell step={4}>
         <motion.div
@@ -45,16 +73,32 @@ function BookingPage() {
           <span className="mx-auto grid size-16 place-items-center rounded-full bg-accent text-charcoal">
             <Check className="size-8" />
           </span>
-          <h1 className="mt-6 font-display text-3xl font-bold text-foreground">Booking confirmed!</h1>
+          <h1 className="mt-6 font-display text-3xl font-bold text-foreground">Session booked</h1>
           <p className="mt-2 text-muted-foreground">
-            Your recovery session is scheduled. A confirmation has been sent to your account.
+            Your premium PhysioFlex check-in ticket is ready. Bring this QR code to the studio.
           </p>
 
-          <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-6 text-left text-sm">
-            <Row icon={User} k="Specialist" v={specialist?.name ?? "PhysioFlex specialist"} />
-            <Row icon={MapPin} k="Location" v={studio} />
-            <Row icon={CalendarCheck} k="Date" v={`${dateLabel?.dow}, ${dateLabel?.label}`} />
-            <Row icon={Clock} k="Time" v={time} />
+          <div className="mt-8 grid gap-5 md:grid-cols-[1.2fr_0.8fr]">
+            <div className="rounded-3xl border border-border bg-card p-6 text-left text-sm">
+              <Row icon={User} k="Specialist" v={specialist?.name ?? "Assigned therapist"} />
+              <Row icon={MapPin} k="Location" v={studio} />
+              <Row icon={CalendarCheck} k="Date" v={`${dateLabel?.dow}, ${dateLabel?.label}`} />
+              <Row icon={Clock} k="Time" v={time} />
+              <Row icon={Star} k="Booking ID" v={bookingId} />
+            </div>
+            <div className="rounded-[2rem] border border-border bg-gradient-to-br from-accent/10 via-background to-muted p-6 text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">Check-in QR code</p>
+              {ticket ? (
+                <img src={ticket} alt="Session QR code" className="mx-auto mt-5 h-56 w-56 rounded-3xl border border-border bg-white p-4" />
+              ) : (
+                <div className="mt-5 grid h-56 place-items-center rounded-3xl border border-dashed border-border bg-muted/50 text-sm text-muted-foreground">
+                  QR code loading...
+                </div>
+              )}
+              <p className="mt-4 text-xs text-muted-foreground">
+                Scan this QR code at the PhysioFlex center to check in for your session.
+              </p>
+            </div>
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
@@ -88,18 +132,89 @@ function BookingPage() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-6">
-          {specialist && (
-            <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-5">
-              <img src={specialist.img} alt={specialist.name} className="size-16 rounded-2xl object-cover" />
+          <div className="rounded-3xl border border-border bg-card p-5">
+            <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="font-display text-lg font-bold text-foreground">{specialist.name}</div>
-                <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                  <Star className="size-3.5 fill-accent text-accent" /> {specialist.rating} · {specialist.spec}
+                <p className="text-sm font-semibold text-foreground">Therapist assignment</p>
+                <p className="mt-1 text-sm text-muted-foreground">Choose your preferred PhysioFlex expert or let us assign the best fit.</p>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3">
+              <button
+                type="button"
+                onClick={() => setMode("auto")}
+                className={cn(
+                  "rounded-3xl border px-4 py-4 text-left transition",
+                  mode === "auto"
+                    ? "border-accent bg-accent/10"
+                    : "border-border bg-card hover:border-accent/50",
+                )}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-semibold text-foreground">Auto assign best-fit physiotherapist</p>
+                    <p className="mt-1 text-sm text-muted-foreground">Recommended based on your pain areas and mobility profile.</p>
+                  </div>
+                  <span className="text-xs uppercase text-muted-foreground">Recommended</span>
+                </div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode("manual")}
+                className={cn(
+                  "rounded-3xl border px-4 py-4 text-left transition",
+                  mode === "manual"
+                    ? "border-accent bg-accent/10"
+                    : "border-border bg-card hover:border-accent/50",
+                )}
+              >
+                <div>
+                  <p className="font-semibold text-foreground">Choose specialist manually</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Pick your expert from the PhysioFlex team.</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {(mode === "auto" || !specialist) && (
+            <div className="rounded-3xl border border-border bg-card p-5">
+              <p className="text-sm font-semibold text-foreground">Auto-assigned therapist</p>
+              <div className="mt-5 flex items-center gap-4 rounded-3xl border border-accent/40 bg-accent/10 p-4">
+                <img src={recommendation.img} alt={recommendation.name} className="size-14 rounded-2xl object-cover" />
+                <div>
+                  <p className="font-semibold text-foreground">{recommendation.name}</p>
+                  <p className="text-sm text-muted-foreground">{recommendation.spec}</p>
+                  <p className="text-xs text-muted-foreground">{recommendation.available} · {recommendation.studios.join(" & ")}</p>
                 </div>
               </div>
-              <Button variant="heroOutline" size="sm" className="ml-auto rounded-full" asChild>
-                <Link to="/specialists">Change</Link>
-              </Button>
+            </div>
+          )}
+
+          {mode === "manual" && (
+            <div className="rounded-3xl border border-border bg-card p-5">
+              <p className="text-sm font-semibold text-foreground">Select your therapist</p>
+              <div className="mt-4 grid gap-3">
+                {[...new Set([recommendation, ...specialists])].map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setSelectedId(item.id)}
+                    className={cn(
+                      "flex items-center gap-4 rounded-3xl border px-4 py-4 text-left transition",
+                      item.id === selectedId
+                        ? "border-accent bg-accent/10"
+                        : "border-border bg-card hover:border-accent/50",
+                    )}
+                  >
+                    <img src={item.img} alt={item.name} className="size-14 rounded-2xl object-cover" />
+                    <div>
+                      <p className="font-semibold text-foreground">{item.name}</p>
+                      <p className="text-sm text-muted-foreground">{item.spec}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 
@@ -158,7 +273,13 @@ function BookingPage() {
               variant="hero"
               className="mt-7 w-full rounded-full"
               onClick={() => {
-                setAssessment({ booking: { studio, date, time }, completed: true });
+                const bookingId = `${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 9000 + 1000)}`;
+                setAssessment({
+                  booking: { studio, date, time, bookingId },
+                  specialistId: selectedId,
+                  journey: "expert",
+                  completed: true,
+                });
                 setConfirmed(true);
               }}
             >

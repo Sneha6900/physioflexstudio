@@ -30,7 +30,7 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              An AI-powered mobility and recovery ecosystem. Move better, recover faster, and
+              A physiotherapist-led mobility and assisted stretching studio. Move better, feel better, and
               measure every step of your progress.
             </p>
           </div>

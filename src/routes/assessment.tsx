@@ -2,28 +2,24 @@ import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  Activity,
   ArrowLeft,
   ArrowRight,
-  BrainCircuit,
   Check,
   Clock,
   Dumbbell,
   HandHeart,
-  Loader2,
-  Lightbulb,
   Target,
-  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
-import { BodySilhouette, type BodyPart } from "@/components/site/BodySilhouette";
+import { BodyModel3D } from "@/components/site/BodyModel3D";
 import {
-  aiInsight,
+  clinicalInsight,
   computeScores,
   setAssessment,
   useAssessment,
   type PainArea,
+  type PainMarker,
 } from "@/lib/assessment-store";
 import { getExercises, getStretches, dailyGoals } from "@/lib/exercises";
 import { cn } from "@/lib/utils";
@@ -31,58 +27,44 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/assessment")({
   head: () => ({
     meta: [
-      { title: "AI Mobility Assessment — PhysioFlex Studio" },
+      { title: "Clinical Mobility Assessment — PhysioFlex Studio" },
       {
         name: "description",
         content:
-          "Complete your AI-powered mobility assessment: select your pain area, describe your symptoms, and receive a personalized recovery plan.",
+          "Complete our clinically-led mobility assessment: identify your pain points, share your profile, and receive a physiotherapist-informed recovery program.",
       },
-      { property: "og:title", content: "AI Mobility Assessment — PhysioFlex Studio" },
+      { property: "og:title", content: "Clinical Mobility Assessment — PhysioFlex Studio" },
       {
         property: "og:description",
-        content: "Intelligent pain assessment and a personalized recovery plan in minutes.",
+        content: "Clinically-informed pain assessment and a personalized recovery plan designed by physiotherapists.",
       },
     ],
   }),
   component: AssessmentPage,
 });
 
-const areas: PainArea[] = [
-  "Neck",
-  "Shoulder",
-  "Upper Back",
-  "Lower Back",
-  "Hip",
-  "Knee",
-  "Ankle",
-  "Wrist",
-  "Other",
-];
-
-const durations = ["< 1 week", "1–3 weeks", "1–3 months", "3–6 months", "6+ months"];
+const durationOptions = ["< 1 week", "1–3 weeks", "1–3 months", "3–6 months", "6+ months"];
 const ageGroups = ["Under 18", "18–29", "30–44", "45–59", "60+"];
+const mobilityOptions = ["Low", "Medium", "High"] as const;
 
 function AssessmentPage() {
   const [step, setStep] = useState(0);
+  const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null);
   const data = useAssessment();
   const navigate = useNavigate();
-  const isCustomPain = data.area === "Other";
 
-  const next = () => {
-    if (step === 0 && isCustomPain) {
-      setStep(1); // Show custom pain form
-    } else {
-      setStep((s) => Math.min(isCustomPain ? 4 : 3, s + 1));
+  const markers = data.markers;
+  const selectedMarker = markers.find((marker) => marker.id === selectedMarkerId) ?? null;
+  const currentArea = data.area ?? markers[0]?.part ?? null;
+
+  useEffect(() => {
+    if (step === 2 && !selectedMarkerId && markers.length > 0) {
+      setSelectedMarkerId(markers[0].id);
     }
-  };
-  
-  const back = () => {
-    if (step === 1 && isCustomPain) {
-      setStep(0); // Back from custom pain form
-    } else {
-      setStep((s) => Math.max(0, s - 1));
-    }
-  };
+  }, [step, selectedMarkerId, markers]);
+
+  const next = () => setStep((s) => Math.min(3, s + 1));
+  const back = () => setStep((s) => Math.max(0, s - 1));
 
   return (
     <FlowShell step={step}>
@@ -94,242 +76,171 @@ function AssessmentPage() {
           exit={{ opacity: 0, y: -18 }}
           transition={{ duration: 0.4 }}
         >
-          {step === 0 && <StepArea onNext={next} />}
-          {step === 1 && isCustomPain && <StepCustomPain onNext={next} onBack={back} />}
-          {step === 1 && !isCustomPain && <StepDetails onNext={next} onBack={back} />}
-          {step === 2 && isCustomPain && <StepDetails onNext={next} onBack={back} />}
-          {step === 2 && !isCustomPain && <StepAnalysis onNext={next} onBack={back} />}
-          {step === 3 && isCustomPain && <StepAnalysis onNext={next} onBack={back} />}
-          {step === 3 && !isCustomPain && (
-            <StepPlan
-              onBack={back}
-              onChoose={(j) => {
-                setAssessment({ journey: j });
-                navigate({ to: j === "self" ? "/recovery" : "/specialists" });
+          {step === 0 && <StepProfile onNext={next} />}
+          {step === 1 && (
+            <StepMarkers
+              markers={markers}
+              selectedMarkerId={selectedMarkerId}
+              onSelectMarker={setSelectedMarkerId}
+              onAddMarker={(part) => {
+                const existing = markers.find((marker) => marker.part === part);
+                if (existing) {
+                  setSelectedMarkerId(existing.id);
+                  return;
+                }
+                if (markers.length >= 3) return;
+                const nextId = markers.reduce((max, marker) => Math.max(max, marker.id), 0) + 1;
+                const nextMarker: PainMarker = {
+                  id: nextId,
+                  part,
+                  painLevel: 6,
+                  duration: "1–3 weeks",
+                  stiffness: 5,
+                  mobility: "Medium",
+                  notes: "",
+                };
+                setAssessment({ markers: [...markers, nextMarker], area: part });
+                setSelectedMarkerId(nextId);
               }}
+              onNext={next}
+              onBack={back}
             />
           )}
-          {step === 4 && isCustomPain && (
-            <StepPlan
-              onBack={back}
-              onChoose={(j) => {
-                setAssessment({ journey: j });
-                navigate({ to: j === "self" ? "/recovery" : "/specialists" });
+          {step === 2 && (
+            <StepMarkerDetails
+              marker={selectedMarker}
+              markers={markers}
+              selectedMarkerId={selectedMarkerId}
+              onSelect={setSelectedMarkerId}
+              onUpdate={(id, patch) =>
+                setAssessment({
+                  markers: markers.map((marker) => (marker.id === id ? { ...marker, ...patch } : marker)),
+                })
+              }
+              onRemove={(id) => {
+                const remaining = markers.filter((marker) => marker.id !== id);
+                setAssessment({ markers: remaining, area: remaining[0]?.part ?? null });
+                setSelectedMarkerId(remaining[0]?.id ?? null);
               }}
+              onNext={next}
+              onBack={back}
             />
           )}
+          {step === 3 && <StepPlan area={currentArea} onBack={back} />}
         </motion.div>
       </AnimatePresence>
     </FlowShell>
   );
 }
 
-/* ---------------- Step 1: Pain area ---------------- */
-function StepArea({ onNext }: { onNext: () => void }) {
+function StepProfile({ onNext }: { onNext: () => void }) {
   const data = useAssessment();
-  const silhouettePart = (areas.includes(data.area as PainArea) && data.area !== "Other"
-    ? data.area
-    : null) as BodyPart | null;
+  const valid = Boolean(data.profile.name.trim() && data.profile.age && data.profile.occupation.trim());
 
   return (
     <div>
       <Heading
         eyebrow="Step 1"
-        title="Where does it hurt?"
-        sub="Tap the area on the body map or pick from the list. We'll tailor everything around it."
+        title="Start with your profile"
+        sub="Share your clinical background and daily movement habits so our team can personalize the plan."
       />
-      <div className="mt-10 grid items-center gap-8 lg:grid-cols-[300px_1fr]">
-        <div className="mx-auto h-[26rem] w-44 rounded-[2rem] border border-border bg-card p-4">
-          <BodySilhouette
-            selected={silhouettePart}
-            onSelect={(p) => setAssessment({ area: p })}
-          />
-        </div>
-        <div>
-          <div className="flex flex-wrap gap-3">
-            {areas.map((a) => (
-              <button
-                key={a}
-                onClick={() => setAssessment({ area: a })}
-                className={cn(
-                  "rounded-2xl border px-5 py-3 text-sm font-semibold transition-all",
-                  data.area === a
-                    ? "border-accent bg-accent text-charcoal"
-                    : "border-border bg-muted/50 text-muted-foreground hover:border-accent/50 hover:text-foreground",
-                )}
-              >
-                {a}
-              </button>
-            ))}
-          </div>
-          <div className="mt-8 flex items-center gap-4 rounded-2xl bg-muted/50 p-5">
-            <span className="grid size-12 place-items-center rounded-xl bg-accent/15 text-accent">
-              <Activity className="size-6" />
-            </span>
-            <div>
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">Selected area</div>
-              <div className="font-display text-2xl font-bold text-accent">
-                {data.area ?? "None yet"}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <FooterNav
-        right={
-          <Button variant="hero" className="rounded-full" disabled={!data.area} onClick={onNext}>
-            Continue <ArrowRight className="size-4" />
-          </Button>
-        }
-      />
-    </div>
-  );
-}
 
-/* ---------------- Step 1b: Custom pain description (for "Other") ---------------- */
-function StepCustomPain({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
-  const data = useAssessment();
-  const [bodyPart, setBodyPart] = useState(data.customPainArea || "");
-  const [description, setDescription] = useState(data.customPainDescription || "");
-  const valid = bodyPart.trim() && description.trim();
-
-  const handleContinue = () => {
-    setAssessment({
-      customPainArea: bodyPart.trim(),
-      customPainDescription: description.trim(),
-    });
-    onNext();
-  };
-
-  return (
-    <div>
-      <Heading
-        eyebrow="Step 1"
-        title="Describe your discomfort"
-        sub="Tell us about the specific body part and what you're experiencing."
-      />
-      <div className="mt-10 space-y-6 max-w-2xl">
-        <Card>
-          <label className="block">
-            <div className="text-sm font-semibold text-foreground mb-2">Affected Body Part</div>
-            <input
-              type="text"
-              placeholder="e.g., Left elbow, Right knee, Lower back"
-              value={bodyPart}
-              onChange={(e) => setBodyPart(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border border-border bg-muted/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent focus:bg-muted transition-all"
-            />
-          </label>
-        </Card>
-
-        <Card>
-          <label className="block">
-            <div className="text-sm font-semibold text-foreground mb-2">Describe Your Discomfort</div>
-            <textarea
-              placeholder="Describe the pain, stiffness, or discomfort you're experiencing. Include when it started, what activities trigger it, and how it affects your daily life."
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={5}
-              className="w-full px-4 py-3 rounded-2xl border border-border bg-muted/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent focus:bg-muted transition-all resize-none"
-            />
-          </label>
-        </Card>
-
-        <div className="rounded-2xl border border-accent/20 bg-accent/10 p-4">
-          <div className="flex gap-3">
-            <Lightbulb className="size-5 text-accent flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-foreground/90">
-              <p className="font-semibold">Pro tip:</p>
-              <p className="mt-1">The more detailed your description, the better our AI can personalize your recovery plan.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <FooterNav
-        left={
-          <Button variant="heroOutline" className="rounded-full" onClick={onBack}>
-            <ArrowLeft className="size-4" /> Back
-          </Button>
-        }
-        right={
-          <Button variant="hero" className="rounded-full" disabled={!valid} onClick={handleContinue}>
-            Continue <ArrowRight className="size-4" />
-          </Button>
-        }
-      />
-    </div>
-  );
-}
-
-/* ---------------- Step 2: Pain details ---------------- */
-function StepDetails({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
-  const data = useAssessment();
-  const valid = data.duration && data.previousInjury && data.mobility && data.ageGroup;
-
-  return (
-    <div>
-      <Heading
-        eyebrow="Step 2"
-        title="Tell us how it feels"
-        sub="A few details help our AI calibrate your recovery plan precisely."
-      />
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <Card>
-          <Slider
-            label="Pain level"
-            value={data.painLevel}
-            onChange={(v) => setAssessment({ painLevel: v })}
-            hint={["No pain", "Severe"]}
-          />
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Full name</span>
+            <input
+              type="text"
+              value={data.profile.name}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, name: e.target.value } })}
+              placeholder="Your name"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
+            />
+          </label>
         </Card>
         <Card>
-          <Slider
-            label="Stiffness level"
-            value={data.stiffness}
-            onChange={(v) => setAssessment({ stiffness: v })}
-            hint={["Supple", "Very stiff"]}
-          />
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Age</span>
+            <input
+              type="number"
+              min={12}
+              value={data.profile.age ?? ""}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, age: Number(e.target.value) || null } })}
+              placeholder="Years"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
+            />
+          </label>
         </Card>
         <Card>
-          <Choices
-            label="Duration of pain"
-            options={durations}
-            value={data.duration}
-            onChange={(v) => setAssessment({ duration: v })}
-          />
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Occupation</span>
+            <input
+              type="text"
+              value={data.profile.occupation}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, occupation: e.target.value } })}
+              placeholder="e.g. desk worker, athlete, parent"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
+            />
+          </label>
         </Card>
         <Card>
-          <Choices
-            label="Age group"
-            options={ageGroups}
-            value={data.ageGroup}
-            onChange={(v) => setAssessment({ ageGroup: v })}
-          />
-        </Card>
-        <Card>
-          <Choices
-            label="Previous injury in this area?"
-            options={["No", "Yes"]}
-            value={data.previousInjury ?? ""}
-            onChange={(v) => setAssessment({ previousInjury: v as "Yes" | "No" })}
-          />
-        </Card>
-        <Card>
-          <Choices
-            label="Mobility limitation"
-            options={["Low", "Medium", "High"]}
-            value={data.mobility ?? ""}
-            onChange={(v) => setAssessment({ mobility: v as "Low" | "Medium" | "High" })}
-          />
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Daily sitting</span>
+            <input
+              type="number"
+              min={0}
+              value={data.profile.sittingHours ?? ""}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, sittingHours: Number(e.target.value) || null } })}
+              placeholder="Hours per day"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
+            />
+          </label>
         </Card>
       </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <Card>
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Medical history</span>
+            <textarea
+              value={data.profile.medicalHistory}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, medicalHistory: e.target.value } })}
+              rows={4}
+              placeholder="Any prior conditions or treatments"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted resize-none"
+            />
+          </label>
+        </Card>
+        <Card>
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Previous injuries</span>
+            <textarea
+              value={data.profile.previousInjuries}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, previousInjuries: e.target.value } })}
+              rows={4}
+              placeholder="Injuries, surgeries or recurring aches"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted resize-none"
+            />
+          </label>
+        </Card>
+      </div>
+
+      <div className="mt-6">
+        <Card>
+          <label className="block space-y-3">
+            <span className="text-sm font-semibold text-muted-foreground">Emergency contact</span>
+            <input
+              type="text"
+              value={data.profile.emergencyContact}
+              onChange={(e) => setAssessment({ profile: { ...data.profile, emergencyContact: e.target.value } })}
+              placeholder="Name or phone"
+              className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
+            />
+          </label>
+        </Card>
+      </div>
+
       <FooterNav
-        left={
-          <Button variant="heroOutline" className="rounded-full" onClick={onBack}>
-            <ArrowLeft className="size-4" /> Back
-          </Button>
-        }
         right={
           <Button variant="hero" className="rounded-full" disabled={!valid} onClick={onNext}>
             Continue <ArrowRight className="size-4" />
@@ -340,81 +251,85 @@ function StepDetails({ onNext, onBack }: { onNext: () => void; onBack: () => voi
   );
 }
 
-/* ---------------- Step 3: AI analysis ---------------- */
-function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
-  const data = useAssessment();
-  const [loading, setLoading] = useState(true);
-  const scores = computeScores(data);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1900);
-    return () => clearTimeout(t);
-  }, []);
-
-  const factors = ["Pain location", "Severity scoring", "Mobility restrictions", "Recovery requirements"];
+function StepMarkers({
+  markers,
+  selectedMarkerId,
+  onSelectMarker,
+  onAddMarker,
+  onNext,
+  onBack,
+}: {
+  markers: PainMarker[];
+  selectedMarkerId: number | null;
+  onSelectMarker: (id: number | null) => void;
+  onAddMarker: (part: PainArea) => void;
+  onNext: () => void;
+  onBack: () => void;
+}) {
+  const canContinue = markers.length > 0;
 
   return (
     <div>
       <Heading
-        eyebrow="Step 3"
-        title="AI recovery analysis"
-        sub="Our model is interpreting your inputs against thousands of recovery patterns."
+        eyebrow="Step 2"
+        title="Map your pain points"
+        sub="Tap the body model to place up to three markers for your main areas of discomfort."
       />
 
-      {loading ? (
-        <div className="mt-12 grid place-items-center rounded-[2rem] border border-border bg-card py-20">
-          <Loader2 className="size-10 animate-spin text-accent" />
-          <p className="mt-5 font-display text-lg font-semibold text-foreground">
-            Analyzing your assessment…
-          </p>
-          <div className="mt-6 w-full max-w-sm space-y-2 px-6">
-            {factors.map((f, i) => (
-              <motion.div
-                key={f}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 + i * 0.35 }}
-                className="flex items-center gap-2 text-sm text-muted-foreground"
-              >
-                <Check className="size-4 text-accent" /> {f}
-              </motion.div>
-            ))}
+      <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr]">
+        <BodyModel3D
+          markers={markers}
+          selectedMarkerId={selectedMarkerId}
+          onPartClick={(part) => onAddMarker(part)}
+          className="lg:col-span-1"
+        />
+        <div className="space-y-6">
+          <Card>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-foreground">Pain marker summary</p>
+                <p className="mt-1 text-sm text-muted-foreground">Each marker captures a separate pain point for your personalized program.</p>
+              </div>
+              <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">{markers.length}/3</span>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {markers.length ? (
+                markers.map((marker) => (
+                  <button
+                    key={marker.id}
+                    type="button"
+                    onClick={() => onSelectMarker(marker.id)}
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-3xl border px-4 py-4 text-left transition",
+                      selectedMarker?.id === marker.id
+                        ? "border-accent bg-accent/10"
+                        : "border-border bg-card hover:border-accent/50",
+                    )}
+                  >
+                    <div>
+                      <p className="font-semibold text-foreground">{marker.part}</p>
+                      <p className="text-sm text-muted-foreground">Pain level {marker.painLevel}, {marker.mobility} mobility</p>
+                    </div>
+                    <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">Marker {marker.id}</span>
+                  </button>
+                ))
+              ) : (
+                <p className="text-sm text-muted-foreground">Tap an area on the model to add your first marker.</p>
+              )}
+            </div>
+          </Card>
+
+          <div className="rounded-3xl border border-border bg-card p-6">
+            <div className="text-sm font-semibold text-foreground">Marker workflow</div>
+            <ol className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li>1. Place markers on the model.</li>
+              <li>2. Select a marker to enter pain details.</li>
+              <li>3. Generate a clinician-led recovery plan tailored to your markers.</li>
+            </ol>
           </div>
         </div>
-      ) : (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-10">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <Ring label="Recovery Index" value={scores.recoveryIndex} accent />
-            <Ring label="Mobility Score" value={scores.mobilityScore} />
-            <Ring label="Flexibility Score" value={scores.flexibilityScore} />
-            <Ring label="Pain Severity" value={scores.painSeverity} invert />
-          </div>
-
-          <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_1.4fr]">
-            <div className="rounded-[2rem] border border-border bg-card p-6">
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">Assessment summary</div>
-              <dl className="mt-4 space-y-3 text-sm">
-                <Row k="Pain area" v={data.area === "Other" ? data.customPainArea || "—" : data.area ?? "—"} />
-                {data.area === "Other" && data.customPainDescription && (
-                  <Row k="Description" v={data.customPainDescription} />
-                )}
-                <Row k="Pain level" v={`${data.painLevel}/10`} />
-                <Row k="Duration" v={data.duration || "—"} />
-                <Row k="Mobility limitation" v={data.mobility ?? "—"} />
-                <Row k="Previous injury" v={data.previousInjury ?? "—"} />
-                <Row k="Est. recovery" v={`~${scores.weeks} weeks`} />
-              </dl>
-            </div>
-            <div className="rounded-[2rem] border border-accent/30 bg-accent/[0.06] p-6">
-              <div className="flex items-center gap-2 text-accent">
-                <Lightbulb className="size-5" />
-                <span className="text-xs font-semibold uppercase tracking-widest">AI insights</span>
-              </div>
-              <p className="mt-4 text-lg leading-relaxed text-foreground">{aiInsight(data)}</p>
-            </div>
-          </div>
-        </motion.div>
-      )}
+      </div>
 
       <FooterNav
         left={
@@ -423,13 +338,8 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
           </Button>
         }
         right={
-          <Button
-            variant="hero"
-            className="rounded-full"
-            disabled={loading}
-            onClick={onNext}
-          >
-            <BrainCircuit className="size-4" /> Generate Recovery Plan
+          <Button variant="hero" className="rounded-full" disabled={!canContinue} onClick={onNext}>
+            Continue <ArrowRight className="size-4" />
           </Button>
         }
       />
@@ -437,31 +347,169 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
   );
 }
 
-/* ---------------- Step 4: Recovery plan ---------------- */
-function StepPlan({
+function StepMarkerDetails({
+  marker,
+  markers,
+  selectedMarkerId,
+  onSelect,
+  onUpdate,
+  onRemove,
+  onNext,
   onBack,
-  onChoose,
 }: {
+  marker: PainMarker | null;
+  markers: PainMarker[];
+  selectedMarkerId: number | null;
+  onSelect: (id: number | null) => void;
+  onUpdate: (id: number, patch: Partial<PainMarker>) => void;
+  onRemove: (id: number) => void;
+  onNext: () => void;
   onBack: () => void;
-  onChoose: (j: "self" | "expert") => void;
 }) {
+  const canContinue = markers.length > 0;
+
+  return (
+    <div>
+      <Heading
+        eyebrow="Step 3"
+        title="Capture marker details"
+        sub="Describe pain intensity, stiffness, mobility, and how each point affects your movement."
+      />
+
+      <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="space-y-6">
+          {marker ? (
+            <Card>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{marker.part}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Marker {marker.id}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onRemove(marker.id)}
+                  className="rounded-full border border-border px-3 py-2 text-xs font-semibold text-destructive"
+                >
+                  Remove
+                </button>
+              </div>
+
+              <div className="mt-6 space-y-6">
+                <Slider
+                  label="Pain level"
+                  value={marker.painLevel}
+                  onChange={(value) => onUpdate(marker.id, { painLevel: value })}
+                  hint={["Mild", "Severe"]}
+                />
+                <Slider
+                  label="Stiffness"
+                  value={marker.stiffness}
+                  onChange={(value) => onUpdate(marker.id, { stiffness: value })}
+                  hint={["Flexible", "Very stiff"]}
+                />
+                <Choices
+                  label="Mobility"
+                  options={mobilityOptions}
+                  value={marker.mobility}
+                  onChange={(value) => onUpdate(marker.id, { mobility: value as "Low" | "Medium" | "High" })}
+                />
+                <Choices
+                  label="Duration"
+                  options={durationOptions}
+                  value={marker.duration}
+                  onChange={(value) => onUpdate(marker.id, { duration: value })}
+                />
+                <label className="block">
+                  <span className="text-sm font-semibold text-muted-foreground">Notes</span>
+                  <textarea
+                    value={marker.notes}
+                    onChange={(e) => onUpdate(marker.id, { notes: e.target.value })}
+                    rows={4}
+                    placeholder="Share how this area feels during daily movement."
+                    className="mt-2 w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted resize-none"
+                  />
+                </label>
+              </div>
+            </Card>
+          ) : (
+            <div className="rounded-3xl border border-border bg-card p-10 text-center text-sm text-muted-foreground">
+              Select a marker to add detailed pain information.
+            </div>
+          )}
+        </div>
+
+        <Card>
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm font-semibold text-foreground">Markers</p>
+              <p className="mt-1 text-sm text-muted-foreground">Choose which marker to update before continuing.</p>
+            </div>
+            <div className="grid gap-3">
+              {markers.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => onSelect(item.id)}
+                  className={cn(
+                    "flex items-center justify-between rounded-3xl border px-4 py-3 text-left transition",
+                    item.id === selectedMarkerId
+                      ? "border-accent bg-accent/10"
+                      : "border-border bg-card hover:border-accent/50",
+                  )}
+                >
+                  <div>
+                    <p className="font-semibold text-foreground">{item.part}</p>
+                    <p className="text-sm text-muted-foreground">Level {item.painLevel}, {item.mobility} mobility</p>
+                  </div>
+                  <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">{item.id}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <FooterNav
+        left={
+          <Button variant="heroOutline" className="rounded-full" onClick={onBack}>
+            <ArrowLeft className="size-4" /> Back
+          </Button>
+        }
+        right={
+          <Button variant="hero" className="rounded-full" disabled={!canContinue} onClick={onNext}>
+            Continue <ArrowRight className="size-4" />
+          </Button>
+        }
+      />
+    </div>
+  );
+}
+
+function StepPlan({ area, onBack }: { area: PainArea | null; onBack: () => void }) {
   const data = useAssessment();
   const scores = computeScores(data);
-  const exercises = getExercises(data.area);
-  const stretches = getStretches(data.area);
+  const insight = clinicalInsight(data);
+  const exercises = getExercises(area);
+  const stretches = getStretches(area);
+  const navigate = useNavigate();
 
   return (
     <div>
       <Heading
         eyebrow="Step 4"
         title="Your personalized recovery plan"
-        sub={`A focused program for your ${(data.area ?? "mobility").toLowerCase()} — estimated ${scores.weeks}-week timeline.`}
+        sub={`A focused program for your ${(area ?? "movement").toLowerCase()} — estimated ${scores.weeks}-week timeline.`}
       />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         <MiniStat icon={Dumbbell} label="Exercises" value={`${exercises.length} prescribed`} />
         <MiniStat icon={Target} label="Daily goals" value={`${dailyGoals.length} per day`} />
         <MiniStat icon={Clock} label="Timeline" value={`~${scores.weeks} weeks`} />
+      </div>
+
+      <div className="mt-8 rounded-3xl border border-border bg-card p-6">
+        <p className="text-sm font-semibold text-foreground">Clinical insight</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">{insight}</p>
       </div>
 
       <h3 className="mt-12 font-display text-xl font-bold text-foreground">Recommended exercises</h3>
@@ -525,26 +573,25 @@ function StepPlan({
       </div>
 
       <h3 className="mt-14 text-center font-display text-2xl font-bold text-foreground">
-        How would you like to recover?
+        Recommended recovery path
       </h3>
-      <div className="mx-auto mt-6 grid max-w-4xl gap-5 sm:grid-cols-2">
-        <ModeCard
-          icon={User}
-          title="Self-Guided Recovery"
-          desc="Follow your AI plan independently with guided videos, tracking and weekly reports."
-          points={["AI-guided routines", "Video demonstrations", "Progress tracking"]}
-          cta="Start Self-Guided"
-          onClick={() => onChoose("self")}
-        />
-        <ModeCard
-          icon={HandHeart}
-          title="Expert Assisted Recovery"
-          desc="Get hands-on guidance from certified specialists at a Bangalore studio near you."
-          points={["Certified specialists", "Supervised sessions", "Studio booking"]}
-          cta="Find a Specialist"
-          highlight
-          onClick={() => onChoose("expert")}
-        />
+      <div className="mx-auto mt-6 max-w-4xl">
+        <div className="rounded-3xl border border-border bg-muted/40 p-6 text-sm text-muted-foreground">
+          <p className="font-semibold text-foreground">Expert Assisted Recovery</p>
+          <p className="mt-3">
+            We recommend specialist-led rehabilitation for the most reliable, clinically supported recovery.
+          </p>
+          <Button
+            variant="hero"
+            className="mt-4 rounded-full"
+            onClick={() => {
+              setAssessment({ journey: "expert" });
+              navigate({ to: "/specialists" });
+            }}
+          >
+            Book a Specialist
+          </Button>
+        </div>
       </div>
 
       <FooterNav
@@ -558,7 +605,6 @@ function StepPlan({
   );
 }
 
-/* ---------------- Shared bits ---------------- */
 function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
     <div className="max-w-2xl">
@@ -637,6 +683,7 @@ function Choices({
         {options.map((o) => (
           <button
             key={o}
+            type="button"
             onClick={() => onChange(o)}
             className={cn(
               "rounded-full border px-4 py-2 text-sm font-medium transition-all",

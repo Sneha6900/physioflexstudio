@@ -23,7 +23,7 @@ export function FinalCta() {
             transition={{ duration: 0.7 }}
             className="relative mx-auto max-w-3xl font-display text-4xl font-extrabold tracking-tight text-foreground text-balance sm:text-6xl"
           >
-            Your Recovery Journey <span className="ink-underline">Starts Today.</span>
+            Move Better. <span className="ink-underline">Feel Better.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
@@ -32,8 +32,8 @@ export function FinalCta() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="relative mx-auto mt-5 max-w-xl text-lg text-muted-foreground"
           >
-            Intelligent assessment, personalized plans, and expert support — all in one seamless
-            experience.
+            Clinical assessment, hands-on assisted stretching, and physiotherapist supervision —
+            start with a consultation focused on pain relief and mobility improvement.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -43,13 +43,13 @@ export function FinalCta() {
             className="relative mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <Button variant="hero" size="xl" className="group rounded-full" asChild>
-              <Link to="/assessment">
-                Get Started
+              <Link to="/specialists">
+                Talk to a specialist
                 <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button variant="heroOutline" size="xl" className="rounded-full" asChild>
-              <Link to="/specialists">Talk to a specialist</Link>
+              <Link to="/physio/login">Physio login</Link>
             </Button>
           </motion.div>
         </div>

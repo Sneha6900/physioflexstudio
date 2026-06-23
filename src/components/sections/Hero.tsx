@@ -30,7 +30,7 @@ export function Hero() {
             className="inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.22em] text-primary"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Mobility &amp; recovery, intelligently guided
+            Physiotherapist-led assisted stretching & mobility
           </motion.div>
 
           <motion.h1
@@ -41,7 +41,7 @@ export function Hero() {
           >
             Move Better.
             <br />
-            <span className="ink-underline">Recover Faster.</span>
+            <span className="ink-underline">Feel Better.</span>
           </motion.h1>
 
           <motion.p
@@ -50,8 +50,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
           >
-            AI-powered mobility assessment, personalized recovery plans, guided exercises,
-            expert-assisted recovery sessions, and measurable progress tracking.
+            Clinically-led mobility assessment, physiotherapist-supervised assisted stretching,
+            posture correction, and measurable mobility gains focused on pain relief and flexibility.
           </motion.p>
 
           <motion.div
@@ -61,8 +61,8 @@ export function Hero() {
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <Button variant="hero" size="xl" className="group" asChild>
-              <Link to="/assessment">
-                Start Assessment
+              <Link to="/physio/login">
+                Login
                 <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -71,23 +71,7 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-12 flex gap-8"
-          >
-            {[
-              { v: "50k+", l: "Recoveries guided" },
-              { v: "4.9★", l: "Average rating" },
-              { v: "92%", l: "Mobility improved" },
-            ].map((s) => (
-              <div key={s.l}>
-                <div className="font-display text-2xl font-bold text-foreground">{s.v}</div>
-                <div className="text-xs text-muted-foreground">{s.l}</div>
-              </div>
-            ))}
-          </motion.div>
+          {/* Stats removed per product decision */}
         </div>
 
         {/* interactive panel */}
@@ -100,7 +84,7 @@ export function Hero() {
           <div className="relative grid grid-cols-[1.1fr_0.9fr] gap-3 overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-[var(--shadow-soft)]">
             <img
               src={heroImg}
-              alt="Athlete performing a mobility stretch"
+              alt="Client receiving physiotherapist-assisted stretch"
               width={1024}
               height={1536}
               className="h-full max-h-[34rem] w-full rounded-[1.5rem] object-cover"
