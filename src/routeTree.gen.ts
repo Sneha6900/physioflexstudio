@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RecoveryRouteImport } from './routes/recovery'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AssessmentRouteImport } from './routes/assessment'
@@ -20,6 +21,11 @@ import { Route as ProgramsIndexRouteImport } from './routes/programs.index'
 import { Route as SpecialistsIdRouteImport } from './routes/specialists.$id'
 import { Route as PhysioLoginRouteImport } from './routes/physio/login'
 import { Route as PhysioDashboardRouteImport } from './routes/physio/dashboard'
+import { Route as AssessmentStartRouteImport } from './routes/assessment.start'
+import { Route as AssessmentResultsRouteImport } from './routes/assessment.results'
+import { Route as LoginUserSignupRouteImport } from './routes/login.user.signup'
+import { Route as LoginUserProfileRouteImport } from './routes/login.user.profile'
+import { Route as AssessmentPainDetailsAreaRouteImport } from './routes/assessment.pain-details.$area'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -29,6 +35,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RecoveryRoute = RecoveryRouteImport.update({
   id: '/recovery',
   path: '/recovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -76,46 +87,90 @@ const PhysioDashboardRoute = PhysioDashboardRouteImport.update({
   path: '/physio/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssessmentStartRoute = AssessmentStartRouteImport.update({
+  id: '/start',
+  path: '/start',
+  getParentRoute: () => AssessmentRoute,
+} as any)
+const AssessmentResultsRoute = AssessmentResultsRouteImport.update({
+  id: '/results',
+  path: '/results',
+  getParentRoute: () => AssessmentRoute,
+} as any)
+const LoginUserSignupRoute = LoginUserSignupRouteImport.update({
+  id: '/user/signup',
+  path: '/user/signup',
+  getParentRoute: () => LoginRoute,
+} as any)
+const LoginUserProfileRoute = LoginUserProfileRouteImport.update({
+  id: '/user/profile',
+  path: '/user/profile',
+  getParentRoute: () => LoginRoute,
+} as any)
+const AssessmentPainDetailsAreaRoute =
+  AssessmentPainDetailsAreaRouteImport.update({
+    id: '/pain-details/$area',
+    path: '/pain-details/$area',
+    getParentRoute: () => AssessmentRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/assessment': typeof AssessmentRoute
+  '/assessment': typeof AssessmentRouteWithChildren
   '/booking': typeof BookingRoute
   '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/assessment/results': typeof AssessmentResultsRoute
+  '/assessment/start': typeof AssessmentStartRoute
   '/physio/dashboard': typeof PhysioDashboardRoute
   '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
   '/programs/': typeof ProgramsIndexRoute
   '/specialists/': typeof SpecialistsIndexRoute
+  '/assessment/pain-details/$area': typeof AssessmentPainDetailsAreaRoute
+  '/login/user/profile': typeof LoginUserProfileRoute
+  '/login/user/signup': typeof LoginUserSignupRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/assessment': typeof AssessmentRoute
+  '/assessment': typeof AssessmentRouteWithChildren
   '/booking': typeof BookingRoute
   '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/assessment/results': typeof AssessmentResultsRoute
+  '/assessment/start': typeof AssessmentStartRoute
   '/physio/dashboard': typeof PhysioDashboardRoute
   '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
   '/programs': typeof ProgramsIndexRoute
   '/specialists': typeof SpecialistsIndexRoute
+  '/assessment/pain-details/$area': typeof AssessmentPainDetailsAreaRoute
+  '/login/user/profile': typeof LoginUserProfileRoute
+  '/login/user/signup': typeof LoginUserSignupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/assessment': typeof AssessmentRoute
+  '/assessment': typeof AssessmentRouteWithChildren
   '/booking': typeof BookingRoute
   '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/assessment/results': typeof AssessmentResultsRoute
+  '/assessment/start': typeof AssessmentStartRoute
   '/physio/dashboard': typeof PhysioDashboardRoute
   '/physio/login': typeof PhysioLoginRoute
   '/specialists/$id': typeof SpecialistsIdRoute
   '/programs/': typeof ProgramsIndexRoute
   '/specialists/': typeof SpecialistsIndexRoute
+  '/assessment/pain-details/$area': typeof AssessmentPainDetailsAreaRoute
+  '/login/user/profile': typeof LoginUserProfileRoute
+  '/login/user/signup': typeof LoginUserSignupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -124,46 +179,65 @@ export interface FileRouteTypes {
     | '/assessment'
     | '/booking'
     | '/dashboard'
+    | '/login'
     | '/recovery'
     | '/sitemap.xml'
+    | '/assessment/results'
+    | '/assessment/start'
     | '/physio/dashboard'
     | '/physio/login'
     | '/specialists/$id'
     | '/programs/'
     | '/specialists/'
+    | '/assessment/pain-details/$area'
+    | '/login/user/profile'
+    | '/login/user/signup'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/assessment'
     | '/booking'
     | '/dashboard'
+    | '/login'
     | '/recovery'
     | '/sitemap.xml'
+    | '/assessment/results'
+    | '/assessment/start'
     | '/physio/dashboard'
     | '/physio/login'
     | '/specialists/$id'
     | '/programs'
     | '/specialists'
+    | '/assessment/pain-details/$area'
+    | '/login/user/profile'
+    | '/login/user/signup'
   id:
     | '__root__'
     | '/'
     | '/assessment'
     | '/booking'
     | '/dashboard'
+    | '/login'
     | '/recovery'
     | '/sitemap.xml'
+    | '/assessment/results'
+    | '/assessment/start'
     | '/physio/dashboard'
     | '/physio/login'
     | '/specialists/$id'
     | '/programs/'
     | '/specialists/'
+    | '/assessment/pain-details/$area'
+    | '/login/user/profile'
+    | '/login/user/signup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AssessmentRoute: typeof AssessmentRoute
+  AssessmentRoute: typeof AssessmentRouteWithChildren
   BookingRoute: typeof BookingRoute
   DashboardRoute: typeof DashboardRoute
+  LoginRoute: typeof LoginRouteWithChildren
   RecoveryRoute: typeof RecoveryRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   PhysioDashboardRoute: typeof PhysioDashboardRoute
@@ -187,6 +261,13 @@ declare module '@tanstack/react-router' {
       path: '/recovery'
       fullPath: '/recovery'
       preLoaderRoute: typeof RecoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -252,14 +333,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PhysioDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assessment/start': {
+      id: '/assessment/start'
+      path: '/start'
+      fullPath: '/assessment/start'
+      preLoaderRoute: typeof AssessmentStartRouteImport
+      parentRoute: typeof AssessmentRoute
+    }
+    '/assessment/results': {
+      id: '/assessment/results'
+      path: '/results'
+      fullPath: '/assessment/results'
+      preLoaderRoute: typeof AssessmentResultsRouteImport
+      parentRoute: typeof AssessmentRoute
+    }
+    '/login/user/signup': {
+      id: '/login/user/signup'
+      path: '/user/signup'
+      fullPath: '/login/user/signup'
+      preLoaderRoute: typeof LoginUserSignupRouteImport
+      parentRoute: typeof LoginRoute
+    }
+    '/login/user/profile': {
+      id: '/login/user/profile'
+      path: '/user/profile'
+      fullPath: '/login/user/profile'
+      preLoaderRoute: typeof LoginUserProfileRouteImport
+      parentRoute: typeof LoginRoute
+    }
+    '/assessment/pain-details/$area': {
+      id: '/assessment/pain-details/$area'
+      path: '/pain-details/$area'
+      fullPath: '/assessment/pain-details/$area'
+      preLoaderRoute: typeof AssessmentPainDetailsAreaRouteImport
+      parentRoute: typeof AssessmentRoute
+    }
   }
 }
 
+interface AssessmentRouteChildren {
+  AssessmentResultsRoute: typeof AssessmentResultsRoute
+  AssessmentStartRoute: typeof AssessmentStartRoute
+  AssessmentPainDetailsAreaRoute: typeof AssessmentPainDetailsAreaRoute
+}
+
+const AssessmentRouteChildren: AssessmentRouteChildren = {
+  AssessmentResultsRoute: AssessmentResultsRoute,
+  AssessmentStartRoute: AssessmentStartRoute,
+  AssessmentPainDetailsAreaRoute: AssessmentPainDetailsAreaRoute,
+}
+
+const AssessmentRouteWithChildren = AssessmentRoute._addFileChildren(
+  AssessmentRouteChildren,
+)
+
+interface LoginRouteChildren {
+  LoginUserProfileRoute: typeof LoginUserProfileRoute
+  LoginUserSignupRoute: typeof LoginUserSignupRoute
+}
+
+const LoginRouteChildren: LoginRouteChildren = {
+  LoginUserProfileRoute: LoginUserProfileRoute,
+  LoginUserSignupRoute: LoginUserSignupRoute,
+}
+
+const LoginRouteWithChildren = LoginRoute._addFileChildren(LoginRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AssessmentRoute: AssessmentRoute,
+  AssessmentRoute: AssessmentRouteWithChildren,
   BookingRoute: BookingRoute,
   DashboardRoute: DashboardRoute,
+  LoginRoute: LoginRouteWithChildren,
   RecoveryRoute: RecoveryRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   PhysioDashboardRoute: PhysioDashboardRoute,

@@ -67,9 +67,6 @@ export function Nav() {
             <Button variant="ghost" size="sm" className="rounded-full" asChild>
               <Link to="/login">Login</Link>
             </Button>
-            <Button variant="ghost" size="sm" className="rounded-full" asChild>
-              <Link to="/physio/login">Physio login</Link>
-            </Button>
           </div>
 
           <button
@@ -96,11 +93,6 @@ export function Nav() {
             <Button variant="ghost" className="mt-2 w-full rounded-2xl" asChild>
               <Link to="/login" onClick={() => setOpen(false)}>
                 Login
-              </Link>
-            </Button>
-            <Button variant="ghost" className="mt-2 w-full rounded-2xl" asChild>
-              <Link to="/physio/login" onClick={() => setOpen(false)}>
-                Physio login
               </Link>
             </Button>
           </div>
