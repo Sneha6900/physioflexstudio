@@ -64,10 +64,25 @@ const ageGroups = ["Under 18", "18–29", "30–44", "45–59", "60+"];
 
 function AssessmentPage() {
   const [step, setStep] = useState(0);
+  const data = useAssessment();
   const navigate = useNavigate();
+  const isCustomPain = data.area === "Other";
 
-  const next = () => setStep((s) => Math.min(3, s + 1));
-  const back = () => setStep((s) => Math.max(0, s - 1));
+  const next = () => {
+    if (step === 0 && isCustomPain) {
+      setStep(1); // Show custom pain form
+    } else {
+      setStep((s) => Math.min(isCustomPain ? 4 : 3, s + 1));
+    }
+  };
+  
+  const back = () => {
+    if (step === 1 && isCustomPain) {
+      setStep(0); // Back from custom pain form
+    } else {
+      setStep((s) => Math.max(0, s - 1));
+    }
+  };
 
   return (
     <FlowShell step={step}>
@@ -80,9 +95,21 @@ function AssessmentPage() {
           transition={{ duration: 0.4 }}
         >
           {step === 0 && <StepArea onNext={next} />}
-          {step === 1 && <StepDetails onNext={next} onBack={back} />}
-          {step === 2 && <StepAnalysis onNext={next} onBack={back} />}
-          {step === 3 && (
+          {step === 1 && isCustomPain && <StepCustomPain onNext={next} onBack={back} />}
+          {step === 1 && !isCustomPain && <StepDetails onNext={next} onBack={back} />}
+          {step === 2 && isCustomPain && <StepDetails onNext={next} onBack={back} />}
+          {step === 2 && !isCustomPain && <StepAnalysis onNext={next} onBack={back} />}
+          {step === 3 && isCustomPain && <StepAnalysis onNext={next} onBack={back} />}
+          {step === 3 && !isCustomPain && (
+            <StepPlan
+              onBack={back}
+              onChoose={(j) => {
+                setAssessment({ journey: j });
+                navigate({ to: j === "self" ? "/recovery" : "/specialists" });
+              }}
+            />
+          )}
+          {step === 4 && isCustomPain && (
             <StepPlan
               onBack={back}
               onChoose={(j) => {
@@ -151,6 +178,82 @@ function StepArea({ onNext }: { onNext: () => void }) {
       <FooterNav
         right={
           <Button variant="hero" className="rounded-full" disabled={!data.area} onClick={onNext}>
+            Continue <ArrowRight className="size-4" />
+          </Button>
+        }
+      />
+    </div>
+  );
+}
+
+/* ---------------- Step 1b: Custom pain description (for "Other") ---------------- */
+function StepCustomPain({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+  const data = useAssessment();
+  const [bodyPart, setBodyPart] = useState(data.customPainArea || "");
+  const [description, setDescription] = useState(data.customPainDescription || "");
+  const valid = bodyPart.trim() && description.trim();
+
+  const handleContinue = () => {
+    setAssessment({
+      customPainArea: bodyPart.trim(),
+      customPainDescription: description.trim(),
+    });
+    onNext();
+  };
+
+  return (
+    <div>
+      <Heading
+        eyebrow="Step 1"
+        title="Describe your discomfort"
+        sub="Tell us about the specific body part and what you're experiencing."
+      />
+      <div className="mt-10 space-y-6 max-w-2xl">
+        <Card>
+          <label className="block">
+            <div className="text-sm font-semibold text-offwhite mb-2">Affected Body Part</div>
+            <input
+              type="text"
+              placeholder="e.g., Left elbow, Right knee, Lower back"
+              value={bodyPart}
+              onChange={(e) => setBodyPart(e.target.value)}
+              className="w-full px-4 py-3 rounded-2xl border border-white/15 bg-white/5 text-offwhite placeholder:text-white/50 focus:outline-none focus:border-accent focus:bg-white/10 transition-all"
+            />
+          </label>
+        </Card>
+
+        <Card>
+          <label className="block">
+            <div className="text-sm font-semibold text-offwhite mb-2">Describe Your Discomfort</div>
+            <textarea
+              placeholder="Describe the pain, stiffness, or discomfort you're experiencing. Include when it started, what activities trigger it, and how it affects your daily life."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={5}
+              className="w-full px-4 py-3 rounded-2xl border border-white/15 bg-white/5 text-offwhite placeholder:text-white/50 focus:outline-none focus:border-accent focus:bg-white/10 transition-all resize-none"
+            />
+          </label>
+        </Card>
+
+        <div className="rounded-2xl border border-accent/20 bg-accent/10 p-4">
+          <div className="flex gap-3">
+            <Lightbulb className="size-5 text-accent flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-offwhite/90">
+              <p className="font-semibold">Pro tip:</p>
+              <p className="mt-1">The more detailed your description, the better our AI can personalize your recovery plan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <FooterNav
+        left={
+          <Button variant="heroOutline" className="rounded-full" onClick={onBack}>
+            <ArrowLeft className="size-4" /> Back
+          </Button>
+        }
+        right={
+          <Button variant="hero" className="rounded-full" disabled={!valid} onClick={handleContinue}>
             Continue <ArrowRight className="size-4" />
           </Button>
         }
@@ -291,7 +394,10 @@ function StepAnalysis({ onNext, onBack }: { onNext: () => void; onBack: () => vo
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
               <div className="text-xs uppercase tracking-widest text-white/40">Assessment summary</div>
               <dl className="mt-4 space-y-3 text-sm">
-                <Row k="Pain area" v={data.area ?? "—"} />
+                <Row k="Pain area" v={data.area === "Other" ? data.customPainArea || "—" : data.area ?? "—"} />
+                {data.area === "Other" && data.customPainDescription && (
+                  <Row k="Description" v={data.customPainDescription} />
+                )}
                 <Row k="Pain level" v={`${data.painLevel}/10`} />
                 <Row k="Duration" v={data.duration || "—"} />
                 <Row k="Mobility limitation" v={data.mobility ?? "—"} />

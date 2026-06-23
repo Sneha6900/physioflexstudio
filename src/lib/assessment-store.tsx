@@ -15,6 +15,8 @@ export type Journey = "self" | "expert";
 
 export type AssessmentData = {
   area: PainArea | null;
+  customPainArea?: string;
+  customPainDescription?: string;
   painLevel: number;
   duration: string;
   stiffness: number;
