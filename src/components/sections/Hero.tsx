@@ -61,7 +61,7 @@ export function Hero() {
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <Button variant="hero" size="xl" className="group" asChild>
-              <Link to="/physio/login">
+              <Link to="/login">
                 Login
                 <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </Link>
