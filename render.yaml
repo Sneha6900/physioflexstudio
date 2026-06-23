@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: physioflexstudio
+    env: node
+    buildCommand: npm run build
+    startCommand: node .output/server/index.mjs
+    plan: free
+    envVars:
+      - key: NITRO_PRESET
+        value: node-server

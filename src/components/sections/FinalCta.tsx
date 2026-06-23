@@ -1,0 +1,59 @@
+import { motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+
+export function FinalCta() {
+  return (
+    <section className="bg-background">
+      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
+        <div className="relative overflow-hidden rounded-[2.5rem] surface-dark px-6 py-20 text-center sm:px-12">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+              backgroundSize: "56px 56px",
+            }}
+          />
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative mx-auto max-w-3xl font-display text-4xl font-extrabold tracking-tight text-offwhite text-balance sm:text-6xl"
+          >
+            Your Recovery Journey <span className="ink-underline">Starts Today.</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="relative mx-auto mt-5 max-w-xl text-lg text-white/65"
+          >
+            Intelligent assessment, personalized plans, and expert support — all in one seamless
+            experience.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
+          >
+            <Button variant="hero" size="xl" className="group rounded-full" asChild>
+              <Link to="/assessment">
+                Get Started
+                <ArrowRight className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <Button variant="heroOutline" size="xl" className="rounded-full" asChild>
+              <Link to="/specialists">Talk to a specialist</Link>
+            </Button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
