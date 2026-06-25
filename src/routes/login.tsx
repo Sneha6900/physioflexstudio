@@ -9,7 +9,10 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Login — PhysioFlex Studio" },
-      { name: "description", content: "Sign in to PhysioFlex Studio as a client or physiotherapist." },
+      {
+        name: "description",
+        content: "Sign in to PhysioFlex Studio as a client or physiotherapist.",
+      },
     ],
   }),
 });
@@ -17,7 +20,7 @@ export const Route = createFileRoute("/login")({
 function LoginLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Only show the role selection on the /login route itself
   const isRoleSelectionPage = location.pathname === "/login";
 
@@ -27,7 +30,11 @@ function LoginLayout() {
   }
 
   return (
-    <PageShell crumbs={navCrumbs.login()} showFooter={false} contentClassName="flex min-h-[calc(100dvh-var(--site-nav-height)-var(--site-nav-gap)-2.5rem)] items-center">
+    <PageShell
+      crumbs={navCrumbs.login()}
+      showFooter={false}
+      contentClassName="flex min-h-[calc(100dvh-var(--site-nav-height)-var(--site-nav-gap)-2.5rem)] items-center"
+    >
       <div className="w-full max-w-md mx-auto">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
@@ -50,14 +57,12 @@ function LoginLayout() {
             className="w-full rounded-2xl border-2 border-border bg-card p-6 transition-all hover:border-primary hover:shadow-lg active:scale-95"
           >
             <div className="flex items-center gap-4">
-              <div className="rounded-lg bg-blue-100 p-3 dark:bg-blue-900">
-                <Users className="size-6 text-blue-600 dark:text-blue-400" />
+              <div className="rounded-lg bg-primary/15 p-3">
+                <Users className="size-6 text-primary" />
               </div>
               <div className="text-left">
                 <h2 className="font-semibold text-foreground">Client</h2>
-                <p className="text-sm text-muted-foreground">
-                  Book sessions and track recovery
-                </p>
+                <p className="text-sm text-muted-foreground">Book sessions and track recovery</p>
               </div>
             </div>
           </button>
@@ -68,14 +73,12 @@ function LoginLayout() {
             className="w-full rounded-2xl border-2 border-border bg-card p-6 transition-all hover:border-primary hover:shadow-lg active:scale-95"
           >
             <div className="flex items-center gap-4">
-              <div className="rounded-lg bg-green-100 p-3 dark:bg-green-900">
-                <Stethoscope className="size-6 text-green-600 dark:text-green-400" />
+              <div className="rounded-lg bg-success/15 p-3">
+                <Stethoscope className="size-6 text-success" />
               </div>
               <div className="text-left">
                 <h2 className="font-semibold text-foreground">Physiotherapist</h2>
-                <p className="text-sm text-muted-foreground">
-                  Manage clients and sessions
-                </p>
+                <p className="text-sm text-muted-foreground">Manage clients and sessions</p>
               </div>
             </div>
           </button>

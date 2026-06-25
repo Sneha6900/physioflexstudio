@@ -21,9 +21,7 @@ export const Route = createFileRoute("/login/user/signup")({
 function ClientSignupPage() {
   const navigate = useNavigate();
   const { setSignUpMethod } = useClientAuth();
-  const [method, setMethod] = useState<"email" | "phone" | "google" | null>(
-    null
-  );
+  const [method, setMethod] = useState<"email" | "phone" | "google" | null>(null);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
 
@@ -66,7 +64,11 @@ function ClientSignupPage() {
   };
 
   return (
-    <PageShell crumbs={navCrumbs.loginSignup()} showFooter={false} contentClassName="flex min-h-[calc(100dvh-var(--site-nav-height)-var(--site-nav-gap)-2.5rem)] items-center">
+    <PageShell
+      crumbs={navCrumbs.loginSignup()}
+      showFooter={false}
+      contentClassName="flex min-h-[calc(100dvh-var(--site-nav-height)-var(--site-nav-gap)-2.5rem)] items-center"
+    >
       <div className="w-full max-w-md mx-auto">
         {method ? (
           <div>
@@ -79,8 +81,7 @@ function ClientSignupPage() {
             </button>
 
             <h1 className="font-display text-2xl font-bold text-foreground mb-2">
-              Sign up with{" "}
-              {method === "email" ? "Email" : "Phone Number"}
+              Sign up with {method === "email" ? "Email" : "Phone Number"}
             </h1>
             <p className="text-muted-foreground mb-6">
               {method === "email"
@@ -95,20 +96,14 @@ function ClientSignupPage() {
                 </Label>
                 <Input
                   type={method === "email" ? "email" : "tel"}
-                  placeholder={
-                    method === "email"
-                      ? "you@example.com"
-                      : "+91 98765 43210"
-                  }
+                  placeholder={method === "email" ? "you@example.com" : "+91 98765 43210"}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   className="rounded-lg"
                 />
               </div>
 
-              {error && (
-                <p className="text-sm text-red-500">{error}</p>
-              )}
+              {error && <p className="text-sm text-red-500">{error}</p>}
 
               <Button type="submit" className="w-full rounded-lg">
                 Continue
@@ -128,9 +123,7 @@ function ClientSignupPage() {
             <h1 className="font-display text-2xl font-bold text-foreground mb-2">
               Create your account
             </h1>
-            <p className="text-muted-foreground mb-8">
-              Choose how you'd like to sign up
-            </p>
+            <p className="text-muted-foreground mb-8">Choose how you'd like to sign up</p>
 
             <div className="space-y-3">
               <button
@@ -140,9 +133,7 @@ function ClientSignupPage() {
                 <Mail className="size-5 text-primary" />
                 <div className="text-left">
                   <p className="font-medium text-foreground">Email</p>
-                  <p className="text-sm text-muted-foreground">
-                    Sign up with email
-                  </p>
+                  <p className="text-sm text-muted-foreground">Sign up with email</p>
                 </div>
               </button>
 
@@ -153,9 +144,7 @@ function ClientSignupPage() {
                 <Phone className="size-5 text-primary" />
                 <div className="text-left">
                   <p className="font-medium text-foreground">Phone</p>
-                  <p className="text-sm text-muted-foreground">
-                    Sign up with phone number
-                  </p>
+                  <p className="text-sm text-muted-foreground">Sign up with phone number</p>
                 </div>
               </button>
 
@@ -166,9 +155,7 @@ function ClientSignupPage() {
                 <Chrome className="size-5 text-primary" />
                 <div className="text-left">
                   <p className="font-medium text-foreground">Google</p>
-                  <p className="text-sm text-muted-foreground">
-                    Sign up with Google
-                  </p>
+                  <p className="text-sm text-muted-foreground">Sign up with Google</p>
                 </div>
               </button>
             </div>

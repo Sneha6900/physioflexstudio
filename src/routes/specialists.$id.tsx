@@ -60,7 +60,13 @@ function SpecialistProfile() {
         {/* left: photo + key facts */}
         <div>
           <div className="overflow-hidden rounded-[2rem] border border-border">
-            <img src={s.img} alt={s.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover" />
+            <img
+              src={s.img}
+              alt={s.name}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] w-full object-cover"
+            />
           </div>
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Fact icon={Star} value={s.rating.toFixed(1)} label="Rating" />
@@ -131,9 +137,7 @@ function SpecialistProfile() {
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className={
-                    i < r.rating ? "size-4 fill-accent text-accent" : "size-4 text-muted"
-                  }
+                  className={i < r.rating ? "size-4 fill-accent text-accent" : "size-4 text-muted"}
                 />
               ))}
             </div>
@@ -146,15 +150,7 @@ function SpecialistProfile() {
   );
 }
 
-function Fact({
-  icon: Icon,
-  value,
-  label,
-}: {
-  icon: typeof Star;
-  value: string;
-  label: string;
-}) {
+function Fact({ icon: Icon, value, label }: { icon: typeof Star; value: string; label: string }) {
   return (
     <div className="grid place-items-center rounded-2xl border border-border bg-card p-4">
       <Icon className="size-5 text-accent" />

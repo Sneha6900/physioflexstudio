@@ -38,7 +38,7 @@ export function FlowShell({
             <span className="grid size-9 place-items-center rounded-xl bg-secondary text-foreground">
               <Activity className="size-5 text-primary" />
             </span>
-            <span className="truncate font-display text-base font-bold tracking-tight text-foreground sm:text-lg">
+            <span className="type-nav truncate font-display font-bold tracking-tight text-foreground">
               PhysioFlex <span className="text-primary">Studio</span>
             </span>
           </Link>
@@ -53,7 +53,7 @@ export function FlowShell({
                     <div key={label} className="flex min-w-0 flex-1 flex-col items-center gap-1">
                       <span
                         className={cn(
-                          "grid size-7 place-items-center rounded-full border text-xs font-semibold",
+                          "type-label grid size-7 place-items-center rounded-full border font-semibold",
                           active
                             ? "border-primary bg-primary text-primary-foreground"
                             : done
@@ -65,7 +65,7 @@ export function FlowShell({
                       </span>
                       <span
                         className={cn(
-                          "line-clamp-1 w-full text-center text-[0.65rem] font-medium",
+                          "type-badge w-full text-center font-medium text-pretty",
                           active ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
@@ -83,7 +83,7 @@ export function FlowShell({
                     <div key={label} className="flex items-center gap-2">
                       <span
                         className={cn(
-                          "grid size-7 place-items-center rounded-full border text-xs font-semibold transition-all",
+                          "type-label grid size-7 place-items-center rounded-full border font-semibold transition-all",
                           active
                             ? "border-primary bg-primary text-primary-foreground"
                             : done
@@ -95,7 +95,7 @@ export function FlowShell({
                       </span>
                       <span
                         className={cn(
-                          "text-xs font-medium",
+                          "type-label font-medium",
                           active ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
@@ -111,7 +111,7 @@ export function FlowShell({
 
           <Link
             to="/dashboard"
-            className="h-11 shrink-0 rounded-full border border-border bg-secondary px-4 py-2 text-xs font-semibold leading-none text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+            className="type-button h-11 shrink-0 rounded-full border border-border bg-secondary px-4 py-2 font-semibold leading-none text-muted-foreground transition-colors hover:text-foreground"
           >
             My Progress
           </Link>

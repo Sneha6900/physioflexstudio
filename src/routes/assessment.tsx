@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Check,
-  Clock,
-  Dumbbell,
-  HandHeart,
-  Target,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock, Dumbbell, HandHeart, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
 import { navCrumbs } from "@/lib/navigation";
@@ -37,7 +29,8 @@ export const Route = createFileRoute("/assessment")({
       { property: "og:title", content: "Clinical Mobility Assessment — PhysioFlex Studio" },
       {
         property: "og:description",
-        content: "Clinically-informed pain assessment and a personalized recovery plan designed by physiotherapists.",
+        content:
+          "Clinically-informed pain assessment and a personalized recovery plan designed by physiotherapists.",
       },
     ],
   }),
@@ -115,7 +108,9 @@ function AssessmentPage() {
               onSelect={setSelectedMarkerId}
               onUpdate={(id, patch) =>
                 setAssessment({
-                  markers: markers.map((marker) => (marker.id === id ? { ...marker, ...patch } : marker)),
+                  markers: markers.map((marker) =>
+                    marker.id === id ? { ...marker, ...patch } : marker,
+                  ),
                 })
               }
               onRemove={(id) => {
@@ -136,7 +131,9 @@ function AssessmentPage() {
 
 function StepProfile({ onNext }: { onNext: () => void }) {
   const data = useAssessment();
-  const valid = Boolean(data.profile.name.trim() && data.profile.age && data.profile.occupation.trim());
+  const valid = Boolean(
+    data.profile.name.trim() && data.profile.age && data.profile.occupation.trim(),
+  );
 
   return (
     <div>
@@ -153,7 +150,9 @@ function StepProfile({ onNext }: { onNext: () => void }) {
             <input
               type="text"
               value={data.profile.name}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, name: e.target.value } })}
+              onChange={(e) =>
+                setAssessment({ profile: { ...data.profile, name: e.target.value } })
+              }
               placeholder="Your name"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
             />
@@ -166,7 +165,9 @@ function StepProfile({ onNext }: { onNext: () => void }) {
               type="number"
               min={12}
               value={data.profile.age ?? ""}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, age: Number(e.target.value) || null } })}
+              onChange={(e) =>
+                setAssessment({ profile: { ...data.profile, age: Number(e.target.value) || null } })
+              }
               placeholder="Years"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
             />
@@ -178,7 +179,9 @@ function StepProfile({ onNext }: { onNext: () => void }) {
             <input
               type="text"
               value={data.profile.occupation}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, occupation: e.target.value } })}
+              onChange={(e) =>
+                setAssessment({ profile: { ...data.profile, occupation: e.target.value } })
+              }
               placeholder="e.g. desk worker, athlete, parent"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
             />
@@ -191,7 +194,11 @@ function StepProfile({ onNext }: { onNext: () => void }) {
               type="number"
               min={0}
               value={data.profile.sittingHours ?? ""}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, sittingHours: Number(e.target.value) || null } })}
+              onChange={(e) =>
+                setAssessment({
+                  profile: { ...data.profile, sittingHours: Number(e.target.value) || null },
+                })
+              }
               placeholder="Hours per day"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
             />
@@ -205,7 +212,9 @@ function StepProfile({ onNext }: { onNext: () => void }) {
             <span className="text-sm font-semibold text-muted-foreground">Medical history</span>
             <textarea
               value={data.profile.medicalHistory}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, medicalHistory: e.target.value } })}
+              onChange={(e) =>
+                setAssessment({ profile: { ...data.profile, medicalHistory: e.target.value } })
+              }
               rows={4}
               placeholder="Any prior conditions or treatments"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted resize-none"
@@ -217,7 +226,9 @@ function StepProfile({ onNext }: { onNext: () => void }) {
             <span className="text-sm font-semibold text-muted-foreground">Previous injuries</span>
             <textarea
               value={data.profile.previousInjuries}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, previousInjuries: e.target.value } })}
+              onChange={(e) =>
+                setAssessment({ profile: { ...data.profile, previousInjuries: e.target.value } })
+              }
               rows={4}
               placeholder="Injuries, surgeries or recurring aches"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted resize-none"
@@ -233,7 +244,9 @@ function StepProfile({ onNext }: { onNext: () => void }) {
             <input
               type="text"
               value={data.profile.emergencyContact}
-              onChange={(e) => setAssessment({ profile: { ...data.profile, emergencyContact: e.target.value } })}
+              onChange={(e) =>
+                setAssessment({ profile: { ...data.profile, emergencyContact: e.target.value } })
+              }
               placeholder="Name or phone"
               className="w-full rounded-2xl border border-border bg-muted/50 px-4 py-3 text-foreground focus:outline-none focus:border-accent focus:bg-muted"
             />
@@ -289,9 +302,13 @@ function StepMarkers({
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold text-foreground">Pain marker summary</p>
-                <p className="mt-1 text-sm text-muted-foreground">Each marker captures a separate pain point for your personalized program.</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Each marker captures a separate pain point for your personalized program.
+                </p>
               </div>
-              <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">{markers.length}/3</span>
+              <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">
+                {markers.length}/3
+              </span>
             </div>
 
             <div className="mt-6 space-y-3">
@@ -310,13 +327,19 @@ function StepMarkers({
                   >
                     <div>
                       <p className="font-semibold text-foreground">{marker.part}</p>
-                      <p className="text-sm text-muted-foreground">Pain level {marker.painLevel}, {marker.mobility} mobility</p>
+                      <p className="text-sm text-muted-foreground">
+                        Pain level {marker.painLevel}, {marker.mobility} mobility
+                      </p>
                     </div>
-                    <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">Marker {marker.id}</span>
+                    <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
+                      Marker {marker.id}
+                    </span>
                   </button>
                 ))
               ) : (
-                <p className="text-sm text-muted-foreground">Tap an area on the model to add your first marker.</p>
+                <p className="text-sm text-muted-foreground">
+                  Tap an area on the model to add your first marker.
+                </p>
               )}
             </div>
           </Card>
@@ -412,7 +435,9 @@ function StepMarkerDetails({
                   label="Mobility"
                   options={mobilityOptions}
                   value={marker.mobility}
-                  onChange={(value) => onUpdate(marker.id, { mobility: value as "Low" | "Medium" | "High" })}
+                  onChange={(value) =>
+                    onUpdate(marker.id, { mobility: value as "Low" | "Medium" | "High" })
+                  }
                 />
                 <Choices
                   label="Duration"
@@ -443,7 +468,9 @@ function StepMarkerDetails({
           <div className="space-y-4">
             <div>
               <p className="text-sm font-semibold text-foreground">Markers</p>
-              <p className="mt-1 text-sm text-muted-foreground">Choose which marker to update before continuing.</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Choose which marker to update before continuing.
+              </p>
             </div>
             <div className="grid gap-3">
               {markers.map((item) => (
@@ -460,9 +487,13 @@ function StepMarkerDetails({
                 >
                   <div>
                     <p className="font-semibold text-foreground">{item.part}</p>
-                    <p className="text-sm text-muted-foreground">Level {item.painLevel}, {item.mobility} mobility</p>
+                    <p className="text-sm text-muted-foreground">
+                      Level {item.painLevel}, {item.mobility} mobility
+                    </p>
                   </div>
-                  <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">{item.id}</span>
+                  <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">
+                    {item.id}
+                  </span>
                 </button>
               ))}
             </div>
@@ -513,7 +544,9 @@ function StepPlan({ area, onBack }: { area: PainArea | null; onBack: () => void 
         <p className="mt-3 text-sm leading-7 text-muted-foreground">{insight}</p>
       </div>
 
-      <h3 className="mt-12 font-display text-xl font-bold text-foreground">Recommended exercises</h3>
+      <h3 className="mt-12 font-display text-xl font-bold text-foreground">
+        Recommended exercises
+      </h3>
       <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {exercises.map((ex) => (
           <div
@@ -580,7 +613,8 @@ function StepPlan({ area, onBack }: { area: PainArea | null; onBack: () => void 
         <div className="rounded-3xl border border-border bg-muted/40 p-6 text-sm text-muted-foreground">
           <p className="font-semibold text-foreground">Expert Assisted Recovery</p>
           <p className="mt-3">
-            We recommend specialist-led rehabilitation for the most reliable, clinically supported recovery.
+            We recommend specialist-led rehabilitation for the most reliable, clinically supported
+            recovery.
           </p>
           <Button
             variant="hero"

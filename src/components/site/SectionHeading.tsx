@@ -16,12 +16,7 @@ export function SectionHeading({
   dark?: boolean;
 }) {
   return (
-    <div
-      className={cn(
-        "max-w-2xl",
-        align === "center" ? "mx-auto text-center" : "text-left",
-      )}
-    >
+    <div className={cn("max-w-2xl", align === "center" ? "mx-auto text-center" : "text-left")}>
       {eyebrow && (
         <Reveal>
           <span
@@ -36,21 +31,11 @@ export function SectionHeading({
         </Reveal>
       )}
       <Reveal delay={0.05}>
-        <h2
-          className={cn(
-            "type-section mt-2 text-balance text-foreground sm:mt-3",
-          )}
-        >
-          {title}
-        </h2>
+        <h2 className={cn("type-section mt-[var(--space-heading-gap)] text-balance text-foreground")}>{title}</h2>
       </Reveal>
       {description && (
         <Reveal delay={0.1}>
-          <p
-            className={cn(
-              "type-body mt-2 text-balance text-muted-foreground sm:mt-3",
-            )}
-          >
+          <p className={cn("type-body mt-[var(--space-heading-gap)] text-balance text-muted-foreground")}>
             {description}
           </p>
         </Reveal>

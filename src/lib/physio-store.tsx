@@ -63,7 +63,11 @@ const physioAccounts: PhysioProfile[] = [
     reviews: 312,
     years: 8,
     specializations: ["Sports Recovery", "Mobility", "Manual Therapy"],
-    certifications: ["MPT Sports Medicine", "Certified Strength & Conditioning Specialist", "Dry Needling Level 2"],
+    certifications: [
+      "MPT Sports Medicine",
+      "Certified Strength & Conditioning Specialist",
+      "Dry Needling Level 2",
+    ],
     bio: "Former national-level athlete turned sports physiotherapist. Arjun helps active clients recover faster while preserving performance.",
     studioLocations: ["Indiranagar Studio", "Koramangala Studio"],
   },
@@ -89,7 +93,11 @@ const physioAccounts: PhysioProfile[] = [
     reviews: 401,
     years: 11,
     specializations: ["Post-Surgery", "Rehab", "Manual Therapy"],
-    certifications: ["MPT Orthopaedics", "Post-Surgical Rehab Specialist", "Manual Therapy Certified"],
+    certifications: [
+      "MPT Orthopaedics",
+      "Post-Surgical Rehab Specialist",
+      "Manual Therapy Certified",
+    ],
     bio: "Karan guides post-operative clients through safe recovery with precise progress checkpoints and hands-on supervision.",
     studioLocations: ["Koramangala Studio", "Whitefield Studio"],
   },
@@ -102,7 +110,11 @@ const physioAccounts: PhysioProfile[] = [
     reviews: 186,
     years: 5,
     specializations: ["Posture Correction", "Ergonomics", "Core Stability"],
-    certifications: ["MPT Musculoskeletal", "Postural Restoration Trained", "Ergonomics Consultant"],
+    certifications: [
+      "MPT Musculoskeletal",
+      "Postural Restoration Trained",
+      "Ergonomics Consultant",
+    ],
     bio: "Sneha helps clients undo postural strain through practical corrective exercise and long-term movement coaching.",
     studioLocations: ["Indiranagar Studio", "Whitefield Studio"],
   },
@@ -142,7 +154,8 @@ const defaultSessions: PhysioSession[] = [
     studio: "Whitefield Studio",
     status: "completed",
     rating: 5,
-    review: "Karan helped me feel stable again. I left the studio more confident in my knee mechanics.",
+    review:
+      "Karan helped me feel stable again. I left the studio more confident in my knee mechanics.",
   },
   {
     id: "S-1022",
@@ -155,7 +168,8 @@ const defaultSessions: PhysioSession[] = [
     studio: "Indiranagar Studio",
     status: "completed",
     rating: 4,
-    review: "Priya guided my neck mobility drills perfectly. I felt immediate relief in my posture.",
+    review:
+      "Priya guided my neck mobility drills perfectly. I felt immediate relief in my posture.",
   },
 ];
 
@@ -250,7 +264,12 @@ export function completeSession(sessionId: string) {
     ...state,
     sessions: state.sessions.map((session) =>
       session.id === sessionId && session.status === "accepted"
-        ? { ...session, status: "completed", rating: 5, review: "Delivered a structured session with strong follow-up guidance." }
+        ? {
+            ...session,
+            status: "completed",
+            rating: 5,
+            review: "Delivered a structured session with strong follow-up guidance.",
+          }
         : session,
     ),
     metrics: {
@@ -258,7 +277,11 @@ export function completeSession(sessionId: string) {
       completedToday: state.metrics.completedToday + 1,
       completedWeek: state.metrics.completedWeek + 1,
       averageRating:
-        Math.round(((state.metrics.averageRating * state.metrics.completedWeek + 5) / (state.metrics.completedWeek + 1)) * 10) / 10,
+        Math.round(
+          ((state.metrics.averageRating * state.metrics.completedWeek + 5) /
+            (state.metrics.completedWeek + 1)) *
+            10,
+        ) / 10,
     },
   };
   persist();
@@ -278,7 +301,11 @@ export function subscribePhysio(cb: () => void) {
 }
 
 export function usePhysio() {
-  return useSyncExternalStore(subscribePhysio, () => state, () => defaultState);
+  return useSyncExternalStore(
+    subscribePhysio,
+    () => state,
+    () => defaultState,
+  );
 }
 
 export const physioAccountsList = physioAccounts;

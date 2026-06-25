@@ -17,42 +17,22 @@ export const Route = createFileRoute("/assessment/results")({
 });
 
 const EXERCISE_RECOMMENDATIONS: Record<string, string[]> = {
-  head: [
-    "Neck stretches",
-    "Cervical rotation exercises",
-    "Shoulder shrugs",
-    "Chin tucks",
-  ],
+  head: ["Neck stretches", "Cervical rotation exercises", "Shoulder shrugs", "Chin tucks"],
   shoulder: [
     "Shoulder rolls",
     "Pendulum exercises",
     "Cross-body shoulder stretch",
     "Scapular push-ups",
   ],
-  chest: [
-    "Chest stretches",
-    "Wall push-ups",
-    "Doorway stretches",
-    "Breathing exercises",
-  ],
+  chest: ["Chest stretches", "Wall push-ups", "Doorway stretches", "Breathing exercises"],
   upper_back: [
     "Thoracic spine rotation",
     "Prone Y-T-W exercises",
     "Reverse fly",
     "Back extensions",
   ],
-  arm: [
-    "Bicep curls",
-    "Tricep dips",
-    "Arm circles",
-    "Resistance band exercises",
-  ],
-  elbow: [
-    "Elbow flexion/extension",
-    "Pronation/supination",
-    "Wrist curls",
-    "Resistance band work",
-  ],
+  arm: ["Bicep curls", "Tricep dips", "Arm circles", "Resistance band exercises"],
+  elbow: ["Elbow flexion/extension", "Pronation/supination", "Wrist curls", "Resistance band work"],
   forearm: [
     "Forearm pronation/supination",
     "Wrist stretches",
@@ -65,18 +45,8 @@ const EXERCISE_RECOMMENDATIONS: Record<string, string[]> = {
     "Wrist extensor exercises",
     "Grip strengthening",
   ],
-  hand: [
-    "Finger flexion/extension",
-    "Grip exercises",
-    "Finger spreading",
-    "Dexterity training",
-  ],
-  abdomen: [
-    "Core stabilization",
-    "Planks",
-    "Modified crunches",
-    "Breathing exercises",
-  ],
+  hand: ["Finger flexion/extension", "Grip exercises", "Finger spreading", "Dexterity training"],
+  abdomen: ["Core stabilization", "Planks", "Modified crunches", "Breathing exercises"],
   lower_back: [
     "Back extensions",
     "Pelvic tilts",
@@ -84,43 +54,12 @@ const EXERCISE_RECOMMENDATIONS: Record<string, string[]> = {
     "Hamstring stretches",
     "Core strengthening",
   ],
-  hip: [
-    "Hip flexor stretches",
-    "Clamshells",
-    "Hip circles",
-    "Glute bridges",
-  ],
-  thigh: [
-    "Quad stretches",
-    "Hamstring stretches",
-    "Lunges",
-    "Leg lifts",
-    "Squats",
-  ],
-  knee: [
-    "Quad sets",
-    "Straight leg raises",
-    "Hamstring curls",
-    "Knee extensions",
-  ],
-  calf: [
-    "Calf stretches",
-    "Wall stretches",
-    "Calf raises",
-    "Towel scrunches",
-  ],
-  ankle: [
-    "Ankle circles",
-    "Calf stretches",
-    "Ankle alphabet",
-    "Balance exercises",
-  ],
-  foot: [
-    "Foot stretches",
-    "Towel scrunches",
-    "Marble pickups",
-    "Arch exercises",
-  ],
+  hip: ["Hip flexor stretches", "Clamshells", "Hip circles", "Glute bridges"],
+  thigh: ["Quad stretches", "Hamstring stretches", "Lunges", "Leg lifts", "Squats"],
+  knee: ["Quad sets", "Straight leg raises", "Hamstring curls", "Knee extensions"],
+  calf: ["Calf stretches", "Wall stretches", "Calf raises", "Towel scrunches"],
+  ankle: ["Ankle circles", "Calf stretches", "Ankle alphabet", "Balance exercises"],
+  foot: ["Foot stretches", "Towel scrunches", "Marble pickups", "Arch exercises"],
 };
 
 const TREATMENT_PLANS: Record<string, string> = {
@@ -132,8 +71,7 @@ const TREATMENT_PLANS: Record<string, string> = {
 
 function AssessmentResultsPage() {
   const navigate = useNavigate();
-  const { assessment, selectedAreas, completeAssessment } =
-    useClientAssessment();
+  const { assessment, selectedAreas, completeAssessment } = useClientAssessment();
 
   useEffect(() => {
     if (!assessment && selectedAreas.length === 0) {
@@ -147,23 +85,13 @@ function AssessmentResultsPage() {
 
   const averagePainLevel =
     Math.round(
-      assessment.painPoints.reduce((sum, p) => sum + p.level, 0) /
-        assessment.painPoints.length
+      assessment.painPoints.reduce((sum, p) => sum + p.level, 0) / assessment.painPoints.length,
     ) || 0;
 
-  const severity =
-    averagePainLevel <= 3
-      ? "low"
-      : averagePainLevel <= 6
-      ? "moderate"
-      : "high";
+  const severity = averagePainLevel <= 3 ? "low" : averagePainLevel <= 6 ? "moderate" : "high";
 
   const recommendedExercises = Array.from(
-    new Set(
-      assessment.painPoints.flatMap(
-        (p) => EXERCISE_RECOMMENDATIONS[p.area] || []
-      )
-    )
+    new Set(assessment.painPoints.flatMap((p) => EXERCISE_RECOMMENDATIONS[p.area] || [])),
   ).slice(0, 8);
 
   const finalAssessment = {
@@ -186,17 +114,14 @@ function AssessmentResultsPage() {
           Assessment Complete
         </h1>
         <p className="text-muted-foreground mb-8">
-          Based on your responses, here are the recommended exercises and
-          treatment plan
+          Based on your responses, here are the recommended exercises and treatment plan
         </p>
 
         {/* Summary Cards */}
         <div className="grid gap-4 md:grid-cols-3 mb-8">
           {/* Pain Areas */}
           <div className="rounded-lg bg-card border border-border p-4">
-            <p className="text-sm font-medium text-muted-foreground mb-2">
-              Pain Areas Identified
-            </p>
+            <p className="text-sm font-medium text-muted-foreground mb-2">Pain Areas Identified</p>
             <p className="font-display text-2xl font-bold text-foreground">
               {assessment.painPoints.length}
             </p>
@@ -204,26 +129,20 @@ function AssessmentResultsPage() {
 
           {/* Average Pain Level */}
           <div className="rounded-lg bg-card border border-border p-4">
-            <p className="text-sm font-medium text-muted-foreground mb-2">
-              Average Pain Level
-            </p>
-            <p className="font-display text-2xl font-bold text-foreground">
-              {averagePainLevel}/10
-            </p>
+            <p className="text-sm font-medium text-muted-foreground mb-2">Average Pain Level</p>
+            <p className="font-display text-2xl font-bold text-foreground">{averagePainLevel}/10</p>
           </div>
 
           {/* Severity */}
           <div className="rounded-lg bg-card border border-border p-4">
-            <p className="text-sm font-medium text-muted-foreground mb-2">
-              Severity Level
-            </p>
+            <p className="text-sm font-medium text-muted-foreground mb-2">Severity Level</p>
             <p
               className={`font-display text-2xl font-bold capitalize ${
                 severity === "high"
                   ? "text-red-600"
                   : severity === "moderate"
-                  ? "text-yellow-600"
-                  : "text-green-600"
+                    ? "text-yellow-600"
+                    : "text-green-600"
               }`}
             >
               {severity}
@@ -233,22 +152,15 @@ function AssessmentResultsPage() {
 
         {/* Pain Points Details */}
         <div className="rounded-lg bg-card border border-border p-6 mb-8">
-          <h2 className="font-display text-xl font-bold text-foreground mb-4">
-            Your Pain Points
-          </h2>
+          <h2 className="font-display text-xl font-bold text-foreground mb-4">Your Pain Points</h2>
           <div className="space-y-4">
             {assessment.painPoints.map((point, idx) => (
-              <div
-                key={point.area}
-                className="border-l-4 border-primary pl-4 py-2"
-              >
+              <div key={point.area} className="border-l-4 border-primary pl-4 py-2">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-foreground">
                     {idx + 1}. {point.area.replace(/_/g, " ").toUpperCase()}
                   </h3>
-                  <span className="text-sm font-bold text-red-600">
-                    {point.level}/10
-                  </span>
+                  <span className="text-sm font-bold text-red-600">{point.level}/10</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   <strong>Duration:</strong> {point.duration}
@@ -272,16 +184,12 @@ function AssessmentResultsPage() {
         </div>
 
         {/* Treatment Plan */}
-        <div className="rounded-lg bg-blue-50 border border-blue-200 p-6 mb-8 dark:bg-blue-900/30 dark:border-blue-800">
+        <div className="mb-8 rounded-lg border border-primary/25 bg-primary/10 p-6">
           <div className="flex gap-4">
-            <AlertCircle className="size-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
+            <AlertCircle className="mt-1 size-5 shrink-0 text-primary" />
             <div>
-              <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
-                Recommended Treatment Plan
-              </h3>
-              <p className="text-sm text-blue-800 dark:text-blue-300">
-                {finalAssessment.treatmentPlan}
-              </p>
+              <h3 className="mb-2 font-semibold text-foreground">Recommended Treatment Plan</h3>
+              <p className="text-sm text-muted-foreground">{finalAssessment.treatmentPlan}</p>
             </div>
           </div>
         </div>
@@ -300,7 +208,7 @@ function AssessmentResultsPage() {
                 key={exercise}
                 className="flex items-center gap-2 p-3 rounded-lg bg-secondary/50"
               >
-                <CheckCircle className="size-4 text-green-600 flex-shrink-0" />
+                <CheckCircle className="size-4 shrink-0 text-success" />
                 <span className="text-sm text-foreground">{exercise}</span>
               </div>
             ))}
@@ -308,13 +216,12 @@ function AssessmentResultsPage() {
         </div>
 
         {/* Info Box */}
-        <div className="rounded-lg bg-amber-50 border border-amber-200 p-4 mb-8 dark:bg-amber-900/30 dark:border-amber-800">
+        <div className="mb-8 rounded-lg border border-warning/30 bg-warning/10 p-4">
           <div className="flex gap-3">
-            <Lightbulb className="size-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-amber-900 dark:text-amber-200">
-              These recommendations are based on your assessment. A qualified
-              physiotherapist will provide a personalized treatment plan during
-              your session.
+            <Lightbulb className="mt-0.5 size-5 shrink-0 text-warning" />
+            <p className="text-sm text-foreground">
+              These recommendations are based on your assessment. A qualified physiotherapist will
+              provide a personalized treatment plan during your session.
             </p>
           </div>
         </div>
@@ -328,10 +235,7 @@ function AssessmentResultsPage() {
           >
             Save & Return
           </Button>
-          <Button
-            onClick={handleProceedToBooking}
-            className="flex-1 rounded-lg"
-          >
+          <Button onClick={handleProceedToBooking} className="flex-1 rounded-lg">
             Book a Session
           </Button>
         </div>

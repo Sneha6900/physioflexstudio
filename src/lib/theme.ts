@@ -12,14 +12,20 @@ export function getStoredTheme(): Theme | null {
   }
 }
 
-/** First visit defaults to light; only stored preference overrides. */
+export function getSystemTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+/** Stored preference wins; otherwise follow system preference. */
 export function resolveTheme(): Theme {
-  return getStoredTheme() ?? "light";
+  return getStoredTheme() ?? getSystemTheme();
 }
 
 export function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
   document.documentElement.style.colorScheme = theme;
+  document.documentElement.dataset.theme = theme;
 }
 
 export function persistTheme(theme: Theme) {
@@ -30,9 +36,17 @@ export function persistTheme(theme: Theme) {
   }
 }
 
+export function clearStoredTheme() {
+  try {
+    localStorage.removeItem(THEME_STORAGE_KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
 export function enableThemeTransition() {
   document.documentElement.classList.add("theme-transitioning");
   window.setTimeout(() => {
     document.documentElement.classList.remove("theme-transitioning");
-  }, 400);
+  }, 320);
 }

@@ -5,12 +5,7 @@ import { PainAreaSelector } from "@/components/site/PainAreaSelector";
 import { PageShell } from "@/components/site/PageShell";
 import { navCrumbs } from "@/lib/navigation";
 import { useClientAssessment } from "@/lib/client-assessment-store";
-import {
-  bodyPartToSlug,
-  bodyParts,
-  slugToBodyPart,
-  type BodyPart,
-} from "@/lib/journey-body";
+import { bodyPartToSlug, bodyParts, slugToBodyPart, type BodyPart } from "@/lib/journey-body";
 
 export const Route = createFileRoute("/assessment/start")({
   component: AssessmentStartPage,
@@ -86,11 +81,11 @@ function AssessmentStartPage() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-lg border border-[#91ddcf]/25 bg-[#91ddcf]/10 p-4">
+        <div className="mt-6 rounded-lg border border-accent/25 bg-accent/10 p-4">
           <p className="text-sm text-muted-foreground">
             <strong className="text-foreground">Tip:</strong> Many patients feel pain in more than
-            one area — for example neck and shoulder, or lower back and hip. Select all regions
-            that apply.
+            one area — for example neck and shoulder, or lower back and hip. Select all regions that
+            apply.
           </p>
         </div>
       </div>

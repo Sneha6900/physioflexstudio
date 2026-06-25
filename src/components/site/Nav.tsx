@@ -35,8 +35,8 @@ function NavSectionLink({
   const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
   const className = cn(
     mobile
-      ? "block rounded-2xl px-4 py-3.5 text-sm font-medium touch-target"
-      : "rounded-full px-3 py-2 text-sm font-medium xl:px-4",
+      ? "block rounded-2xl px-4 py-3.5 type-nav font-medium touch-target"
+      : "type-nav rounded-full px-3 py-2 font-medium xl:px-4",
     onHero
       ? mobile
         ? "text-white hover:bg-white/10"
@@ -121,7 +121,7 @@ export function Nav({ hero = false }: NavProps) {
               className={cn(
                 "grid size-9 shrink-0 place-items-center rounded-xl transition-colors duration-500 sm:size-9",
                 onHero
-                  ? "bg-white/15 text-[#91ddcf]"
+                  ? "bg-white/15 text-accent"
                   : "bg-primary text-primary-foreground",
               )}
             >
@@ -129,12 +129,12 @@ export function Nav({ hero = false }: NavProps) {
             </span>
             <span
               className={cn(
-                "truncate text-base font-bold tracking-tight transition-colors duration-500 sm:text-lg",
+                "type-card-title truncate font-bold tracking-tight transition-colors duration-500",
                 onHero ? "text-white" : "text-foreground",
               )}
             >
               PhysioFlex{" "}
-              <span className={onHero ? "text-[#91ddcf]" : "text-accent"}>Studio</span>
+              <span className="text-accent">Studio</span>
             </span>
           </Link>
 

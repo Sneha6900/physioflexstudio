@@ -159,7 +159,9 @@ export type Scores = {
 };
 
 export function computeScores(d: AssessmentData): Scores {
-  const markers = d.markers.length ? d.markers : [{ painLevel: 5, stiffness: 5, mobility: "Medium" as const }];
+  const markers = d.markers.length
+    ? d.markers
+    : [{ painLevel: 5, stiffness: 5, mobility: "Medium" as const }];
   const avgPain = markers.reduce((sum, m) => sum + m.painLevel, 0) / markers.length;
   const avgStiffness = markers.reduce((sum, m) => sum + m.stiffness, 0) / markers.length;
   const worstMobility = markers.reduce<"Low" | "Medium" | "High">((worst, m) => {
@@ -174,7 +176,10 @@ export function computeScores(d: AssessmentData): Scores {
   const recoveryIndex = clamp(
     100 - avgPain * 4 - avgStiffness * 3 - mobilityPenalty(worstMobility) * 0.7 - injuryPenalty,
   );
-  const weeks = Math.max(2, Math.round(avgPain * 0.8 + mobilityPenalty(worstMobility) / 10 + injuryPenalty / 5));
+  const weeks = Math.max(
+    2,
+    Math.round(avgPain * 0.8 + mobilityPenalty(worstMobility) / 10 + injuryPenalty / 5),
+  );
 
   return { painSeverity, mobilityScore, flexibilityScore, recoveryIndex, weeks };
 }

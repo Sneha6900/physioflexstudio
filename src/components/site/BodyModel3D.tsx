@@ -29,7 +29,12 @@ export function BodyModel3D({
   const selected = markers.find((marker) => marker.id === selectedMarkerId);
 
   return (
-    <div className={cn("relative overflow-hidden rounded-[2rem] border border-border bg-card p-6 shadow-[var(--shadow-soft)]", className)}>
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-[2rem] border border-border bg-card p-6 shadow-[var(--shadow-soft)]",
+        className,
+      )}
+    >
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-foreground">3D body model</p>
@@ -66,7 +71,11 @@ export function BodyModel3D({
             const isSelected = marker?.id === selectedMarkerId;
 
             return (
-              <g key={part} className="cursor-pointer" onClick={() => onPartClick(part as PainArea)}>
+              <g
+                key={part}
+                className="cursor-pointer"
+                onClick={() => onPartClick(part as PainArea)}
+              >
                 <circle
                   cx={spot.x}
                   cy={spot.y}
@@ -116,8 +125,12 @@ export function BodyModel3D({
           <div className="text-sm font-semibold text-foreground">Selected marker</div>
           <p className="mt-2 text-sm text-muted-foreground">{selected.part}</p>
           <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
-            <span className="rounded-full bg-secondary px-3 py-1">Pain level {selected.painLevel}</span>
-            <span className="rounded-full bg-secondary px-3 py-1">Mobility {selected.mobility}</span>
+            <span className="rounded-full bg-secondary px-3 py-1">
+              Pain level {selected.painLevel}
+            </span>
+            <span className="rounded-full bg-secondary px-3 py-1">
+              Mobility {selected.mobility}
+            </span>
           </div>
         </div>
       ) : (

@@ -54,7 +54,8 @@ function RecoveryPage() {
           </span>
           <h1 className="type-page mt-4 text-foreground">Today's recovery session</h1>
           <p className="type-body mt-3 max-w-xl text-muted-foreground">
-            Your {(data.area ?? "mobility").toLowerCase()} program for today. Complete each exercise and log your progress.
+            Your {(data.area ?? "mobility").toLowerCase()} program for today. Complete each exercise
+            and log your progress.
           </p>
         </div>
         <Button
@@ -81,7 +82,9 @@ function RecoveryPage() {
         {/* schedule */}
         <div className="rounded-[2rem] border border-border bg-card p-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-xl font-bold text-foreground">Daily exercise schedule</h2>
+            <h2 className="font-display text-xl font-bold text-foreground">
+              Daily exercise schedule
+            </h2>
             <span className="text-sm text-muted-foreground">
               {completedCount}/{exercises.length} done
             </span>
@@ -116,7 +119,7 @@ function RecoveryPage() {
                     <p className="text-xs text-muted-foreground">
                       {ex.duration} · {ex.difficulty}
                     </p>
-                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{ex.benefits}</p>
+                    <p className="type-caption mt-1 text-pretty text-muted-foreground">{ex.benefits}</p>
                   </div>
                   <Button
                     variant={isDone ? "hero" : "heroOutline"}
@@ -139,7 +142,9 @@ function RecoveryPage() {
             >
               <div className="flex items-center gap-3">
                 <Trophy className="size-6 text-accent" />
-                <span className="font-semibold text-foreground">Session complete — great work!</span>
+                <span className="font-semibold text-foreground">
+                  Session complete — great work!
+                </span>
               </div>
               <Button variant="hero" size="sm" className="rounded-full" asChild>
                 <Link to="/dashboard">
@@ -164,12 +169,20 @@ function RecoveryPage() {
                     <span
                       className={cn(
                         "grid size-6 shrink-0 place-items-center rounded-full border transition-all",
-                        goals[i] ? "border-accent bg-accent text-charcoal" : "border-border text-transparent",
+                        goals[i]
+                          ? "border-accent bg-accent text-charcoal"
+                          : "border-border text-transparent",
                       )}
                     >
                       <Check className="size-3.5" />
                     </span>
-                    <span className={cn(goals[i] ? "text-muted-foreground line-through" : "text-muted-foreground")}>{g}</span>
+                    <span
+                      className={cn(
+                        goals[i] ? "text-muted-foreground line-through" : "text-muted-foreground",
+                      )}
+                    >
+                      {g}
+                    </span>
                   </button>
                 </li>
               ))}
@@ -201,7 +214,8 @@ function RecoveryPage() {
               <h2 className="font-display text-lg font-bold text-foreground">Weekly report</h2>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
-              Complete your sessions to unlock a detailed weekly report with mobility and pain trends.
+              Complete your sessions to unlock a detailed weekly report with mobility and pain
+              trends.
             </p>
             <Button variant="heroOutline" className="mt-4 w-full rounded-full" asChild>
               <Link to="/dashboard">

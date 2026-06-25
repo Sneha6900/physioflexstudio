@@ -37,11 +37,7 @@ export const studios: Studio[] = [
     availability: "Slots available today",
     badge: "Most Popular",
     rating: 4.9,
-    highlights: [
-      "Advanced Equipment",
-      "Expert Physiotherapists",
-      "Personalized Care",
-    ],
+    highlights: ["Advanced Equipment", "Expert Physiotherapists", "Personalized Care"],
     amenities: [
       "Treatment Tables",
       "Stretching Area",
@@ -67,11 +63,7 @@ export const studios: Studio[] = [
     availability: "Next slot tomorrow",
     badge: "Premium Studio",
     rating: 4.8,
-    highlights: [
-      "Assisted Stretching",
-      "Expert Physiotherapists",
-      "Private Consultations",
-    ],
+    highlights: ["Assisted Stretching", "Expert Physiotherapists", "Private Consultations"],
     amenities: [
       "Assisted Stretching Zone",
       "Resistance Bands",
@@ -97,11 +89,7 @@ export const studios: Studio[] = [
     availability: "Open this weekend",
     badge: "Best Rated",
     rating: 5.0,
-    highlights: [
-      "State-of-the-Art Equipment",
-      "Senior Wellness Lounge",
-      "Premium Recovery Spaces",
-    ],
+    highlights: ["State-of-the-Art Equipment", "Senior Wellness Lounge", "Premium Recovery Spaces"],
     amenities: [
       "Reception & Lounge",
       "Rehab Equipment",
@@ -121,24 +109,31 @@ export const studioWhyChoose = [
   {
     title: "Modern Recovery Spaces",
     description: "Bright, calm studios designed for comfort — not clinical coldness.",
+    chips: ["Natural lighting", "Calm interiors", "Wooden flooring"],
   },
   {
     title: "Private Consultation Rooms",
     description: "One-on-one sessions in quiet, dignified treatment spaces.",
+    chips: ["Sound-insulated", "Private suites", "Dignified care"],
   },
   {
     title: "Certified Physiotherapists",
     description: "Licensed experts focused on pain-led recovery for all ages.",
+    chips: ["Licensed experts", "All ages welcome", "Evidence-based care"],
   },
   {
     title: "Comfortable Environment",
     description: "Senior-friendly access, climate control, and welcoming staff.",
+    chips: ["Senior-friendly access", "Climate controlled", "Welcoming staff"],
   },
   {
     title: "State-of-the-Art Equipment",
     description: "Professional-grade tools for mobility, strength, and rehabilitation.",
+    chips: ["Rehab equipment", "Mobility tools", "Strength training"],
   },
-];
+] as const;
+
+export type StudioWhyChooseItem = (typeof studioWhyChoose)[number];
 
 export function getStudioByShortName(shortName: string) {
   return studios.find((s) => s.shortName === shortName);

@@ -50,8 +50,7 @@ export const useClientAuth = create<ClientAuthState>()(
       signUpMethod: null,
       profile: null,
       setSignUpMethod: (method) => set({ signUpMethod: method }),
-      setProfile: (profile) =>
-        set({ profile, isLoggedIn: true, signUpMethod: null }),
+      setProfile: (profile) => set({ profile, isLoggedIn: true, signUpMethod: null }),
       logout: () =>
         set({
           isLoggedIn: false,

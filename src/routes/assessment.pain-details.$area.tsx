@@ -130,9 +130,7 @@ function PainDetailsPage() {
             <Label className="mb-3 block">Pain Level: {formData.level}/10</Label>
             <Slider
               value={[formData.level]}
-              onValueChange={(value) =>
-                handleInputChange("level", value[0])
-              }
+              onValueChange={(value) => handleInputChange("level", value[0])}
               min={1}
               max={10}
               step={1}
@@ -148,7 +146,10 @@ function PainDetailsPage() {
           {/* Duration */}
           <div>
             <Label htmlFor="duration">How long have you had this pain? *</Label>
-            <Select value={formData.duration} onValueChange={(value) => handleInputChange("duration", value)}>
+            <Select
+              value={formData.duration}
+              onValueChange={(value) => handleInputChange("duration", value)}
+            >
               <SelectTrigger id="duration" className={errors.duration ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select duration" />
               </SelectTrigger>
@@ -162,15 +163,16 @@ function PainDetailsPage() {
                 <SelectItem value="more-than-year">More than 1 year</SelectItem>
               </SelectContent>
             </Select>
-            {errors.duration && (
-              <p className="text-xs text-red-500 mt-1">{errors.duration}</p>
-            )}
+            {errors.duration && <p className="text-xs text-red-500 mt-1">{errors.duration}</p>}
           </div>
 
           {/* Pain Type */}
           <div>
             <Label htmlFor="type">Type of pain *</Label>
-            <Select value={formData.type} onValueChange={(value) => handleInputChange("type", value)}>
+            <Select
+              value={formData.type}
+              onValueChange={(value) => handleInputChange("type", value)}
+            >
               <SelectTrigger id="type" className={errors.type ? "border-red-500" : ""}>
                 <SelectValue placeholder="Select pain type" />
               </SelectTrigger>
@@ -181,9 +183,7 @@ function PainDetailsPage() {
                 <SelectItem value="throbbing">Throbbing (pulsing)</SelectItem>
               </SelectContent>
             </Select>
-            {errors.type && (
-              <p className="text-xs text-red-500 mt-1">{errors.type}</p>
-            )}
+            {errors.type && <p className="text-xs text-red-500 mt-1">{errors.type}</p>}
           </div>
 
           {/* Injury */}
@@ -191,9 +191,7 @@ function PainDetailsPage() {
             <label className="flex items-center gap-3 cursor-pointer">
               <Checkbox
                 checked={formData.hasInjury}
-                onCheckedChange={(checked) =>
-                  handleInputChange("hasInjury", checked)
-                }
+                onCheckedChange={(checked) => handleInputChange("hasInjury", checked)}
               />
               <span className="text-sm font-medium text-foreground">
                 Is this related to an injury?
@@ -207,17 +205,11 @@ function PainDetailsPage() {
                   id="injury"
                   placeholder="E.g., fell while exercising, sports injury, car accident..."
                   value={formData.injuryDescription}
-                  onChange={(e) =>
-                    handleInputChange("injuryDescription", e.target.value)
-                  }
-                  className={`min-h-[80px] ${
-                    errors.injuryDescription ? "border-red-500" : ""
-                  }`}
+                  onChange={(e) => handleInputChange("injuryDescription", e.target.value)}
+                  className={`min-h-[80px] ${errors.injuryDescription ? "border-red-500" : ""}`}
                 />
                 {errors.injuryDescription && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {errors.injuryDescription}
-                  </p>
+                  <p className="text-xs text-red-500 mt-1">{errors.injuryDescription}</p>
                 )}
               </div>
             )}
@@ -230,9 +222,7 @@ function PainDetailsPage() {
               id="notes"
               placeholder="Any other relevant information about your pain..."
               value={formData.additionalNotes}
-              onChange={(e) =>
-                handleInputChange("additionalNotes", e.target.value)
-              }
+              onChange={(e) => handleInputChange("additionalNotes", e.target.value)}
               className="min-h-[80px]"
             />
           </div>

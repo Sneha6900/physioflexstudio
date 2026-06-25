@@ -1,29 +1,20 @@
 import { motion } from "motion/react";
-import {
-  CalendarCheck,
-  Check,
-  Clock,
-  MapPin,
-  Navigation,
-  Phone,
-  Star,
-  Users,
-} from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { CalendarCheck, Check, Clock, MapPin, Navigation, Phone, Star, Users } from "lucide-react";
 import { LeavingHomeLink } from "@/components/site/LeavingHomeLink";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
+import { StudioWhyChoose } from "@/components/sections/StudioWhyChoose";
 import { Button } from "@/components/ui/button";
-import { studioWhyChoose, studios, type Studio } from "@/lib/studios";
+import { studios, type Studio } from "@/lib/studios";
 import { cn } from "@/lib/utils";
 
 function badgeStyle(badge: Studio["badge"]) {
   switch (badge) {
     case "Most Popular":
-      return "bg-[#91ddcf] text-[#0f1f1c]";
+      return "bg-accent text-accent-foreground";
     case "Premium Studio":
-      return "bg-[#e8c5e5] text-[#1a1a1a]";
+      return "bg-brand-lilac text-foreground";
     case "Best Rated":
-      return "bg-[#f19ed2]/90 text-[#1a1a1a]";
+      return "bg-brand-pink/90 text-foreground";
     case "New Location":
       return "bg-foreground text-background";
     default:
@@ -45,26 +36,26 @@ function StudioCard({ studio }: { studio: Studio }) {
           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-black/10" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#91ddcf]/10 via-transparent to-[#e8c5e5]/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-brand-lilac/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           {studio.badge && (
             <span
               className={cn(
-                "rounded-full px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-sm",
+                "type-label rounded-full px-3 py-1 font-semibold shadow-sm backdrop-blur-sm",
                 badgeStyle(studio.badge),
               )}
             >
               {studio.badge}
             </span>
           )}
-          <span className="flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-md">
-            <Star className="size-3.5 fill-[#91ddcf] text-[#91ddcf]" />
+          <span className="type-label flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 font-semibold text-white backdrop-blur-md">
+            <Star className="size-3.5 fill-accent text-accent" />
             {studio.rating}
           </span>
         </div>
 
-        <span className="absolute bottom-4 right-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+        <span className="type-label absolute bottom-4 right-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 font-semibold text-white backdrop-blur-md">
           {studio.availability}
         </span>
       </div>
@@ -72,18 +63,18 @@ function StudioCard({ studio }: { studio: Studio }) {
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div>
           <h3 className="type-card-title text-foreground">{studio.name}</h3>
-          <p className="mt-1.5 flex items-center gap-1.5 text-sm font-medium text-[#5ba99a]">
+          <p className="type-caption mt-1 flex items-center gap-1.5 font-medium text-forest">
             <MapPin className="size-3.5 shrink-0" />
             {studio.distance} · {studio.travelTime}
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{studio.address}</p>
+          <p className="type-body mt-1.5 text-pretty text-muted-foreground">{studio.address}</p>
         </div>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {studio.highlights.map((h) => (
             <span
               key={h}
-              className="inline-flex items-center gap-1 rounded-full bg-[#91ddcf]/12 px-2.5 py-1 text-[0.65rem] font-semibold text-[#5ba99a]"
+              className="type-badge inline-flex items-center gap-1 rounded-full bg-accent/12 px-2.5 py-1 font-semibold text-forest"
             >
               <Check className="size-3" strokeWidth={2.5} />
               {h}
@@ -91,13 +82,13 @@ function StudioCard({ studio }: { studio: Studio }) {
           ))}
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
+        <div className="mt-2 flex flex-wrap gap-2 type-label text-muted-foreground">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1">
-            <Clock className="size-3.5 text-[#5ba99a]" />
+            <Clock className="size-3.5 text-forest" />
             {studio.hours}
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1">
-            <Users className="size-3.5 text-[#5ba99a]" />
+            <Users className="size-3.5 text-forest" />
             {studio.capacity}
           </span>
         </div>
@@ -106,7 +97,7 @@ function StudioCard({ studio }: { studio: Studio }) {
           {studio.amenities.slice(0, 4).map((amenity) => (
             <span
               key={amenity}
-              className="rounded-full border border-border bg-background px-2.5 py-1 text-[0.65rem] font-medium text-muted-foreground"
+              className="type-badge rounded-full border border-border bg-background px-2.5 py-1 font-medium text-muted-foreground"
             >
               {amenity}
             </span>
@@ -115,7 +106,7 @@ function StudioCard({ studio }: { studio: Studio }) {
 
         <div className="mt-auto flex flex-col gap-2 pt-5">
           <Button
-            className="h-11 w-full rounded-full bg-[#91ddcf] text-sm font-semibold text-[#0f1f1c] shadow-[0_10px_28px_-12px_rgba(145,221,207,0.65)] transition-all group-hover:brightness-105 hover:bg-[#91ddcf]/90"
+            className="type-button h-11 w-full rounded-full bg-accent font-semibold text-accent-foreground shadow-[var(--shadow-glow)] transition-all group-hover:brightness-105 hover:bg-accent/90"
             asChild
           >
             <LeavingHomeLink to="/specialists/" homeSection="locations">
@@ -126,7 +117,7 @@ function StudioCard({ studio }: { studio: Studio }) {
           <div className="grid grid-cols-2 gap-2">
             <Button
               variant="outline"
-              className="h-10 rounded-full border-border text-sm transition-colors group-hover:border-[#91ddcf]/40"
+              className="type-button h-10 rounded-full border-border transition-colors group-hover:border-accent/40"
               asChild
             >
               <a href={`tel:${studio.phone.replace(/\s/g, "")}`}>
@@ -136,7 +127,7 @@ function StudioCard({ studio }: { studio: Studio }) {
             </Button>
             <Button
               variant="outline"
-              className="h-10 rounded-full border-border text-sm transition-colors group-hover:border-[#91ddcf]/40"
+              className="type-button h-10 rounded-full border-border transition-colors group-hover:border-accent/40"
               asChild
             >
               <a href={studio.directionsUrl} target="_blank" rel="noreferrer">
@@ -179,26 +170,7 @@ export function Locations() {
           ))}
         </Stagger>
 
-        <Reveal delay={0.1}>
-          <div className="mt-10 rounded-[2rem] border border-border bg-card p-5 shadow-[var(--shadow-soft)] sm:p-8">
-            <h3 className="type-section text-center text-foreground">Why Choose Our Studios?</h3>
-            <p className="type-body mx-auto mt-2 max-w-xl text-center text-muted-foreground">
-              Every PhysioFlex Studio location is built for people who want professional care in a
-              space that feels warm, modern, and trustworthy.
-            </p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {studioWhyChoose.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-2xl border border-border bg-gradient-to-br from-background to-secondary/40 p-5 transition-shadow hover:shadow-[var(--shadow-soft)]"
-                >
-                  <h4 className="type-card-title text-foreground">{item.title}</h4>
-                  <p className="type-body mt-2 text-muted-foreground">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
+        <StudioWhyChoose />
       </div>
     </section>
   );

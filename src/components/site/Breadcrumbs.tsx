@@ -16,13 +16,7 @@ type BreadcrumbsProps = {
   className?: string;
 };
 
-function CrumbLink({
-  item,
-  className,
-}: {
-  item: BreadcrumbItem;
-  className?: string;
-}) {
+function CrumbLink({ item, className }: { item: BreadcrumbItem; className?: string }) {
   const handleClick = () => {
     if (item.to === "/" && item.homeSection) {
       prepareHomeScroll(item.homeSection);
@@ -36,7 +30,7 @@ function CrumbLink({
       params={item.params}
       onClick={handleClick}
       className={cn(
-        "rounded-md transition-colors duration-200 hover:text-[#5ba99a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#91ddcf]/50",
+        "rounded-md transition-colors duration-200 hover:text-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50",
         className,
       )}
     >
@@ -67,7 +61,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
             hash={parent.hash}
             params={parent.params}
             onClick={() => handleNavClick(parent)}
-            className="inline-flex h-11 min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[#91ddcf]/50 hover:text-[#5ba99a]"
+            className="type-nav inline-flex h-11 min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4 font-semibold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-accent/50 hover:text-forest"
           >
             <ArrowLeft className="size-4 shrink-0" aria-hidden />
             Back to {parent.label}
@@ -79,7 +73,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
             to={home.to!}
             hash={home.hash}
             onClick={() => handleNavClick(home)}
-            className="inline-flex h-11 min-h-11 items-center gap-2 rounded-full border border-border/70 bg-background px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-[#91ddcf]/40 hover:text-[#5ba99a]"
+            className="type-nav inline-flex h-11 min-h-11 items-center gap-2 rounded-full border border-border/70 bg-background px-4 font-medium text-muted-foreground transition-colors hover:border-accent/40 hover:text-forest"
           >
             Home
           </Link>
@@ -105,10 +99,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
                   {item.label}
                 </span>
               ) : (
-                <CrumbLink
-                  item={item}
-                  className="font-medium text-muted-foreground"
-                />
+                <CrumbLink item={item} className="font-medium text-muted-foreground" />
               )}
             </li>
           );

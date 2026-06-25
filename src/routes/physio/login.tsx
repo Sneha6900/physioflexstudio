@@ -72,7 +72,8 @@ function PhysioLoginPage() {
               Manage your sessions, client assessments, and availability in one place.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">
-              Access the physio dashboard to accept assigned sessions, preview client pain areas, and hit daily and weekly performance targets.
+              Access the physio dashboard to accept assigned sessions, preview client pain areas,
+              and hit daily and weekly performance targets.
             </p>
             <div className="mt-10 grid gap-4">
               {physioAccountsList.map((account) => (
@@ -85,7 +86,9 @@ function PhysioLoginPage() {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="font-semibold text-foreground">{account.name}</p>
-                      <p className="text-sm text-muted-foreground">{account.specializations.join(" • ")}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {account.specializations.join(" • ")}
+                      </p>
                     </div>
                     <ArrowRight className="size-5 text-accent" />
                   </div>
@@ -100,7 +103,8 @@ function PhysioLoginPage() {
             </div>
             <h2 className="mt-6 text-3xl font-bold text-foreground">Sign in</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Enter your physio email to continue. Use a demo account or sign in to the team workspace.
+              Enter your physio email to continue. Use a demo account or sign in to the team
+              workspace.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -141,7 +145,10 @@ function PhysioLoginPage() {
 
             <div className="mt-8 rounded-3xl border border-border bg-muted/50 p-5 text-sm text-muted-foreground">
               <p className="font-medium text-foreground">Need a quick demo?</p>
-              <p className="mt-2">Pick one of the sample physiotherapist profiles above and jump straight into the course of assigned sessions.</p>
+              <p className="mt-2">
+                Pick one of the sample physiotherapist profiles above and jump straight into the
+                course of assigned sessions.
+              </p>
             </div>
           </section>
         </div>

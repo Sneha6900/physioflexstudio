@@ -25,10 +25,7 @@ export function PageShell({
       <main className="site-main-offset">
         <div className={cn("site-container", contentClassName)}>
           {crumbs && crumbs.length > 0 && (
-            <Breadcrumbs
-              items={crumbs}
-              className="mb-[var(--site-breadcrumb-gap)]"
-            />
+            <Breadcrumbs items={crumbs} className="mb-[var(--site-breadcrumb-gap)]" />
           )}
           {children}
         </div>

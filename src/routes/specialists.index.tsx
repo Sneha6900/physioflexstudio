@@ -35,7 +35,11 @@ function SpecialistsPage() {
   const filtered = useMemo(() => {
     let list = specialists.filter((e) => spec === "All" || e.spec === spec);
     list = [...list].sort((a, b) =>
-      sort === "Rating" ? b.rating - a.rating : sort === "Experience" ? b.years - a.years : b.sessions - a.sessions,
+      sort === "Rating"
+        ? b.rating - a.rating
+        : sort === "Experience"
+          ? b.years - a.years
+          : b.sessions - a.sessions,
     );
     return list;
   }, [spec, sort]);
@@ -49,7 +53,8 @@ function SpecialistsPage() {
           </span>
           <h1 className="type-page mt-4 text-foreground">Choose your specialist</h1>
           <p className="type-body mt-3 max-w-xl text-muted-foreground">
-            Certified recovery specialists for your {(data.area ?? "recovery").toLowerCase()} — hands-on, supervised and safe.
+            Certified recovery specialists for your {(data.area ?? "recovery").toLowerCase()} —
+            hands-on, supervised and safe.
           </p>
         </div>
       </div>
@@ -63,7 +68,9 @@ function SpecialistsPage() {
               onClick={() => setSpec(s)}
               className={cn(
                 "rounded-full px-4 py-2 text-sm font-medium transition-all",
-                spec === s ? "bg-accent text-charcoal" : "bg-muted/50 text-muted-foreground hover:text-foreground",
+                spec === s
+                  ? "bg-accent text-charcoal"
+                  : "bg-muted/50 text-muted-foreground hover:text-foreground",
               )}
             >
               {s}
@@ -73,18 +80,20 @@ function SpecialistsPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <span className="text-xs font-medium text-muted-foreground">Sort by</span>
           <div className="flex flex-wrap gap-2">
-          {sorts.map((s) => (
-            <button
-              key={s}
-              onClick={() => setSort(s)}
-              className={cn(
-                "rounded-full border px-3 py-1.5 text-xs font-semibold transition-all",
-                sort === s ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground",
-              )}
-            >
-              {s}
-            </button>
-          ))}
+            {sorts.map((s) => (
+              <button
+                key={s}
+                onClick={() => setSort(s)}
+                className={cn(
+                  "rounded-full border px-3 py-1.5 text-xs font-semibold transition-all",
+                  sort === s
+                    ? "border-accent bg-accent/10 text-accent"
+                    : "border-border text-muted-foreground",
+                )}
+              >
+                {s}
+              </button>
+            ))}
           </div>
         </div>
       </div>

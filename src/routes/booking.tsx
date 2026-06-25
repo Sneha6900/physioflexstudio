@@ -12,17 +12,8 @@ import {
 } from "@/components/ui/select";
 import { useClientAssessment } from "@/lib/client-assessment-store";
 import { useClientAuth } from "@/lib/client-auth-store";
-import {
-  Calendar,
-  Clock,
-  User,
-  MapPin,
-  CheckCircle,
-  ArrowLeft,
-  Zap,
-} from "lucide-react";
+import { Calendar, Clock, User, MapPin, CheckCircle, ArrowLeft, Zap } from "lucide-react";
 import QRCode from "qrcode";
-
 
 export const Route = createFileRoute("/booking")({
   component: ClientBookingPage,
@@ -160,9 +151,7 @@ function ClientBookingPage() {
     return null;
   }
 
-  const selectedPhysioData = PHYSIOTHERAPISTS.find(
-    (p) => p.id === selectedPhysio
-  );
+  const selectedPhysioData = PHYSIOTHERAPISTS.find((p) => p.id === selectedPhysio);
   const selectedStudioData = STUDIO_LOCATIONS.find((s) => s.id === selectedStudio);
 
   const handleGenerateBooking = () => {
@@ -175,9 +164,7 @@ function ClientBookingPage() {
       <div className="mx-auto max-w-2xl">
         {step !== "confirmation" && step !== "mode" && (
           <button
-            onClick={() =>
-              setStep(step === "details" ? "physio" : "mode")
-            }
+            onClick={() => setStep(step === "details" ? "physio" : "mode")}
             className="mb-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="size-4" />
@@ -205,11 +192,10 @@ function ClientBookingPage() {
                 <div className="flex items-start gap-4">
                   <Zap className="size-6 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h2 className="font-semibold text-foreground">
-                      Auto Assign (Recommended)
-                    </h2>
+                    <h2 className="font-semibold text-foreground">Auto Assign (Recommended)</h2>
                     <p className="text-sm text-muted-foreground">
-                      We'll match you with the best physiotherapist based on your pain areas and their expertise
+                      We'll match you with the best physiotherapist based on your pain areas and
+                      their expertise
                     </p>
                   </div>
                 </div>
@@ -225,9 +211,7 @@ function ClientBookingPage() {
                 <div className="flex items-start gap-4">
                   <User className="size-6 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h2 className="font-semibold text-foreground">
-                      Choose Physiotherapist
-                    </h2>
+                    <h2 className="font-semibold text-foreground">Choose Physiotherapist</h2>
                     <p className="text-sm text-muted-foreground">
                       Browse available physiotherapists and select your preferred one
                     </p>
@@ -265,14 +249,12 @@ function ClientBookingPage() {
                   <div className="flex items-start gap-4">
                     <div className="text-3xl">{physio.image}</div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-foreground">
-                        {physio.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {physio.specialization}
-                      </p>
+                      <h3 className="font-semibold text-foreground">{physio.name}</h3>
+                      <p className="text-sm text-muted-foreground">{physio.specialization}</p>
                       <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-                        <span>⭐ {physio.rating} ({physio.reviews})</span>
+                        <span>
+                          ⭐ {physio.rating} ({physio.reviews})
+                        </span>
                         <span>📅 {physio.experience}</span>
                       </div>
                     </div>
@@ -285,17 +267,15 @@ function ClientBookingPage() {
             </div>
 
             {bookingMode === "auto" && selectedPhysioData && (
-              <div className="rounded-lg bg-blue-50 border border-blue-200 p-4 mb-8 dark:bg-blue-900/30 dark:border-blue-800">
-                <p className="text-sm text-blue-900 dark:text-blue-200">
-                  <strong>{selectedPhysioData.name}</strong> is recommended for your pain areas and has excellent reviews for this type of condition.
+              <div className="mb-8 rounded-lg border border-primary/25 bg-primary/10 p-4">
+                <p className="text-sm text-foreground">
+                  <strong>{selectedPhysioData.name}</strong> is recommended for your pain areas and
+                  has excellent reviews for this type of condition.
                 </p>
               </div>
             )}
 
-            <Button
-              onClick={() => setStep("details")}
-              className="w-full rounded-lg"
-            >
+            <Button onClick={() => setStep("details")} className="w-full rounded-lg">
               Continue
             </Button>
           </div>
@@ -306,9 +286,7 @@ function ClientBookingPage() {
             <h1 className="font-display text-3xl font-bold text-foreground mb-2">
               Schedule Your Session
             </h1>
-            <p className="text-muted-foreground mb-8">
-              Select date, time, and location
-            </p>
+            <p className="text-muted-foreground mb-8">Select date, time, and location</p>
 
             <div className="rounded-lg bg-card border border-border p-6 space-y-6 mb-8">
               {/* Studio Selection */}
@@ -332,9 +310,7 @@ function ClientBookingPage() {
 
               {/* Date Selection */}
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Date
-                </label>
+                <label className="block text-sm font-medium text-foreground mb-2">Date</label>
                 <Select value={selectedDate} onValueChange={setSelectedDate}>
                   <SelectTrigger>
                     <SelectValue />
@@ -351,9 +327,7 @@ function ClientBookingPage() {
 
               {/* Time Selection */}
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Time Slot
-                </label>
+                <label className="block text-sm font-medium text-foreground mb-2">Time Slot</label>
                 <Select value={selectedTime} onValueChange={setSelectedTime}>
                   <SelectTrigger>
                     <SelectValue />
@@ -391,10 +365,7 @@ function ClientBookingPage() {
               </div>
             </div>
 
-            <Button
-              onClick={handleGenerateBooking}
-              className="w-full rounded-lg"
-            >
+            <Button onClick={handleGenerateBooking} className="w-full rounded-lg">
               Complete Booking
             </Button>
           </div>
@@ -413,58 +384,38 @@ function ClientBookingPage() {
             </div>
 
             {/* QR Code */}
-            <div className="rounded-lg bg-white p-6 inline-block mb-8">
-              <img
-                src={qrCode}
-                alt="Booking QR Code"
-                width={200}
-                height={200}
-              />
+            <div className="mb-8 inline-block rounded-lg bg-card p-6">
+              <img src={qrCode} alt="Booking QR Code" width={200} height={200} />
             </div>
 
             {/* Booking Details */}
             <div className="rounded-lg bg-card border border-border p-6 text-left space-y-4 mb-8">
               <div>
-                <p className="text-xs font-medium text-muted-foreground">
-                  BOOKING ID
-                </p>
+                <p className="text-xs font-medium text-muted-foreground">BOOKING ID</p>
                 <p className="font-mono font-bold text-foreground">{bookingId}</p>
               </div>
 
               <hr className="border-border" />
 
               <div>
-                <p className="text-xs font-medium text-muted-foreground">
-                  PHYSIOTHERAPIST
-                </p>
+                <p className="text-xs font-medium text-muted-foreground">PHYSIOTHERAPIST</p>
+                <p className="font-medium text-foreground">{selectedPhysioData?.name}</p>
+              </div>
+
+              <div>
+                <p className="text-xs font-medium text-muted-foreground">DATE & TIME</p>
                 <p className="font-medium text-foreground">
-                  {selectedPhysioData?.name}
+                  {DATES.find((d) => d.iso === selectedDate)?.display} at {selectedTime}
                 </p>
               </div>
 
               <div>
-                <p className="text-xs font-medium text-muted-foreground">
-                  DATE & TIME
-                </p>
-                <p className="font-medium text-foreground">
-                  {DATES.find((d) => d.iso === selectedDate)?.display} at{" "}
-                  {selectedTime}
-                </p>
+                <p className="text-xs font-medium text-muted-foreground">LOCATION</p>
+                <p className="font-medium text-foreground">{selectedStudioData?.name}</p>
               </div>
 
               <div>
-                <p className="text-xs font-medium text-muted-foreground">
-                  LOCATION
-                </p>
-                <p className="font-medium text-foreground">
-                  {selectedStudioData?.name}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xs font-medium text-muted-foreground">
-                  CLIENT NAME
-                </p>
+                <p className="text-xs font-medium text-muted-foreground">CLIENT NAME</p>
                 <p className="font-medium text-foreground">{profile.name}</p>
               </div>
             </div>

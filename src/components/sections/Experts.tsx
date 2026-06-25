@@ -44,16 +44,21 @@ function ExpertCard({
       layout
       className={cn(
         "group overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-soft)] transition-all duration-300",
-        isHorizontal ? "flex w-full flex-col sm:flex-row" : "w-[min(88vw,340px)] shrink-0 snap-center",
+        isHorizontal
+          ? "flex w-full flex-col sm:flex-row"
+          : "w-[min(88vw,340px)] shrink-0 snap-center",
         selected
-          ? "border-[#91ddcf]/60 ring-2 ring-[#91ddcf]/25"
+          ? "border-accent/60 ring-2 ring-accent/25"
           : "border-border hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]",
       )}
     >
       <button
         type="button"
         onClick={onSelect}
-        className={cn("text-left", isHorizontal ? "flex min-w-0 flex-1 flex-col sm:flex-row" : "w-full")}
+        className={cn(
+          "text-left",
+          isHorizontal ? "flex min-w-0 flex-1 flex-col sm:flex-row" : "w-full",
+        )}
       >
         <div
           className={cn(
@@ -73,22 +78,22 @@ function ExpertCard({
             )}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-          <span className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-[0.7rem] font-semibold text-white backdrop-blur-sm">
-            <Star className="size-3 fill-[#91ddcf] text-[#91ddcf]" />
+          <span className="type-caption absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 font-semibold text-white backdrop-blur-sm">
+            <Star className="size-3 fill-accent text-accent" />
             {expert.rating}
             <span className="font-normal text-white/75">({expert.reviews})</span>
           </span>
         </div>
 
         <div className={cn("flex min-w-0 flex-1 flex-col", isHorizontal ? "p-3 sm:p-4" : "p-4")}>
-          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[#5ba99a]">
+          <p className="type-label font-semibold uppercase tracking-[0.12em] text-forest">
             {expert.spec}
           </p>
-          <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
+          <h3 className="type-card-title mt-0.5 font-semibold text-foreground">
             {expert.name}
           </h3>
 
-          <div className="mt-2 flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+          <div className="type-caption mt-2 flex flex-wrap gap-1.5 text-muted-foreground">
             <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5">
               <Award className="size-3 text-primary" />
               {expert.years} yrs
@@ -107,14 +112,14 @@ function ExpertCard({
             {focusAreas.slice(0, 4).map((area) => (
               <span
                 key={area}
-                className="rounded-full border border-border bg-background px-2 py-0.5 text-[0.65rem] font-medium text-muted-foreground"
+                className="type-badge rounded-full border border-border bg-background px-2 py-0.5 font-medium text-muted-foreground"
               >
                 {area}
               </span>
             ))}
           </div>
 
-          <p className="mt-2.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+          <p className="type-caption mt-2.5 text-pretty leading-relaxed text-muted-foreground">
             {expert.bio}
           </p>
         </div>
@@ -128,7 +133,12 @@ function ExpertCard({
             : "border-t",
         )}
       >
-        <Button variant="outline" size="sm" className="h-11 min-h-11 flex-1 rounded-full text-xs sm:flex-none sm:text-sm" asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className="min-h-11 flex-1 rounded-full py-2.5 sm:flex-none"
+          asChild
+        >
           <LeavingHomeLink to="/specialists/$id" params={{ id: expert.id }} homeSection="experts">
             View Profile
           </LeavingHomeLink>
@@ -136,7 +146,7 @@ function ExpertCard({
         <Button
           size="sm"
           type="button"
-          className="h-11 min-h-11 flex-1 rounded-full bg-[#91ddcf] text-xs font-semibold text-[#0f1f1c] hover:bg-[#91ddcf]/90 sm:flex-none sm:text-sm"
+          className="min-h-11 flex-1 rounded-full bg-accent py-2.5 font-semibold text-accent-foreground hover:bg-accent/90 sm:flex-none"
           onClick={onSelect}
         >
           Book Session
@@ -163,12 +173,12 @@ function BookingPanel({
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)]">
-      <div className="border-b border-border bg-gradient-to-br from-[#91ddcf]/15 via-background to-[#e8c5e5]/10 px-4 py-3">
-        <div className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-primary">
+      <div className="border-b border-border bg-gradient-to-br from-accent/15 via-background to-brand-lilac/10 px-4 py-3">
+        <div className="flex items-center gap-2 type-label font-semibold uppercase tracking-[0.14em] text-primary">
           <Sparkles className="size-3" />
           Premium Scheduling
         </div>
-        <h3 className="mt-1 text-sm font-semibold text-foreground">Book your recovery session</h3>
+        <h3 className="type-caption mt-1 font-semibold text-foreground">Book your recovery session</h3>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
@@ -181,9 +191,9 @@ function BookingPanel({
             className="size-12 shrink-0 rounded-xl object-cover"
           />
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-foreground">{expert.name}</p>
-            <p className="text-xs text-primary">{expert.spec}</p>
-            <div className="mt-1 flex flex-wrap gap-2 text-[0.65rem] text-muted-foreground">
+            <p className="type-caption font-semibold text-foreground">{expert.name}</p>
+            <p className="type-label text-primary">{expert.spec}</p>
+            <div className="mt-1 flex flex-wrap gap-2 type-label text-muted-foreground">
               <span className="flex items-center gap-0.5">
                 <Star className="size-3 fill-accent text-accent" />
                 {expert.rating}
@@ -195,11 +205,11 @@ function BookingPanel({
         </div>
 
         {nextSlot && (
-          <div className="rounded-xl border border-[#91ddcf]/30 bg-[#91ddcf]/10 px-3 py-2">
-            <p className="text-[0.6rem] font-semibold uppercase tracking-wider text-[#5ba99a]">
+          <div className="rounded-xl border border-accent/30 bg-accent/10 px-3 py-2">
+            <p className="type-caption font-semibold uppercase tracking-wider text-forest">
               Next available session
             </p>
-            <p className="mt-0.5 text-xs font-semibold text-foreground">
+            <p className="type-label mt-0.5 font-semibold text-foreground">
               {expert.available === "Today" ? "Today" : "Tomorrow"} · {nextSlot.time}
               {nextSlot.label ? ` · ${nextSlot.label}` : ""}
             </p>
@@ -207,7 +217,7 @@ function BookingPanel({
         )}
 
         <div>
-          <label className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground">
+          <label className="flex items-center gap-1 type-label font-semibold uppercase tracking-wider text-muted-foreground">
             <MapPin className="size-3" />
             Choose studio
           </label>
@@ -222,14 +232,20 @@ function BookingPanel({
                   className={cn(
                     "flex items-center gap-2.5 rounded-xl border p-2 text-left transition-all duration-300",
                     studioId === s.id
-                      ? "border-[#91ddcf] bg-[#91ddcf]/10 shadow-sm"
-                      : "border-border bg-background hover:border-[#91ddcf]/40",
+                      ? "border-accent bg-accent/10 shadow-sm"
+                      : "border-border bg-background hover:border-accent/40",
                   )}
                 >
-                  <img src={s.image} alt="" loading="lazy" decoding="async" className="size-10 shrink-0 rounded-lg object-cover" />
+                  <img
+                    src={s.image}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className="size-10 shrink-0 rounded-lg object-cover"
+                  />
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold text-foreground">{s.shortName}</p>
-                    <p className="text-[0.65rem] text-muted-foreground">
+                    <p className="type-label font-semibold text-foreground">{s.shortName}</p>
+                    <p className="type-label text-muted-foreground">
                       {s.distance} · {s.travelTime}
                     </p>
                   </div>
@@ -239,7 +255,7 @@ function BookingPanel({
         </div>
 
         <div>
-          <label className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted-foreground">
+          <label className="flex items-center gap-1 type-label font-semibold uppercase tracking-wider text-muted-foreground">
             Select time
           </label>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -249,15 +265,15 @@ function BookingPanel({
                 type="button"
                 onClick={() => setSlot(t.time)}
                 className={cn(
-                  "rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-300",
+                  "type-label rounded-full px-3 py-1.5 font-medium transition-all duration-300",
                   slot === t.time
-                    ? "bg-[#91ddcf] text-[#0f1f1c]"
-                    : "border border-border bg-background text-muted-foreground hover:border-[#91ddcf]/40",
+                    ? "bg-accent text-accent-foreground"
+                    : "border border-border bg-background text-muted-foreground hover:border-accent/40",
                 )}
               >
                 {t.time}
                 {t.label && (
-                  <span className="ml-1 text-[0.6rem] font-semibold uppercase opacity-80">
+                  <span className="ml-1 type-caption font-semibold uppercase opacity-80">
                     {t.label}
                   </span>
                 )}
@@ -268,7 +284,7 @@ function BookingPanel({
 
         <div className="mt-auto space-y-2 pt-1">
           <Button
-            className="w-full rounded-full bg-[#91ddcf] py-4 text-sm font-semibold text-[#0f1f1c] hover:bg-[#91ddcf]/90"
+            className="type-button w-full rounded-full bg-accent py-3.5 font-semibold text-accent-foreground hover:bg-accent/90"
             asChild
           >
             <LeavingHomeLink to="/specialists/$id" params={{ id: expert.id }} homeSection="experts">
@@ -276,7 +292,7 @@ function BookingPanel({
               <ChevronRight className="size-3.5" />
             </LeavingHomeLink>
           </Button>
-          <p className="flex items-center justify-center gap-1 text-center text-[0.65rem] text-muted-foreground">
+          <p className="flex items-center justify-center gap-1 text-center type-label text-muted-foreground">
             <User className="size-3" />
             Free reschedule up to 24 hours before your session
           </p>
@@ -291,24 +307,23 @@ export function Experts() {
   const [studioId, setStudioId] = useState(studios[0].id);
   const [slot, setSlot] = useState(timeSlots[1].time);
 
-  const active =
-    featuredSpecialists.find((e) => e.id === selectedId) ?? featuredSpecialists[0];
+  const active = featuredSpecialists.find((e) => e.id === selectedId) ?? featuredSpecialists[0];
 
   return (
     <section id="experts" className="bg-background">
-      <div className="border-b border-border bg-gradient-to-b from-[#91ddcf]/8 via-background to-background">
+      <div className="border-b border-border bg-gradient-to-b from-accent/8 via-background to-background">
         <div className="section-shell !pb-6 !pt-8 sm:!pb-8">
           <Reveal>
             <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-xl">
-                <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-primary">
+                <span className="inline-flex items-center gap-1.5 type-label font-semibold uppercase tracking-[0.16em] text-primary">
                   <BadgeCheck className="size-3.5" />
                   Licensed recovery specialists
                 </span>
                 <h2 className="type-section mt-2 text-balance text-foreground">
                   Meet The Experts Behind Your Recovery
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="type-body mt-2 text-muted-foreground">
                   Licensed physiotherapists dedicated to helping you move better and live pain-free.
                 </p>
               </div>
@@ -319,10 +334,10 @@ export function Experts() {
                     key={stat.label}
                     className="rounded-xl border border-border bg-card px-3 py-2.5 text-center shadow-[var(--shadow-soft)]"
                   >
-                    <p className="text-base font-bold tracking-tight text-foreground sm:text-lg">
+                    <p className="type-subheading font-bold tracking-tight text-foreground">
                       {stat.value}
                     </p>
-                    <p className="mt-0.5 text-[0.65rem] text-muted-foreground">{stat.label}</p>
+                    <p className="mt-0.5 type-label text-muted-foreground">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -348,7 +363,7 @@ export function Experts() {
             <LeavingHomeLink
               to="/specialists/"
               homeSection="experts"
-              className="group mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-[#5ba99a] transition-colors hover:text-[#91ddcf]"
+              className="group mt-1 inline-flex items-center gap-1.5 type-caption font-semibold text-forest transition-colors hover:text-accent"
             >
               View All Experts
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -398,7 +413,7 @@ export function Experts() {
           <LeavingHomeLink
             to="/specialists/"
             homeSection="experts"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-[#5ba99a] transition-colors hover:text-[#91ddcf]"
+            className="group inline-flex items-center gap-1.5 type-caption font-semibold text-forest transition-colors hover:text-accent"
           >
             View All Experts
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

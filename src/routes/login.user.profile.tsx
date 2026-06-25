@@ -70,20 +70,14 @@ function ClientProfilePage() {
     existingConditions: "",
   });
 
-  const handleInputChange = (
-    field: string,
-    value: string | number
-  ) => {
+  const handleInputChange = (field: string, value: string | number) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
-  const handleCheckboxChange = (
-    field: "medicalHistory" | "previousInjuries",
-    value: string
-  ) => {
+  const handleCheckboxChange = (field: "medicalHistory" | "previousInjuries", value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: prev[field].includes(value)
@@ -97,8 +91,7 @@ function ClientProfilePage() {
 
     if (stepNum === 1) {
       if (!formData.name.trim()) newErrors.name = "Name is required";
-      if (!formData.age || Number(formData.age) < 18)
-        newErrors.age = "Age must be at least 18";
+      if (!formData.age || Number(formData.age) < 18) newErrors.age = "Age must be at least 18";
       if (!formData.gender) newErrors.gender = "Gender is required";
       if (!formData.phone) newErrors.phone = "Phone is required";
       if (!formData.email) newErrors.email = "Email is required";
@@ -106,12 +99,9 @@ function ClientProfilePage() {
 
     if (stepNum === 2) {
       if (!formData.city.trim()) newErrors.city = "City is required";
-      if (!formData.occupation.trim())
-        newErrors.occupation = "Occupation is required";
-      if (!formData.height || Number(formData.height) <= 0)
-        newErrors.height = "Height is required";
-      if (!formData.weight || Number(formData.weight) <= 0)
-        newErrors.weight = "Weight is required";
+      if (!formData.occupation.trim()) newErrors.occupation = "Occupation is required";
+      if (!formData.height || Number(formData.height) <= 0) newErrors.height = "Height is required";
+      if (!formData.weight || Number(formData.weight) <= 0) newErrors.weight = "Weight is required";
       if (!formData.lifestyle) newErrors.lifestyle = "Lifestyle is required";
     }
 
@@ -162,11 +152,12 @@ function ClientProfilePage() {
             ))}
           </div>
           <p className="text-sm text-muted-foreground">
-            Step {step} of 3: {step === 1
+            Step {step} of 3:{" "}
+            {step === 1
               ? "Personal Information"
               : step === 2
-              ? "Health & Lifestyle"
-              : "Medical History"}
+                ? "Health & Lifestyle"
+                : "Medical History"}
           </p>
         </div>
 
@@ -184,14 +175,10 @@ function ClientProfilePage() {
                     id="name"
                     placeholder="John Doe"
                     value={formData.name}
-                    onChange={(e) =>
-                      handleInputChange("name", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("name", e.target.value)}
                     className={errors.name ? "border-red-500" : ""}
                   />
-                  {errors.name && (
-                    <p className="text-xs text-red-500 mt-1">{errors.name}</p>
-                  )}
+                  {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
                 </div>
 
                 <div>
@@ -201,28 +188,19 @@ function ClientProfilePage() {
                     type="number"
                     placeholder="30"
                     value={formData.age}
-                    onChange={(e) =>
-                      handleInputChange("age", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("age", e.target.value)}
                     className={errors.age ? "border-red-500" : ""}
                   />
-                  {errors.age && (
-                    <p className="text-xs text-red-500 mt-1">{errors.age}</p>
-                  )}
+                  {errors.age && <p className="text-xs text-red-500 mt-1">{errors.age}</p>}
                 </div>
 
                 <div>
                   <Label htmlFor="gender">Gender *</Label>
                   <Select
                     value={formData.gender}
-                    onValueChange={(value) =>
-                      handleInputChange("gender", value)
-                    }
+                    onValueChange={(value) => handleInputChange("gender", value)}
                   >
-                    <SelectTrigger
-                      id="gender"
-                      className={errors.gender ? "border-red-500" : ""}
-                    >
+                    <SelectTrigger id="gender" className={errors.gender ? "border-red-500" : ""}>
                       <SelectValue placeholder="Select gender" />
                     </SelectTrigger>
                     <SelectContent>
@@ -231,9 +209,7 @@ function ClientProfilePage() {
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
-                  {errors.gender && (
-                    <p className="text-xs text-red-500 mt-1">{errors.gender}</p>
-                  )}
+                  {errors.gender && <p className="text-xs text-red-500 mt-1">{errors.gender}</p>}
                 </div>
 
                 <div>
@@ -242,14 +218,10 @@ function ClientProfilePage() {
                     id="phone"
                     placeholder="+91 98765 43210"
                     value={formData.phone}
-                    onChange={(e) =>
-                      handleInputChange("phone", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
                     className={errors.phone ? "border-red-500" : ""}
                   />
-                  {errors.phone && (
-                    <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
-                  )}
+                  {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
                 </div>
 
                 <div className="md:col-span-2">
@@ -259,14 +231,10 @@ function ClientProfilePage() {
                     type="email"
                     placeholder="john@example.com"
                     value={formData.email}
-                    onChange={(e) =>
-                      handleInputChange("email", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     className={errors.email ? "border-red-500" : ""}
                   />
-                  {errors.email && (
-                    <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-                  )}
+                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                 </div>
               </div>
             </div>
@@ -288,9 +256,7 @@ function ClientProfilePage() {
                     onChange={(e) => handleInputChange("city", e.target.value)}
                     className={errors.city ? "border-red-500" : ""}
                   />
-                  {errors.city && (
-                    <p className="text-xs text-red-500 mt-1">{errors.city}</p>
-                  )}
+                  {errors.city && <p className="text-xs text-red-500 mt-1">{errors.city}</p>}
                 </div>
 
                 <div>
@@ -299,15 +265,11 @@ function ClientProfilePage() {
                     id="occupation"
                     placeholder="Software Engineer"
                     value={formData.occupation}
-                    onChange={(e) =>
-                      handleInputChange("occupation", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("occupation", e.target.value)}
                     className={errors.occupation ? "border-red-500" : ""}
                   />
                   {errors.occupation && (
-                    <p className="text-xs text-red-500 mt-1">
-                      {errors.occupation}
-                    </p>
+                    <p className="text-xs text-red-500 mt-1">{errors.occupation}</p>
                   )}
                 </div>
 
@@ -318,14 +280,10 @@ function ClientProfilePage() {
                     type="number"
                     placeholder="175"
                     value={formData.height}
-                    onChange={(e) =>
-                      handleInputChange("height", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("height", e.target.value)}
                     className={errors.height ? "border-red-500" : ""}
                   />
-                  {errors.height && (
-                    <p className="text-xs text-red-500 mt-1">{errors.height}</p>
-                  )}
+                  {errors.height && <p className="text-xs text-red-500 mt-1">{errors.height}</p>}
                 </div>
 
                 <div>
@@ -335,23 +293,17 @@ function ClientProfilePage() {
                     type="number"
                     placeholder="70"
                     value={formData.weight}
-                    onChange={(e) =>
-                      handleInputChange("weight", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("weight", e.target.value)}
                     className={errors.weight ? "border-red-500" : ""}
                   />
-                  {errors.weight && (
-                    <p className="text-xs text-red-500 mt-1">{errors.weight}</p>
-                  )}
+                  {errors.weight && <p className="text-xs text-red-500 mt-1">{errors.weight}</p>}
                 </div>
 
                 <div className="md:col-span-2">
                   <Label htmlFor="lifestyle">Lifestyle *</Label>
                   <Select
                     value={formData.lifestyle}
-                    onValueChange={(value) =>
-                      handleInputChange("lifestyle", value)
-                    }
+                    onValueChange={(value) => handleInputChange("lifestyle", value)}
                   >
                     <SelectTrigger
                       id="lifestyle"
@@ -366,15 +318,11 @@ function ClientProfilePage() {
                       <SelectItem value="active">
                         Active (Regular movement, some exercise)
                       </SelectItem>
-                      <SelectItem value="athlete">
-                        Athlete (Regular intense exercise)
-                      </SelectItem>
+                      <SelectItem value="athlete">Athlete (Regular intense exercise)</SelectItem>
                     </SelectContent>
                   </Select>
                   {errors.lifestyle && (
-                    <p className="text-xs text-red-500 mt-1">
-                      {errors.lifestyle}
-                    </p>
+                    <p className="text-xs text-red-500 mt-1">{errors.lifestyle}</p>
                   )}
                 </div>
               </div>
@@ -383,29 +331,18 @@ function ClientProfilePage() {
 
           {step === 3 && (
             <div className="space-y-6">
-              <h2 className="font-display text-2xl font-bold text-foreground">
-                Medical History
-              </h2>
+              <h2 className="font-display text-2xl font-bold text-foreground">Medical History</h2>
 
               <div>
                 <Label className="mb-3 block">Medical Conditions</Label>
                 <div className="grid gap-3 md:grid-cols-2">
                   {MEDICAL_CONDITIONS.map((condition) => (
-                    <label
-                      key={condition}
-                      className="flex items-center gap-3 cursor-pointer"
-                    >
+                    <label key={condition} className="flex items-center gap-3 cursor-pointer">
                       <Checkbox
-                        checked={formData.medicalHistory.includes(
-                          condition
-                        )}
-                        onCheckedChange={() =>
-                          handleCheckboxChange("medicalHistory", condition)
-                        }
+                        checked={formData.medicalHistory.includes(condition)}
+                        onCheckedChange={() => handleCheckboxChange("medicalHistory", condition)}
                       />
-                      <span className="text-sm text-foreground">
-                        {condition}
-                      </span>
+                      <span className="text-sm text-foreground">{condition}</span>
                     </label>
                   ))}
                 </div>
@@ -415,17 +352,10 @@ function ClientProfilePage() {
                 <Label className="mb-3 block">Previous Injuries</Label>
                 <div className="grid gap-3 md:grid-cols-2">
                   {PREVIOUS_INJURIES.map((injury) => (
-                    <label
-                      key={injury}
-                      className="flex items-center gap-3 cursor-pointer"
-                    >
+                    <label key={injury} className="flex items-center gap-3 cursor-pointer">
                       <Checkbox
-                        checked={formData.previousInjuries.includes(
-                          injury
-                        )}
-                        onCheckedChange={() =>
-                          handleCheckboxChange("previousInjuries", injury)
-                        }
+                        checked={formData.previousInjuries.includes(injury)}
+                        onCheckedChange={() => handleCheckboxChange("previousInjuries", injury)}
                       />
                       <span className="text-sm text-foreground">{injury}</span>
                     </label>
@@ -434,16 +364,12 @@ function ClientProfilePage() {
               </div>
 
               <div>
-                <Label htmlFor="conditions">
-                  Any Existing Pain or Conditions (Optional)
-                </Label>
+                <Label htmlFor="conditions">Any Existing Pain or Conditions (Optional)</Label>
                 <Textarea
                   id="conditions"
                   placeholder="Describe any current pain or conditions..."
                   value={formData.existingConditions}
-                  onChange={(e) =>
-                    handleInputChange("existingConditions", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("existingConditions", e.target.value)}
                   className="min-h-[100px]"
                 />
               </div>
@@ -455,9 +381,7 @@ function ClientProfilePage() {
             <Button
               variant="outline"
               onClick={() =>
-                step > 1
-                  ? setStep((step - 1) as 1 | 2 | 3)
-                  : navigate({ to: "/login" })
+                step > 1 ? setStep((step - 1) as 1 | 2 | 3) : navigate({ to: "/login" })
               }
               className="flex-1 rounded-lg"
             >
@@ -469,10 +393,7 @@ function ClientProfilePage() {
                 Next
               </Button>
             ) : (
-              <Button
-                onClick={handleSubmit}
-                className="flex-1 rounded-lg"
-              >
+              <Button onClick={handleSubmit} className="flex-1 rounded-lg">
                 Complete Profile
               </Button>
             )}

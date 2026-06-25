@@ -12,20 +12,23 @@ const trustPoints = [
 
 export function FinalCta() {
   return (
-    <section id="booking" className="relative bg-gradient-to-b from-background via-[#f7f9f2]/40 to-background">
+    <section
+      id="booking"
+      className="relative bg-background"
+    >
       <div className="section-shell !pb-12 !pt-4 sm:!pb-16">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-[#91ddcf]/25 bg-white/80 p-1 shadow-[0_32px_80px_-40px_rgba(91,169,154,0.45)] backdrop-blur-sm sm:rounded-[2.5rem]"
+          className="glass-card relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-accent/25 p-1 sm:rounded-[2.5rem]"
         >
-          <div className="relative overflow-hidden rounded-[1.85rem] bg-gradient-to-b from-[#fafcf8] via-white to-[#f0f7f4] px-5 py-12 sm:rounded-[2.35rem] sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+          <div className="final-cta-inner relative overflow-hidden rounded-[1.85rem] px-5 py-10 sm:rounded-[2.35rem] sm:px-8 sm:py-12 lg:px-12 lg:py-14">
             {/* Ambient layers */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_0%,rgba(145,221,207,0.18),transparent_65%)]" />
-            <div className="pointer-events-none absolute -right-20 top-1/2 size-56 -translate-y-1/2 rounded-full bg-[#e8c5e5]/15 blur-3xl" />
-            <div className="pointer-events-none absolute -left-16 bottom-0 size-48 rounded-full bg-[#91ddcf]/12 blur-3xl" />
+            <div className="pointer-events-none absolute -right-20 top-1/2 size-56 -translate-y-1/2 rounded-full bg-brand-lilac/15 blur-3xl" />
+            <div className="pointer-events-none absolute -left-16 bottom-0 size-48 rounded-full bg-accent/12 blur-3xl" />
 
             <div
               className="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -38,7 +41,7 @@ export function FinalCta() {
               }}
             />
 
-            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-[#91ddcf]/50 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
 
             <div className="relative mx-auto max-w-2xl text-center">
               <motion.span
@@ -46,11 +49,11 @@ export function FinalCta() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: 0.05 }}
-                className="inline-flex items-center gap-2 rounded-full border border-[#91ddcf]/35 bg-white px-4 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[#5ba99a] shadow-[0_2px_8px_-2px_rgba(91,169,154,0.2)]"
+                className="brand-badge type-label inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-semibold uppercase tracking-[0.16em] shadow-[var(--shadow-soft)]"
               >
                 <span className="relative flex size-2">
-                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#91ddcf]/40 opacity-75" />
-                  <span className="relative inline-flex size-2 rounded-full bg-[#91ddcf]" />
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent/40 opacity-75" />
+                  <span className="relative inline-flex size-2 rounded-full bg-accent" />
                 </span>
                 Start your recovery
               </motion.span>
@@ -60,16 +63,16 @@ export function FinalCta() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: 0.1 }}
-                className="mt-6 font-display text-[clamp(2.125rem,5vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.03em] text-foreground"
+                className="type-hero mt-5 font-display font-bold text-foreground"
               >
                 Move Better,{" "}
-                <span className="relative inline-block whitespace-nowrap">
+                <span className="relative inline-block">
                   <span className="relative z-10 bg-gradient-to-r from-foreground to-foreground bg-clip-text">
                     Feel Better.
                   </span>
                   <svg
                     aria-hidden
-                    className="absolute -bottom-1 left-0 z-0 w-full text-[#91ddcf]/50"
+                    className="absolute -bottom-1 left-0 z-0 w-full text-accent/50"
                     viewBox="0 0 200 12"
                     preserveAspectRatio="none"
                   >
@@ -89,10 +92,10 @@ export function FinalCta() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: 0.16 }}
-                className="mx-auto mt-5 max-w-lg text-pretty text-[0.9375rem] leading-[1.65] text-muted-foreground sm:text-base"
+                className="type-body mx-auto mt-4 max-w-lg text-pretty text-muted-foreground"
               >
-                Clinical assessment, hands-on assisted stretching, and physiotherapist supervision
-                — start with a consultation focused on pain relief and mobility improvement.
+                Clinical assessment, hands-on assisted stretching, and physiotherapist supervision —
+                start with a consultation focused on pain relief and mobility improvement.
               </motion.p>
 
               <motion.div
@@ -109,9 +112,9 @@ export function FinalCta() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.24 + i * 0.06 }}
-                    className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-white/90 px-3.5 py-2 text-xs font-medium text-foreground shadow-[0_1px_2px_rgba(15,31,28,0.04),0_4px_16px_-6px_rgba(15,31,28,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#91ddcf]/45 hover:shadow-[0_8px_24px_-10px_rgba(91,169,154,0.35)]"
+                    className="glass-card type-caption inline-flex items-center gap-2 rounded-full border border-border/70 px-3.5 py-2 font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:shadow-[var(--shadow-card)]"
                   >
-                    <span className="grid size-7 place-items-center rounded-full bg-gradient-to-br from-[#91ddcf]/20 to-[#91ddcf]/8 text-[#5ba99a]">
+                    <span className="brand-icon-surface grid size-7 place-items-center rounded-full">
                       <Icon className="size-3.5" strokeWidth={2.25} />
                     </span>
                     {label}
@@ -129,7 +132,7 @@ export function FinalCta() {
                 <Button
                   variant="hero"
                   size="xl"
-                  className="group h-12 w-full rounded-full px-7 text-[0.9375rem] font-semibold shadow-[0_14px_36px_-14px_rgba(145,221,207,0.9)] transition-all duration-300 hover:shadow-[0_18px_40px_-12px_rgba(145,221,207,0.95)] sm:flex-1"
+                  className="group min-h-12 w-full rounded-full px-7 py-3 shadow-[0_14px_36px_-14px_rgba(145,221,207,0.9)] transition-all duration-300 hover:shadow-[0_18px_40px_-12px_rgba(145,221,207,0.95)] sm:flex-1"
                   asChild
                 >
                   <LeavingHomeLink to="/specialists/" homeSection="booking">
@@ -141,14 +144,14 @@ export function FinalCta() {
                   variant="heroOutline"
                   size="xl"
                   className={cn(
-                    "group h-12 w-full rounded-full border-border/70 bg-white px-7 text-[0.9375rem] font-semibold",
-                    "shadow-[0_2px_8px_-2px_rgba(15,31,28,0.06)] transition-all duration-300",
-                    "hover:border-[#91ddcf]/55 hover:bg-[#fafcf8] hover:shadow-[0_8px_24px_-12px_rgba(91,169,154,0.25)] sm:flex-1",
+                    "group min-h-12 w-full rounded-full border-border/70 bg-card px-7 py-3",
+                    "shadow-[var(--shadow-soft)] transition-all duration-300",
+                    "hover:border-accent/55 hover:bg-elevated hover:shadow-[var(--shadow-card)] sm:flex-1",
                   )}
                   asChild
                 >
                   <LeavingHomeLink to="/assessment/start" homeSection="booking">
-                    <BadgeCheck className="size-4 text-[#5ba99a] transition-transform duration-300 group-hover:scale-110" />
+                    <BadgeCheck className="size-4 text-forest transition-transform duration-300 group-hover:scale-110" />
                     Book assessment
                   </LeavingHomeLink>
                 </Button>
@@ -159,7 +162,7 @@ export function FinalCta() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.38 }}
-                className="mt-6 text-xs text-muted-foreground/80"
+                className="type-caption mt-6 text-muted-foreground/80"
               >
                 No commitment required · Same-week appointments available
               </motion.p>

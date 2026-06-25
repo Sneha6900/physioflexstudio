@@ -1,12 +1,5 @@
 import { motion } from "motion/react";
-import {
-  Activity,
-  BrainCircuit,
-  CalendarHeart,
-  Dumbbell,
-  Gauge,
-  ScanLine,
-} from "lucide-react";
+import { Activity, BrainCircuit, CalendarHeart, Dumbbell, Gauge, ScanLine } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { itemVariants, Stagger } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
@@ -82,8 +75,8 @@ function CardPreview({ type }: { type: PreviewType }) {
           <rect x="20" y="52" width="9" height="30" rx="4" fill="currentColor" />
           <rect x="31" y="52" width="9" height="30" rx="4" fill="currentColor" />
         </svg>
-        <span className="absolute left-1/2 top-[52%] size-2.5 -translate-x-1/2 rounded-full bg-[#91ddcf] ring-4 ring-[#91ddcf]/25" />
-        <span className="absolute bottom-2 right-3 rounded-full bg-background/90 px-2 py-0.5 text-[0.6rem] font-semibold text-[#5ba99a]">
+        <span className="absolute left-1/2 top-[52%] size-2.5 -translate-x-1/2 rounded-full bg-accent ring-4 ring-accent/25" />
+        <span className="type-caption absolute bottom-2 right-3 rounded-full bg-background/90 px-2 py-0.5 font-semibold text-forest">
           Lower Back
         </span>
       </div>
@@ -99,9 +92,9 @@ function CardPreview({ type }: { type: PreviewType }) {
           { label: "Posture", w: "61%" },
         ].map((row) => (
           <div key={row.label} className="flex w-full items-center gap-2">
-            <span className="w-14 shrink-0 text-[0.6rem] text-muted-foreground">{row.label}</span>
+            <span className="type-caption w-14 shrink-0 text-muted-foreground">{row.label}</span>
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
-              <div className="h-full rounded-full bg-[#91ddcf]" style={{ width: row.w }} />
+              <div className="h-full rounded-full bg-accent" style={{ width: row.w }} />
             </div>
           </div>
         ))}
@@ -112,13 +105,13 @@ function CardPreview({ type }: { type: PreviewType }) {
   if (type === "stretch") {
     return (
       <div className={cn(shell, "gap-3 px-4")}>
-        <div className="flex size-10 items-end justify-center rounded-xl bg-[#91ddcf]/15">
-          <div className="mb-1 h-5 w-5 rounded-full bg-[#91ddcf]/40" />
+        <div className="flex size-10 items-end justify-center rounded-xl bg-accent/15">
+          <div className="mb-1 h-5 w-5 rounded-full bg-accent/40" />
         </div>
         <div className="flex-1 space-y-1.5">
           <div className="h-1.5 w-full rounded-full bg-muted" />
           <div className="h-1.5 w-4/5 rounded-full bg-muted" />
-          <span className="inline-block rounded-full bg-[#e8c5e5]/40 px-2 py-0.5 text-[0.6rem] font-semibold text-foreground">
+          <span className="type-caption inline-block rounded-full bg-[#e8c5e5]/40 px-2 py-0.5 font-semibold text-foreground">
             Guided stretch
           </span>
         </div>
@@ -134,7 +127,7 @@ function CardPreview({ type }: { type: PreviewType }) {
             key={i}
             className={cn(
               "aspect-square rounded-md",
-              i === 9 ? "bg-[#91ddcf] ring-2 ring-[#91ddcf]/30" : "bg-muted/70",
+              i === 9 ? "bg-accent ring-2 ring-accent/30" : "bg-muted/70",
             )}
           />
         ))}
@@ -152,14 +145,14 @@ function CardPreview({ type }: { type: PreviewType }) {
             cy="32"
             r="26"
             fill="none"
-            stroke="#91ddcf"
+            stroke="var(--accent)"
             strokeWidth="6"
             strokeLinecap="round"
             strokeDasharray="163.36"
             strokeDashoffset="32.67"
           />
         </svg>
-        <span className="absolute text-sm font-bold text-foreground">82%</span>
+        <span className="absolute type-caption font-bold text-foreground">82%</span>
       </div>
     );
   }
@@ -169,7 +162,7 @@ function CardPreview({ type }: { type: PreviewType }) {
       {[35, 48, 42, 62, 58, 74, 88].map((h, i) => (
         <div
           key={i}
-          className="w-full max-w-[1.25rem] rounded-t-md bg-gradient-to-t from-[#5ba99a] to-[#91ddcf]"
+          className="w-full max-w-[1.25rem] rounded-t-md bg-gradient-to-t from-forest to-accent"
           style={{ height: `${h}%` }}
         />
       ))}
@@ -196,7 +189,7 @@ export function Features() {
                 "group relative flex flex-col overflow-hidden rounded-[2rem] border p-5 transition-all duration-300 sm:p-6",
                 c.feature
                   ? "surface-dark border-border shadow-[var(--shadow-soft)] hover:border-accent/35"
-                  : "card-premium bg-card hover:border-[#91ddcf]/30",
+                  : "card-premium bg-card hover:border-accent/30",
                 c.className,
               )}
             >
@@ -204,14 +197,14 @@ export function Features() {
                 <span
                   className={cn(
                     "grid size-10 shrink-0 place-items-center rounded-xl",
-                    c.feature ? "bg-primary/10 text-primary" : "bg-[#91ddcf]/12 text-[#5ba99a]",
+                    c.feature ? "bg-primary/10 text-primary" : "bg-accent/12 text-forest",
                   )}
                 >
                   <c.icon className="size-5" />
                 </span>
                 <div className="min-w-0 flex-1">
                   <h3 className="type-card-title text-foreground">{c.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{c.desc}</p>
+                  <p className="type-body mt-1 text-pretty text-muted-foreground">{c.desc}</p>
                 </div>
               </div>
               <CardPreview type={c.preview} />

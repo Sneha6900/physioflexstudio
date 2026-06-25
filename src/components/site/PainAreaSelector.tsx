@@ -2,12 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, HelpCircle, X } from "lucide-react";
 import { BodySilhouette } from "@/components/site/BodySilhouette";
-import {
-  areaMeta,
-  bodyParts,
-  togglePainAreaSelection,
-  type BodyPart,
-} from "@/lib/journey-body";
+import { areaMeta, bodyParts, togglePainAreaSelection, type BodyPart } from "@/lib/journey-body";
 import { cn } from "@/lib/utils";
 
 function BodyAreaChip({
@@ -27,8 +22,8 @@ function BodyAreaChip({
       className={cn(
         "relative flex min-h-11 items-center justify-center rounded-xl border px-2.5 py-2.5 text-xs font-semibold leading-tight transition-all duration-250 sm:text-sm",
         selected
-          ? "border-[#FECACA] bg-[#FEF2F2] text-foreground"
-          : "border-border/80 bg-white text-muted-foreground hover:border-[#91DDCF]/60 hover:bg-[#F7F9F2]",
+          ? "border-destructive/45 bg-destructive/12 text-foreground"
+          : "border-border/80 bg-card text-muted-foreground hover:border-accent/60 hover:bg-secondary",
       )}
       whileTap={{ scale: 0.98 }}
     >
@@ -96,21 +91,17 @@ function SelectedAreasPanel({
             <>
               <div>
                 <p className="text-muted-foreground">Pain</p>
-                <p className="mt-0.5 font-semibold text-[#5ba99a]">
+                <p className="mt-0.5 font-semibold text-forest">
                   {areaMeta[parts[0]].painLevel}
                 </p>
               </div>
               <div>
                 <p className="text-muted-foreground">Impact</p>
-                <p className="mt-0.5 font-semibold text-[#5ba99a]">
-                  {areaMeta[parts[0]].impact}
-                </p>
+                <p className="mt-0.5 font-semibold text-forest">{areaMeta[parts[0]].impact}</p>
               </div>
               <div>
                 <p className="text-muted-foreground">Recovery</p>
-                <p className="mt-0.5 font-semibold text-[#5ba99a]">
-                  {areaMeta[parts[0]].recovery}
-                </p>
+                <p className="mt-0.5 font-semibold text-forest">{areaMeta[parts[0]].recovery}</p>
               </div>
             </>
           ) : (

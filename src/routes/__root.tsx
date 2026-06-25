@@ -3,7 +3,7 @@ import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/r
 import { useEffect } from "react";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { ThemeInit } from "../components/site/ThemeInit";
+import { ThemeProvider } from "../components/site/ThemeProvider";
 
 function NotFoundComponent() {
   return (
@@ -112,8 +112,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeInit />
-      <Outlet />
+      <ThemeProvider>
+        <Outlet />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

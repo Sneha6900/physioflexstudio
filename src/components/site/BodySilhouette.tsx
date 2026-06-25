@@ -44,13 +44,7 @@ function PainMarker({ compact }: { compact?: boolean }) {
 }
 
 /** Soft anatomical tint — no blur, no oversized glow. */
-function RegionTint({
-  part,
-  mode,
-}: {
-  part: BodyPart;
-  mode: "selected" | "hover";
-}) {
+function RegionTint({ part, mode }: { part: BodyPart; mode: "selected" | "hover" }) {
   return (
     <motion.img
       src={bodyLayerImages[part]}
@@ -131,17 +125,14 @@ export function BodySilhouette({
     onToggle?.(part);
   };
 
-  const hoverPart =
-    hoveredPart && !selected.includes(hoveredPart) ? hoveredPart : null;
+  const hoverPart = hoveredPart && !selected.includes(hoveredPart) ? hoveredPart : null;
 
-  const sizeClass = compact
-    ? "max-h-[min(42svh,280px)] sm:max-h-[min(38svh,240px)]"
-    : "max-h-full";
+  const sizeClass = compact ? "max-h-[min(42svh,280px)] sm:max-h-[min(38svh,240px)]" : "max-h-full";
 
   const statusText =
     selected.length > 0
       ? `Selected areas (${selected.length}/${MAX_PAIN_AREA_SELECTIONS}) · ${selected.join(", ")}`
-      : hoveredLabel ?? "Tap up to 3 areas on the body map";
+      : (hoveredLabel ?? "Tap up to 3 areas on the body map");
 
   return (
     <div className={cn("relative flex h-full min-h-0 w-full flex-col", className)}>
@@ -157,7 +148,10 @@ export function BodySilhouette({
             alt="Anatomical body map showing front and back views"
             loading="lazy"
             decoding="async"
-            className={cn("relative z-0 block w-auto max-w-full select-none object-contain", sizeClass)}
+            className={cn(
+              "relative z-0 block w-auto max-w-full select-none object-contain",
+              sizeClass,
+            )}
             draggable={false}
           />
 
@@ -165,13 +159,9 @@ export function BodySilhouette({
             <AnimatePresence>
               {bodyParts.map((part) => {
                 if (!selected.includes(part)) return null;
-                return (
-                  <RegionTint key={`sel-${part}`} part={part} mode="selected" />
-                );
+                return <RegionTint key={`sel-${part}`} part={part} mode="selected" />;
               })}
-              {hoverPart && (
-                <RegionTint key={`hover-${hoverPart}`} part={hoverPart} mode="hover" />
-              )}
+              {hoverPart && <RegionTint key={`hover-${hoverPart}`} part={hoverPart} mode="hover" />}
             </AnimatePresence>
           </div>
 

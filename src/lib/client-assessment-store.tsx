@@ -37,9 +37,9 @@ export const useClientAssessment = create<ClientAssessmentState>((set) => ({
   currentStep: null,
   selectedAreas: [],
   currentPainDetails: null,
-  
+
   setCurrentStep: (step) => set({ currentStep: step }),
-  
+
   addSelectedArea: (area) =>
     set((state) => {
       if (state.selectedAreas.length < 3 && !state.selectedAreas.includes(area)) {
@@ -47,32 +47,37 @@ export const useClientAssessment = create<ClientAssessmentState>((set) => ({
       }
       return state;
     }),
-  
+
   removeSelectedArea: (area) =>
     set((state) => ({
       selectedAreas: state.selectedAreas.filter((a) => a !== area),
     })),
-  
+
   setPainDetails: (painPoint) =>
     set((state) => {
       const updatedPoints = state.assessment?.painPoints || [];
       const existingIndex = updatedPoints.findIndex((p) => p.area === painPoint.area);
-      
+
       if (existingIndex >= 0) {
         updatedPoints[existingIndex] = painPoint;
       } else {
         updatedPoints.push(painPoint);
       }
-      
+
       return {
         assessment: state.assessment
           ? { ...state.assessment, painPoints: updatedPoints }
-          : { painPoints: updatedPoints, recommendedExercises: [], treatmentPlan: "", severity: "moderate" },
+          : {
+              painPoints: updatedPoints,
+              recommendedExercises: [],
+              treatmentPlan: "",
+              severity: "moderate",
+            },
       };
     }),
-  
+
   completeAssessment: (assessment) => set({ assessment, currentStep: "results" }),
-  
+
   resetAssessment: () =>
     set({
       assessment: null,
