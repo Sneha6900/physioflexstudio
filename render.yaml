@@ -3,6 +3,7 @@ services:
     name: physioflexstudio
     runtime: static
     plan: free
+    # npm only — commit package-lock.json; omit bun.lock so Render does not use Bun.
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
     routes:
