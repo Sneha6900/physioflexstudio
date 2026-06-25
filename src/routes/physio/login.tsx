@@ -14,7 +14,7 @@ export const Route = createFileRoute("/physio/login")({
       {
         name: "description",
         content:
-          "Sign in to the PhysioFlex physiotherapist dashboard to accept sessions, view client assessments, and manage your availability.",
+          "Sign in to the PhysioFlex Studio physiotherapist dashboard to accept sessions, view client assessments, and manage your availability.",
       },
     ],
   }),

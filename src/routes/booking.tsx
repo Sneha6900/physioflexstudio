@@ -28,7 +28,7 @@ export const Route = createFileRoute("/booking")({
   component: ClientBookingPage,
   meta: () => [
     {
-      title: "Book Your Session - PhysioFlex",
+      title: "Book Your Session — PhysioFlex Studio",
       description: "Schedule your physiotherapy session",
     },
   ],

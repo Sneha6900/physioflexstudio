@@ -183,7 +183,7 @@ export function Locations() {
           <div className="mt-10 rounded-[2rem] border border-border bg-card p-5 shadow-[var(--shadow-soft)] sm:p-8">
             <h3 className="type-section text-center text-foreground">Why Choose Our Studios?</h3>
             <p className="type-body mx-auto mt-2 max-w-xl text-center text-muted-foreground">
-              Every PhysioFlex location is built for adults who want professional care in a
+              Every PhysioFlex Studio location is built for people who want professional care in a
               space that feels warm, modern, and trustworthy.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

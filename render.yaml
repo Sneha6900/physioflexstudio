@@ -1,11 +1,11 @@
 services:
   - type: web
     name: physioflexstudio
-    env: node
-    buildCommand: npm run build
-    startCommand: node .output/server/index.mjs
-    publishDirectory: .output
+    runtime: static
     plan: free
-    envVars:
-      - key: NITRO_PRESET
-        value: node-server
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

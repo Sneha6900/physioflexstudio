@@ -35,7 +35,7 @@ export const featuredRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Therapist-guided hip stretches to ease stiffness and restore comfortable movement.",
     category: "hip",
     description:
-      "One-on-one hip mobility work with your physiotherapist — ideal for adults managing joint tightness or lower-body discomfort.",
+      "One-on-one hip mobility work with your physiotherapist — ideal for people managing joint tightness or lower-body discomfort.",
   },
   {
     img: programBackRecovery,
@@ -57,7 +57,7 @@ export const featuredRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Resistance-band shoulder therapy to rebuild strength and improve daily posture.",
     category: "shoulder",
     description:
-      "Guided shoulder rehabilitation using bands under therapist supervision — designed for adults recovering from strain or injury.",
+      "Guided shoulder rehabilitation using bands under therapist supervision — designed for people recovering from strain or injury.",
   },
   {
     img: programBalanceTraining,
@@ -90,7 +90,7 @@ export const featuredRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Personalized assisted stretching in a calm, premium clinic environment.",
     category: "back",
     description:
-      "One-on-one assisted stretching for adults 40+ — easing muscle tension and improving flexibility with professional care.",
+      "One-on-one assisted stretching — easing muscle tension and improving flexibility with professional care.",
   },
 ];
 
@@ -126,7 +126,7 @@ export const homeRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Personalized assisted stretching in a calm, premium clinic environment.",
     category: "back",
     description:
-      "One-on-one assisted stretching for adults 40+ — easing muscle tension and improving flexibility with professional care.",
+      "One-on-one assisted stretching — easing muscle tension and improving flexibility with professional care.",
   },
 ];
 
@@ -163,7 +163,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Teaches anti-rotation control and spinal neutrality for daily activities.",
     category: "back",
     description:
-      "Low-impact core rehabilitation exercise — ideal for adults rebuilding strength after back injury or prolonged discomfort.",
+      "Low-impact core rehabilitation exercise — ideal for people rebuilding strength after back injury or prolonged discomfort.",
   },
   {
     img: programHipMobility,
@@ -174,7 +174,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Improves hip rotation and reduces lower-body restriction.",
     category: "hip",
     description:
-      "Guided hip mobility drill for adults with tight hips — improves rotation safely under physiotherapist supervision.",
+      "Guided hip mobility drill for people with tight hips — improves rotation safely under physiotherapist supervision.",
   },
   {
     img: programShoulderRehab,
@@ -185,7 +185,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Restores comfortable overhead range of motion.",
     category: "shoulder",
     description:
-      "Gentle shoulder mobility exercise for adults recovering from stiffness, strain, or postural neck-and-shoulder pain.",
+      "Gentle shoulder mobility exercise for people recovering from stiffness, strain, or postural neck-and-shoulder pain.",
   },
   {
     img: programAssistedStretch,
@@ -196,7 +196,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Releases tight hip flexors and eases anterior chain tension.",
     category: "hip",
     description:
-      "Assisted passive stretch targeting chronically tight hip flexors — a common contributor to lower back discomfort in adults 40+.",
+      "Assisted passive stretch targeting chronically tight hip flexors — a common contributor to lower back discomfort.",
   },
   {
     img: programShoulderRehab,

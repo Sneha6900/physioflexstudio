@@ -41,7 +41,7 @@ export function PhysioShell({
                 className="flex w-fit shrink-0 items-center gap-2 rounded-3xl border border-border/80 bg-background/90 px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-secondary"
               >
                 <Activity className="size-5 text-accent" />
-                PhysioFlex
+                PhysioFlex Studio
               </Link>
               <div className="min-w-0">
                 <p className="type-label font-semibold uppercase text-muted-foreground">

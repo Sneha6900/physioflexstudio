@@ -19,7 +19,7 @@ export function Exercises() {
         <SectionHeading
           eyebrow="Recovery programs"
           title="Physiotherapy programs for every stage of healing"
-          description="Therapist-guided routines for adults 40+ — focused on mobility, pain relief, and confident recovery, not gym workouts."
+          description="Therapist-guided routines for all ages — focused on mobility, pain relief, and confident recovery, not gym workouts."
         />
 
         <Stagger className="mt-10 grid gap-5 md:grid-cols-3">

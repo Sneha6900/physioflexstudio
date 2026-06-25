@@ -16,7 +16,7 @@ const trustBadges = [
   { icon: ClipboardList, label: "Personalized Recovery Plans", detail: "Tailored to your needs" },
   { icon: Activity, label: "Joint & Mobility Specialists", detail: "Back, neck & joints" },
   { icon: BookOpen, label: "Evidence-Based Treatment", detail: "Clinically proven care" },
-  { icon: Users, label: "Trusted By 5,000+ Clients", detail: "Adults 40 and over" },
+  { icon: Users, label: "Trusted By 5,000+ Clients", detail: "All ages welcome" },
 ];
 
 function TrustPill({
@@ -118,7 +118,7 @@ export function Hero() {
           >
             <span className="size-1.5 rounded-full bg-[#91ddcf]" />
             <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/90 sm:text-[0.65rem] sm:tracking-[0.2em]">
-              Physiotherapy for Adults 40+
+              Physiotherapy for Everyone
             </span>
           </motion.div>
 
@@ -128,11 +128,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.06 }}
             className="type-hero text-white"
           >
-            <span className="hero-highlight-teal">Regain</span> Mobility.
+            <span className="hero-highlight-teal">Move</span> Better,
             <br />
-            Reduce <span className="hero-highlight-pink">Pain</span>.
-            <br />
-            <span className="hero-highlight-lilac">Enjoy</span> Life Again.
+            <span className="hero-highlight-lilac">Feel</span> Better.
           </motion.h1>
 
           <motion.p
@@ -142,7 +140,7 @@ export function Hero() {
             className="type-body mt-2 max-w-md text-white/80 sm:mt-3"
           >
             Professional physiotherapy for neck pain, back pain, joint stiffness, and mobility
-            limitations — designed for adults who want to move confidently again.
+            limitations — so you can move confidently again.
           </motion.p>
 
           <motion.div

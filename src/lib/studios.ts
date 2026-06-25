@@ -28,7 +28,7 @@ export const studios: Studio[] = [
   {
     id: "indiranagar",
     shortName: "Indiranagar",
-    name: "PhysioFlex Indiranagar",
+    name: "PhysioFlex Studio Indiranagar",
     address: "100 Ft Road, Indiranagar, Bengaluru 560038",
     hours: "Mon – Sun · 6 AM – 10 PM",
     distance: "2.4 km",
@@ -58,7 +58,7 @@ export const studios: Studio[] = [
   {
     id: "koramangala",
     shortName: "Koramangala",
-    name: "PhysioFlex Koramangala",
+    name: "PhysioFlex Studio Koramangala",
     address: "80 Ft Road, 4th Block, Koramangala, Bengaluru 560034",
     hours: "Mon – Sun · 6 AM – 10 PM",
     distance: "4.1 km",
@@ -88,7 +88,7 @@ export const studios: Studio[] = [
   {
     id: "whitefield",
     shortName: "Whitefield",
-    name: "PhysioFlex Whitefield",
+    name: "PhysioFlex Studio Whitefield",
     address: "ITPL Main Road, Whitefield, Bengaluru 560066",
     hours: "Mon – Sat · 6 AM – 9 PM",
     distance: "8.6 km",
@@ -128,7 +128,7 @@ export const studioWhyChoose = [
   },
   {
     title: "Certified Physiotherapists",
-    description: "Licensed experts focused on adults 40+ and pain-led recovery.",
+    description: "Licensed experts focused on pain-led recovery for all ages.",
   },
   {
     title: "Comfortable Environment",

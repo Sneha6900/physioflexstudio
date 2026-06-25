@@ -16,7 +16,7 @@ export const Route = createFileRoute("/assessment/start")({
   component: AssessmentStartPage,
   meta: () => [
     {
-      title: "Start Assessment - PhysioFlex",
+      title: "Start Assessment — PhysioFlex Studio",
       description: "Select your pain areas to get started with assessment",
     },
   ],

@@ -21,7 +21,7 @@ export const Route = createFileRoute("/login/user/profile")({
   component: ClientProfilePage,
   meta: () => [
     {
-      title: "Complete Your Profile - PhysioFlex",
+      title: "Complete Your Profile — PhysioFlex Studio",
       description: "Set up your health profile",
     },
   ],

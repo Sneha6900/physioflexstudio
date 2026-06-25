@@ -23,7 +23,7 @@ export const Route = createFileRoute("/assessment/pain-details/$area")({
   component: PainDetailsPage,
   meta: () => [
     {
-      title: "Pain Details - PhysioFlex",
+      title: "Pain Details — PhysioFlex Studio",
       description: "Provide details about your pain",
     },
   ],

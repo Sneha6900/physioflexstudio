@@ -1,19 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
+import { useEffect } from "react";
 
-import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ThemeInit } from "../components/site/ThemeInit";
-
-const themeInitScript = `(function(){try{var t=localStorage.getItem("physioflex-theme");if(t==="dark"){document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}}catch(e){}})();`;
 
 function NotFoundComponent() {
   return (
@@ -80,52 +70,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement." },
+      { title: "PhysioFlex Studio" },
+      {
+        name: "description",
+        content:
+          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement.",
+      },
+      { property: "og:title", content: "PhysioFlex Studio" },
+      {
+        property: "og:description",
+        content:
+          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9ca75caa-3bc7-4feb-b776-c6c823064c1d/id-preview-8d84bb18--1367bdc6-0521-4175-aa84-c4b776230a4a.lovable.app-1782188360860.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9ca75caa-3bc7-4feb-b776-c6c823064c1d/id-preview-8d84bb18--1367bdc6-0521-4175-aa84-c4b776230a4a.lovable.app-1782188360860.png" },
-    ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { name: "twitter:title", content: "PhysioFlex Studio" },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
+        name: "twitter:description",
+        content:
+          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement.",
       },
       {
-        rel: "stylesheet",
-        href: appCss,
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9ca75caa-3bc7-4feb-b776-c6c823064c1d/id-preview-8d84bb18--1367bdc6-0521-4175-aa84-c4b776230a4a.lovable.app-1782188360860.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9ca75caa-3bc7-4feb-b776-c6c823064c1d/id-preview-8d84bb18--1367bdc6-0521-4175-aa84-c4b776230a4a.lovable.app-1782188360860.png",
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -133,7 +113,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeInit />
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );

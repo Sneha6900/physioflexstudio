@@ -39,7 +39,7 @@ export function FlowShell({
               <Activity className="size-5 text-primary" />
             </span>
             <span className="truncate font-display text-base font-bold tracking-tight text-foreground sm:text-lg">
-              PhysioFlex<span className="text-primary">.</span>
+              PhysioFlex <span className="text-primary">Studio</span>
             </span>
           </Link>
 

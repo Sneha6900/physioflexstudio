@@ -15,17 +15,17 @@ import heroBg from "@/assets/hero-physio-clinic.webp";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PhysioFlex Studio — Regain Mobility. Reduce Pain." },
+      { title: "PhysioFlex Studio — Move Better, Feel Better" },
       {
         name: "description",
         content:
-          "Professional physiotherapy for adults 40+. Pain relief, assisted stretching, posture correction, and mobility recovery — designed for neck pain, back pain, and joint stiffness.",
+          "Professional physiotherapy for everyone. Pain relief, assisted stretching, posture correction, and mobility recovery — designed for neck pain, back pain, and joint stiffness.",
       },
-      { property: "og:title", content: "PhysioFlex Studio — Regain Mobility. Reduce Pain." },
+      { property: "og:title", content: "PhysioFlex Studio — Move Better, Feel Better" },
       {
         property: "og:description",
         content:
-          "A trusted mobility and recovery studio helping adults move confidently again with licensed physiotherapists and evidence-based treatment.",
+          "A trusted mobility and recovery studio helping people of all ages move confidently again with licensed physiotherapists and evidence-based treatment.",
       },
     ],
     links: [{ rel: "preload", as: "image", href: heroBg, type: "image/webp" }],

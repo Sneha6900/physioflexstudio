@@ -26,7 +26,7 @@ export function Footer() {
                 <Activity className="size-5 text-primary" />
               </span>
               <span className="text-base font-bold text-foreground sm:text-lg">
-                PhysioFlex<span className="text-accent">.</span>
+                PhysioFlex <span className="text-accent">Studio</span>
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">

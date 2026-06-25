@@ -12,8 +12,8 @@ export const Route = createFileRoute("/login/user/signup")({
   component: ClientSignupPage,
   meta: () => [
     {
-      title: "Sign Up - PhysioFlex Client",
-      description: "Create your PhysioFlex account",
+      title: "Sign Up — PhysioFlex Studio",
+      description: "Create your PhysioFlex Studio account",
     },
   ],
 });

@@ -6,12 +6,12 @@ import { Activity, Users, Stethoscope } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   component: LoginLayout,
-  meta: () => [
-    {
-      title: "Login - PhysioFlex",
-      description: "Sign in to PhysioFlex as a client or physiotherapist.",
-    },
-  ],
+  head: () => ({
+    meta: [
+      { title: "Login — PhysioFlex Studio" },
+      { name: "description", content: "Sign in to PhysioFlex Studio as a client or physiotherapist." },
+    ],
+  }),
 });
 
 function LoginLayout() {
@@ -36,10 +36,10 @@ function LoginLayout() {
             </div>
           </div>
           <h1 className="font-display text-3xl font-bold text-foreground">
-            PhysioFlex<span className="text-accent">.</span>
+            PhysioFlex <span className="text-accent">Studio</span>
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Choose how you'd like to access PhysioFlex
+            Choose how you'd like to access PhysioFlex Studio
           </p>
         </div>
 

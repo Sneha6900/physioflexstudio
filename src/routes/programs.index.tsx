@@ -62,7 +62,7 @@ function ProgramsIndex() {
         >
           <h1 className="type-section text-foreground">All Programs</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Therapist-guided recovery programs for adults 40+ — mobility, pain relief, and rehabilitation.
+            Therapist-guided recovery programs for all ages — mobility, pain relief, and rehabilitation.
           </p>
         </motion.div>
 

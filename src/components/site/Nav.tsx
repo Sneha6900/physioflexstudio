@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Activity, Menu, X } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
 import { prepareHomeScroll, type HomeSection } from "@/lib/home-scroll";
 import { cn } from "@/lib/utils";
@@ -134,7 +133,8 @@ export function Nav({ hero = false }: NavProps) {
                 onHero ? "text-white" : "text-foreground",
               )}
             >
-              PhysioFlex<span className={onHero ? "text-[#91ddcf]" : "text-accent"}>.</span>
+              PhysioFlex{" "}
+              <span className={onHero ? "text-[#91ddcf]" : "text-accent"}>Studio</span>
             </span>
           </Link>
 
@@ -147,31 +147,6 @@ export function Nav({ hero = false }: NavProps) {
           <div className="flex items-center gap-1 sm:gap-1.5">
             <div className="hidden lg:block">
               <ThemeToggle onHero={onHero} />
-            </div>
-
-            <div className="hidden items-center gap-1 lg:flex">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  "rounded-full text-sm",
-                  onHero && "text-white/80 hover:bg-white/10 hover:text-white",
-                )}
-                asChild
-              >
-                <Link to="/dashboard">My Progress</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  "rounded-full text-sm",
-                  onHero && "text-white/80 hover:bg-white/10 hover:text-white",
-                )}
-                asChild
-              >
-                <Link to="/login">Login</Link>
-              </Button>
             </div>
 
             <button
@@ -229,33 +204,6 @@ export function Nav({ hero = false }: NavProps) {
                 />
               ))}
             </nav>
-
-            <div className="mt-4 space-y-2 border-t border-border/40 pt-4">
-              <Button
-                variant="outline"
-                className={cn(
-                  "h-11 w-full rounded-2xl text-sm",
-                  onHero && "border-white/20 text-white hover:bg-white/10 hover:text-white",
-                )}
-                asChild
-              >
-                <Link to="/dashboard" onClick={closeMenu}>
-                  My Progress
-                </Link>
-              </Button>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "h-11 w-full rounded-2xl text-sm",
-                  onHero && "text-white hover:bg-white/10 hover:text-white",
-                )}
-                asChild
-              >
-                <Link to="/login" onClick={closeMenu}>
-                  Login
-                </Link>
-              </Button>
-            </div>
           </div>
         </>
       )}

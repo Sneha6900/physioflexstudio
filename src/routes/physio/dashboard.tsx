@@ -14,7 +14,7 @@ export const Route = createFileRoute("/physio/dashboard")({
       {
         name: "description",
         content:
-          "Accept assigned sessions, review client pain assessments, manage availability, and track daily and weekly targets from the PhysioFlex physiotherapist dashboard.",
+          "Accept assigned sessions, review client pain assessments, manage availability, and track daily and weekly targets from the PhysioFlex Studio physiotherapist dashboard.",
       },
     ],
   }),

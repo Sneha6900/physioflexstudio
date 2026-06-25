@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RecoveryRouteImport } from './routes/recovery'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -28,11 +27,6 @@ import { Route as LoginUserSignupRouteImport } from './routes/login.user.signup'
 import { Route as LoginUserProfileRouteImport } from './routes/login.user.profile'
 import { Route as AssessmentPainDetailsAreaRouteImport } from './routes/assessment.pain-details.$area'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RecoveryRoute = RecoveryRouteImport.update({
   id: '/recovery',
   path: '/recovery',
@@ -127,7 +121,6 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
   '/login/user': typeof LoginUserRouteWithChildren
@@ -147,7 +140,6 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
   '/login/user': typeof LoginUserRouteWithChildren
@@ -168,7 +160,6 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
   '/login/user': typeof LoginUserRouteWithChildren
@@ -190,7 +181,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/recovery'
-    | '/sitemap.xml'
     | '/assessment/results'
     | '/assessment/start'
     | '/login/user'
@@ -210,7 +200,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/recovery'
-    | '/sitemap.xml'
     | '/assessment/results'
     | '/assessment/start'
     | '/login/user'
@@ -230,7 +219,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/recovery'
-    | '/sitemap.xml'
     | '/assessment/results'
     | '/assessment/start'
     | '/login/user'
@@ -251,7 +239,6 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRouteWithChildren
   RecoveryRoute: typeof RecoveryRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   PhysioDashboardRoute: typeof PhysioDashboardRoute
   PhysioLoginRoute: typeof PhysioLoginRoute
   SpecialistsIdRoute: typeof SpecialistsIdRoute
@@ -261,13 +248,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/recovery': {
       id: '/recovery'
       path: '/recovery'
@@ -437,7 +417,6 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRouteWithChildren,
   RecoveryRoute: RecoveryRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
   PhysioDashboardRoute: PhysioDashboardRoute,
   PhysioLoginRoute: PhysioLoginRoute,
   SpecialistsIdRoute: SpecialistsIdRoute,
@@ -447,13 +426,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

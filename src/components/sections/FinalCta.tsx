@@ -62,7 +62,7 @@ export function FinalCta() {
                 transition={{ duration: 0.55, delay: 0.1 }}
                 className="mt-6 font-display text-[clamp(2.125rem,5vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.03em] text-foreground"
               >
-                Move Better.{" "}
+                Move Better,{" "}
                 <span className="relative inline-block whitespace-nowrap">
                   <span className="relative z-10 bg-gradient-to-r from-foreground to-foreground bg-clip-text">
                     Feel Better.
