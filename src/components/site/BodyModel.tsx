@@ -89,12 +89,11 @@ export function BodyModel({
       </div>
 
       {/* Body SVG */}
-      <div className="flex justify-center py-8">
+      <div className="flex justify-center py-4 sm:py-8">
         <svg
           viewBox="0 0 200 600"
-          width="250"
-          height="500"
-          className="drop-shadow-lg"
+          className="h-auto w-full max-w-[min(100%,16rem)] drop-shadow-lg sm:max-w-[18rem] md:max-w-[15rem]"
+          preserveAspectRatio="xMidYMid meet"
         >
           {viewMode === "front" ? (
             <>

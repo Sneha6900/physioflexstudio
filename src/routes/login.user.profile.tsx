@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -145,7 +147,7 @@ function ClientProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 px-4 py-8">
+    <PageShell crumbs={navCrumbs.loginProfile()} showFooter={false}>
       <div className="mx-auto max-w-2xl">
         {/* Progress Indicator */}
         <div className="mb-8">
@@ -477,6 +479,6 @@ function ClientProfilePage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }

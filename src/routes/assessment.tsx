@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
+import { navCrumbs } from "@/lib/navigation";
 import { BodyModel3D } from "@/components/site/BodyModel3D";
 import {
   clinicalInsight,
@@ -67,7 +68,7 @@ function AssessmentPage() {
   const back = () => setStep((s) => Math.max(0, s - 1));
 
   return (
-    <FlowShell step={step}>
+    <FlowShell step={step} crumbs={navCrumbs.assessment()}>
       <AnimatePresence mode="wait">
         <motion.div
           key={step}
@@ -501,7 +502,7 @@ function StepPlan({ area, onBack }: { area: PainArea | null; onBack: () => void 
         sub={`A focused program for your ${(area ?? "movement").toLowerCase()} — estimated ${scores.weeks}-week timeline.`}
       />
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <MiniStat icon={Dumbbell} label="Exercises" value={`${exercises.length} prescribed`} />
         <MiniStat icon={Target} label="Daily goals" value={`${dailyGoals.length} per day`} />
         <MiniStat icon={Clock} label="Timeline" value={`~${scores.weeks} weeks`} />
@@ -611,10 +612,8 @@ function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub:
       <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
         {eyebrow}
       </span>
-      <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-        {title}
-      </h1>
-      <p className="mt-3 text-lg text-muted-foreground">{sub}</p>
+      <h1 className="type-page mt-4 text-foreground">{title}</h1>
+      <p className="type-body mt-3 text-muted-foreground">{sub}</p>
     </div>
   );
 }

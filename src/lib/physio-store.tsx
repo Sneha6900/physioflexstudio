@@ -1,8 +1,8 @@
 import { useSyncExternalStore } from "react";
-import e1 from "@/assets/expert-1.jpg";
-import e2 from "@/assets/expert-2.jpg";
-import e3 from "@/assets/expert-3.jpg";
-import e4 from "@/assets/expert-4.jpg";
+import e1 from "@/assets/expert-1.webp";
+import e2 from "@/assets/expert-2.webp";
+import e3 from "@/assets/expert-3.webp";
+import e4 from "@/assets/expert-4.webp";
 
 export type PhysioProfile = {
   id: string;

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "base": "body-base.webp",
+    "neck": "neck-layer.webp",
+    "shoulder": "shoulder-layer.webp",
+    "upper-back": "upper-back-layer.webp",
+    "mid-back": "mid-back-layer.webp",
+    "lower-back": "lower-back-layer.webp",
+    "hip": "hip-layer.webp",
+    "knee": "knee-layer.webp",
+    "ankle": "ankle-layer.webp",
+    "wrist": "wrist-layer.webp",
+    "elbow": "elbow-layer.webp"
+  },
+  "stats": {
+    "neck": 8562,
+    "shoulder": 14269,
+    "upper-back": 20007,
+    "mid-back": 23546,
+    "lower-back": 23442,
+    "hip": 39133,
+    "knee": 13870,
+    "ankle": 5982,
+    "wrist": 10943,
+    "elbow": 12730
+  }
+}

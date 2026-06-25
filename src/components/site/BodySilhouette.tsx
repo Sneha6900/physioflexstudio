@@ -1,111 +1,233 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import {
+  bodyParts,
+  MAX_PAIN_AREA_SELECTIONS,
+  togglePainAreaSelection,
+  type BodyPart,
+} from "@/lib/journey-body";
+import {
+  bodyBaseImage,
+  bodyInteractionZones,
+  bodyLayerImages,
+  primaryLandmarks,
+} from "@/lib/body-map";
 
-export type BodyPart =
-  | "Neck"
-  | "Shoulder"
-  | "Upper Back"
-  | "Lower Back"
-  | "Hip"
-  | "Knee"
-  | "Ankle"
-  | "Wrist";
+export type { BodyPart };
+export { bodyParts, MAX_PAIN_AREA_SELECTIONS, togglePainAreaSelection };
 
-export const bodyParts: BodyPart[] = [
-  "Neck",
-  "Shoulder",
-  "Upper Back",
-  "Lower Back",
-  "Hip",
-  "Knee",
-  "Ankle",
-  "Wrist",
-];
+/** 8–12px clinical pain marker — visible only when region is selected. */
+function PainMarker({ compact }: { compact?: boolean }) {
+  return (
+    <motion.span
+      className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2"
+      initial={{ opacity: 0, scale: 0.6 }}
+      animate={{ opacity: 1, scale: [1, 1.06, 1] }}
+      exit={{ opacity: 0, scale: 0.6 }}
+      transition={{
+        opacity: { duration: 0.2 },
+        scale: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
+      }}
+      aria-hidden
+    >
+      <span
+        className={cn(
+          "relative flex items-center justify-center rounded-full border border-[#EF4444] bg-[#EF4444] shadow-[0_1px_3px_rgba(15,23,42,0.14),0_0_5px_rgba(239,68,68,0.22)]",
+          compact ? "size-2.5" : "size-3",
+        )}
+      >
+        <span className="size-1 rounded-full bg-white" />
+      </span>
+    </motion.span>
+  );
+}
 
-const hotspots: Record<BodyPart, { x: number; y: number }> = {
-  Neck: { x: 100, y: 70 },
-  Shoulder: { x: 52, y: 104 },
-  "Upper Back": { x: 100, y: 120 },
-  "Lower Back": { x: 100, y: 184 },
-  Hip: { x: 78, y: 214 },
-  Knee: { x: 84, y: 320 },
-  Ankle: { x: 84, y: 404 },
-  Wrist: { x: 44, y: 196 },
-};
-
-export function BodySilhouette({
-  selected,
-  onSelect,
-  className,
+/** Soft anatomical tint — no blur, no oversized glow. */
+function RegionTint({
+  part,
+  mode,
 }: {
-  selected?: BodyPart | null;
-  onSelect?: (part: BodyPart) => void;
-  className?: string;
+  part: BodyPart;
+  mode: "selected" | "hover";
 }) {
   return (
-    <svg
-      viewBox="0 0 200 460"
-      className={cn("h-full w-full", className)}
-      role="img"
-      aria-label="Interactive body map"
+    <motion.img
+      src={bodyLayerImages[part]}
+      alt=""
+      aria-hidden
+      draggable={false}
+      className={cn(
+        "pointer-events-none absolute inset-0 h-full w-full select-none object-contain object-center",
+        mode === "selected" ? "body-map-tint-selected" : "body-map-tint-hover",
+      )}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: mode === "selected" ? 0.17 : 0.12 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+    />
+  );
+}
+
+function InvisibleZone({
+  label,
+  part,
+  zone,
+  onToggle,
+  onHover,
+}: {
+  label: string;
+  part: BodyPart;
+  zone: { x: number; y: number; w: number; h: number };
+  onToggle: () => void;
+  onHover: (hovering: boolean) => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onToggle}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
+      onFocus={() => onHover(true)}
+      onBlur={() => onHover(false)}
+      className="absolute z-10 cursor-pointer touch-manipulation rounded-[30%] bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-[#91DDCF]/50"
+      style={{
+        left: `${zone.x}%`,
+        top: `${zone.y}%`,
+        width: `${zone.w}%`,
+        height: `${zone.h}%`,
+      }}
     >
-      <defs>
-        <linearGradient id="bodyFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="oklch(0.74 0.14 165)" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="oklch(0.49 0.082 168)" stopOpacity="0.16" />
-        </linearGradient>
-      </defs>
+      <span className="sr-only">{label}</span>
+    </button>
+  );
+}
 
-      <g
-        fill="url(#bodyFill)"
-        stroke="oklch(0.74 0.14 165 / 0.45)"
-        strokeWidth="1.2"
-      >
-        <circle cx="100" cy="40" r="26" />
-        <rect x="90" y="62" width="20" height="22" rx="8" />
-        <rect x="62" y="90" width="76" height="122" rx="30" />
-        <rect x="38" y="96" width="22" height="112" rx="11" />
-        <rect x="140" y="96" width="22" height="112" rx="11" />
-        <rect x="66" y="198" width="68" height="44" rx="20" />
-        <rect x="72" y="232" width="24" height="184" rx="12" />
-        <rect x="104" y="232" width="24" height="184" rx="12" />
-      </g>
+export function BodySilhouette({
+  selected = [],
+  onToggle,
+  onSelectionLimit,
+  onClearAll,
+  className,
+  compact = false,
+}: {
+  selected?: BodyPart[];
+  onToggle?: (part: BodyPart) => void;
+  onSelectionLimit?: () => void;
+  onClearAll?: () => void;
+  className?: string;
+  compact?: boolean;
+}) {
+  const [hoveredPart, setHoveredPart] = useState<BodyPart | null>(null);
+  const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
 
-      {bodyParts.map((part) => {
-        const { x, y } = hotspots[part];
-        const isActive = selected === part;
-        return (
-          <g
-            key={part}
-            className="cursor-pointer"
-            onClick={() => onSelect?.(part)}
-            role="button"
-            aria-label={part}
-          >
-            {isActive && (
-              <motion.circle
-                cx={x}
-                cy={y}
-                r="16"
-                fill="oklch(0.74 0.14 165 / 0.25)"
-                initial={{ scale: 0.6, opacity: 0 }}
-                animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
+  const handleToggle = (part: BodyPart) => {
+    const { limitReached } = togglePainAreaSelection(selected, part);
+    if (limitReached) {
+      onSelectionLimit?.();
+      return;
+    }
+    onToggle?.(part);
+  };
+
+  const hoverPart =
+    hoveredPart && !selected.includes(hoveredPart) ? hoveredPart : null;
+
+  const sizeClass = compact
+    ? "max-h-[min(42svh,280px)] sm:max-h-[min(38svh,240px)]"
+    : "max-h-full";
+
+  const statusText =
+    selected.length > 0
+      ? `Selected areas (${selected.length}/${MAX_PAIN_AREA_SELECTIONS}) · ${selected.join(", ")}`
+      : hoveredLabel ?? "Tap up to 3 areas on the body map";
+
+  return (
+    <div className={cn("relative flex h-full min-h-0 w-full flex-col", className)}>
+      <div className="relative mx-auto flex h-full min-h-0 w-full items-center justify-center">
+        <div
+          className={cn(
+            "relative w-fit max-w-full overflow-hidden rounded-md bg-[#F7F9F2]",
+            compact && "max-h-[min(42svh,280px)] sm:max-h-[min(38svh,240px)]",
+          )}
+        >
+          <img
+            src={bodyBaseImage}
+            alt="Anatomical body map showing front and back views"
+            loading="lazy"
+            decoding="async"
+            className={cn("relative z-0 block w-auto max-w-full select-none object-contain", sizeClass)}
+            draggable={false}
+          />
+
+          <div className="pointer-events-none absolute inset-0 z-[1]">
+            <AnimatePresence>
+              {bodyParts.map((part) => {
+                if (!selected.includes(part)) return null;
+                return (
+                  <RegionTint key={`sel-${part}`} part={part} mode="selected" />
+                );
+              })}
+              {hoverPart && (
+                <RegionTint key={`hover-${hoverPart}`} part={hoverPart} mode="hover" />
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="pointer-events-none absolute inset-0 z-[2]">
+            <AnimatePresence>
+              {selected.map((part) => {
+                const pos = primaryLandmarks[part];
+                return (
+                  <span
+                    key={part}
+                    className="absolute"
+                    style={{ left: `${pos.left}%`, top: `${pos.top}%` }}
+                  >
+                    <PainMarker compact={compact} />
+                  </span>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          <div className="absolute inset-0 z-[3]">
+            {bodyInteractionZones.map((z) => (
+              <InvisibleZone
+                key={z.id}
+                label={z.label}
+                part={z.part}
+                zone={z}
+                onToggle={() => handleToggle(z.part)}
+                onHover={(h) => {
+                  setHoveredPart(h ? z.part : null);
+                  setHoveredLabel(h ? z.label : null);
+                }}
               />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="shrink-0 pt-2 text-center text-xs font-medium text-muted-foreground">
+        {selected.length > 0 ? (
+          <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            <span className="text-[#EF4444]">{statusText}</span>
+            {onClearAll && (
+              <button
+                type="button"
+                onClick={onClearAll}
+                className="font-semibold text-[#EF4444] underline-offset-2 hover:underline"
+              >
+                Clear all
+              </button>
             )}
-            <circle cx={x} cy={y} r="14" fill="transparent" />
-            <circle
-              cx={x}
-              cy={y}
-              r={isActive ? 8 : 6}
-              className="transition-all duration-300"
-              fill={isActive ? "oklch(0.74 0.14 165)" : "oklch(1 0 0 / 0.9)"}
-              stroke="oklch(0.74 0.14 165)"
-              strokeWidth="2"
-            />
-          </g>
-        );
-      })}
-    </svg>
+          </p>
+        ) : (
+          <p>{statusText}</p>
+        )}
+      </div>
+    </div>
   );
 }

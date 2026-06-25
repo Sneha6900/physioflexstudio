@@ -1,5 +1,7 @@
 import { createFileRoute, useNavigate, Outlet, useLocation } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { Activity, Users, Stethoscope } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
@@ -25,8 +27,8 @@ function LoginLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+    <PageShell crumbs={navCrumbs.login()} showFooter={false} contentClassName="flex min-h-[calc(100dvh-var(--site-nav-height)-var(--site-nav-gap)-2.5rem)] items-center">
+      <div className="w-full max-w-md mx-auto">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
             <div className="grid size-12 place-items-center rounded-xl bg-primary text-primary-foreground">
@@ -86,6 +88,6 @@ function LoginLayout() {
           </a>
         </p>
       </div>
-    </div>
+    </PageShell>
   );
 }

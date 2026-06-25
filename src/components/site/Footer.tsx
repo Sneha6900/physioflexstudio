@@ -17,15 +17,15 @@ const groups = [
 
 export function Footer() {
   return (
-    <footer className="surface-dark border-t border-border">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+    <footer className="surface-dark overflow-x-clip border-t border-border">
+      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-14">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-12">
           <div>
             <div className="flex items-center gap-2">
               <span className="grid size-9 place-items-center rounded-xl bg-primary/10">
                 <Activity className="size-5 text-primary" />
               </span>
-              <span className="font-display text-lg font-bold text-foreground">
+              <span className="text-base font-bold text-foreground sm:text-lg">
                 PhysioFlex<span className="text-accent">.</span>
               </span>
             </div>
@@ -37,7 +37,7 @@ export function Footer() {
 
           {groups.map((g) => (
             <div key={g.title}>
-              <h4 className="font-display text-sm font-semibold text-foreground">{g.title}</h4>
+              <h4 className="type-label font-semibold text-foreground">{g.title}</h4>
               <ul className="mt-4 space-y-3">
                 {g.links.map((l) => (
                   <li key={l}>

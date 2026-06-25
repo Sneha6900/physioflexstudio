@@ -30,7 +30,7 @@ export function BodyModel3D({
 
   return (
     <div className={cn("relative overflow-hidden rounded-[2rem] border border-border bg-card p-6 shadow-[var(--shadow-soft)]", className)}>
-      <div className="mb-6 flex items-start justify-between gap-4">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-foreground">3D body model</p>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -41,7 +41,7 @@ export function BodyModel3D({
           {markers.length}/3 markers
         </div>
       </div>
-      <div className="relative mx-auto h-[30rem] w-full max-w-[26rem]">
+      <div className="relative mx-auto aspect-[11/23] w-full max-w-[min(100%,26rem)] min-h-[14rem] max-h-[min(70svh,30rem)] sm:min-h-[18rem]">
         <svg viewBox="0 0 220 460" className="h-full w-full">
           <defs>
             <linearGradient id="modelShine" x1="0" y1="0" x2="1" y2="1">

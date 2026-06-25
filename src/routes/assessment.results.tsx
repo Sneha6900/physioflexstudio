@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { useClientAssessment } from "@/lib/client-assessment-store";
 import { Lightbulb, Activity, AlertCircle, CheckCircle } from "lucide-react";
 
@@ -177,7 +179,7 @@ function AssessmentResultsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 px-4 py-8">
+    <PageShell crumbs={navCrumbs.assessmentResults()} showFooter={false}>
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <h1 className="font-display text-3xl font-bold text-foreground mb-2">
@@ -334,6 +336,6 @@ function AssessmentResultsPage() {
           </Button>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }

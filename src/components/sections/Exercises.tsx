@@ -1,103 +1,79 @@
 import { motion } from "motion/react";
-import { Clock, Flame, Target } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Clock, ShieldCheck, Target } from "lucide-react";
+import { LeavingHomeLink } from "@/components/site/LeavingHomeLink";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { itemVariants, Stagger } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
-import exHip from "@/assets/ex-hip.jpg";
-import exBack from "@/assets/ex-back.jpg";
-import exShoulder from "@/assets/ex-shoulder.jpg";
-
-const exercises = [
-  {
-    img: exHip,
-    title: "Deep Hip Flexor Release",
-    level: "Beginner",
-    area: "Hip",
-    duration: "8 min",
-    benefit: "Improves hip mobility and reduces lower-body stiffness.",
-  },
-  {
-    img: exShoulder,
-    title: "Spinal Mobility Flow",
-    level: "Intermediate",
-    area: "Lower Back",
-    duration: "12 min",
-    benefit: "Restores spinal range of motion and eases back tension.",
-  },
-  {
-    img: exShoulder,
-    title: "Shoulder Band Activation",
-    level: "Advanced",
-    area: "Shoulder",
-    duration: "10 min",
-    benefit: "Builds shoulder stability and corrects posture.",
-  },
-];
+import { homeRecoveryPrograms } from "@/lib/recovery-programs";
 
 const levelColor: Record<string, string> = {
-  Beginner: "bg-accent/15 text-primary",
-  Intermediate: "bg-chart-4/20 text-foreground",
+  Beginner: "bg-[#91ddcf]/20 text-[#5ba99a]",
+  Intermediate: "bg-[#e8c5e5]/40 text-foreground",
   Advanced: "bg-primary/15 text-primary",
 };
 
 export function Exercises() {
   return (
     <section id="exercises" className="bg-secondary/40">
-      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
+      <div className="section-shell">
         <SectionHeading
           eyebrow="Recovery programs"
-          title="Guided exercises, beautifully delivered"
-          description="Each routine is hand-built for your body — with clear targets, timing and benefits."
+          title="Physiotherapy programs for every stage of healing"
+          description="Therapist-guided routines for adults 40+ — focused on mobility, pain relief, and confident recovery, not gym workouts."
         />
 
-        <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
-          {exercises.map((e) => (
+        <Stagger className="mt-10 grid gap-5 md:grid-cols-3">
+          {homeRecoveryPrograms.map((e) => (
             <motion.article
               key={e.title}
               variants={itemVariants}
-              className="group overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[var(--shadow-card)]"
+              className="group flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/8 to-accent/8 sm:h-52">
                 <img
                   src={e.img}
-                  alt={e.title}
+                  alt={`${e.title} — physiotherapist-guided recovery session`}
                   loading="lazy"
-                  width={1024}
-                  height={768}
-                  className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
                 <span
-                  className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ${levelColor[e.level]}`}
+                  className={`absolute left-3 top-3 rounded-full px-2.5 py-0.5 text-[0.65rem] font-semibold backdrop-blur-sm ${levelColor[e.level]}`}
                 >
                   {e.level}
                 </span>
               </div>
-              <div className="p-6">
-                <h3 className="font-display text-lg font-bold text-foreground">{e.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.benefit}</p>
-                <div className="mt-5 flex flex-wrap gap-4 text-xs font-medium text-muted-foreground">
-                  <span className="flex items-center gap-1.5">
-                    <Target className="size-4 text-primary" /> {e.area}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="size-4 text-primary" /> {e.duration}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Flame className="size-4 text-primary" /> {e.level}
-                  </span>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="type-card-title text-foreground">{e.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{e.benefit}</p>
+                <div className="mt-4 grid grid-cols-1 gap-2 rounded-xl border border-border bg-secondary/40 p-2.5 text-center sm:grid-cols-3">
+                  <div>
+                    <Target className="mx-auto size-3.5 text-[#5ba99a]" />
+                    <p className="mt-1 text-[0.65rem] font-semibold text-foreground">{e.area}</p>
+                    <p className="text-[0.6rem] text-muted-foreground">Focus</p>
+                  </div>
+                  <div>
+                    <Clock className="mx-auto size-3.5 text-[#5ba99a]" />
+                    <p className="mt-1 text-[0.65rem] font-semibold text-foreground">{e.duration}</p>
+                    <p className="text-[0.6rem] text-muted-foreground">Duration</p>
+                  </div>
+                  <div>
+                    <ShieldCheck className="mx-auto size-3.5 text-[#5ba99a]" />
+                    <p className="mt-1 text-[0.65rem] font-semibold text-foreground">Guided</p>
+                    <p className="text-[0.6rem] text-muted-foreground">Care</p>
+                  </div>
                 </div>
               </div>
             </motion.article>
           ))}
         </Stagger>
 
-        <div className="mt-12 text-center">
-          <Link to="/programs">
-            <Button variant="dark" size="xl" className="rounded-full">
+        <div className="mt-8 text-center">
+          <LeavingHomeLink to="/programs" homeSection="exercises">
+            <Button variant="dark" size="lg" className="rounded-full">
               Explore all programs
             </Button>
-          </Link>
+          </LeavingHomeLink>
         </div>
       </div>
     </section>

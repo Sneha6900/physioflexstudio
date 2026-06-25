@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Award, CalendarCheck, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
+import { navCrumbs } from "@/lib/navigation";
 import { setAssessment, useAssessment } from "@/lib/assessment-store";
 import { specialists } from "@/lib/specialists";
 import { cn } from "@/lib/utils";
@@ -40,16 +41,14 @@ function SpecialistsPage() {
   }, [spec, sort]);
 
   return (
-    <FlowShell step={4}>
+    <FlowShell step={4} crumbs={navCrumbs.experts()}>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             Expert Assisted Recovery
           </span>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Choose your specialist
-          </h1>
-          <p className="mt-3 max-w-xl text-lg text-muted-foreground">
+          <h1 className="type-page mt-4 text-foreground">Choose your specialist</h1>
+          <p className="type-body mt-3 max-w-xl text-muted-foreground">
             Certified recovery specialists for your {(data.area ?? "recovery").toLowerCase()} — hands-on, supervised and safe.
           </p>
         </div>
@@ -71,8 +70,9 @@ function SpecialistsPage() {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <span className="text-xs font-medium text-muted-foreground">Sort by</span>
+          <div className="flex flex-wrap gap-2">
           {sorts.map((s) => (
             <button
               key={s}
@@ -85,6 +85,7 @@ function SpecialistsPage() {
               {s}
             </button>
           ))}
+          </div>
         </div>
       </div>
 

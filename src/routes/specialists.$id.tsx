@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Award, CalendarCheck, Check, MapPin, Star } from "lucide-react";
+import { Award, CalendarCheck, Check, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
+import { navCrumbs } from "@/lib/navigation";
 import { setAssessment } from "@/lib/assessment-store";
 import { getSpecialist, nextDays } from "@/lib/specialists";
 
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/specialists/$id")({
       <div className="grid place-items-center py-24 text-center">
         <h1 className="font-display text-2xl font-bold text-foreground">Specialist not found</h1>
         <Button variant="hero" className="mt-6 rounded-full" asChild>
-          <Link to="/specialists">Back to specialists</Link>
+          <Link to="/specialists/">Back to experts</Link>
         </Button>
       </div>
     </FlowShell>
@@ -40,7 +41,7 @@ export const Route = createFileRoute("/specialists/$id")({
       <div className="grid place-items-center py-24 text-center">
         <h1 className="font-display text-2xl font-bold text-foreground">Something went wrong</h1>
         <Button variant="hero" className="mt-6 rounded-full" asChild>
-          <Link to="/specialists">Back to specialists</Link>
+          <Link to="/specialists/">Back to experts</Link>
         </Button>
       </div>
     </FlowShell>
@@ -54,21 +55,14 @@ function SpecialistProfile() {
   const days = nextDays(5);
 
   return (
-    <FlowShell step={4}>
-      <Link
-        to="/specialists"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="size-4" /> All specialists
-      </Link>
-
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1.3fr]">
+    <FlowShell step={4} crumbs={navCrumbs.expert(s.name)}>
+      <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr]">
         {/* left: photo + key facts */}
         <div>
           <div className="overflow-hidden rounded-[2rem] border border-border">
-            <img src={s.img} alt={s.name} className="aspect-[4/5] w-full object-cover" />
+            <img src={s.img} alt={s.name} loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover" />
           </div>
-          <div className="mt-5 grid grid-cols-3 gap-3">
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Fact icon={Star} value={s.rating.toFixed(1)} label="Rating" />
             <Fact icon={Award} value={`${s.years}y`} label="Experience" />
             <Fact icon={CalendarCheck} value={`${s.sessions}+`} label="Sessions" />
@@ -80,7 +74,7 @@ function SpecialistProfile() {
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             {s.spec}
           </span>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground">{s.name}</h1>
+          <h1 className="type-page mt-4 text-foreground">{s.name}</h1>
           <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
             <Star className="size-4 fill-accent text-accent" /> {s.rating} · {s.reviews} reviews
           </div>
@@ -165,7 +159,7 @@ function Fact({
     <div className="grid place-items-center rounded-2xl border border-border bg-card p-4">
       <Icon className="size-5 text-accent" />
       <div className="mt-2 font-display text-lg font-bold text-foreground">{value}</div>
-      <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</div>
+      <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
     </div>
   );
 }

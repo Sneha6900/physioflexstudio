@@ -3,6 +3,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, HeartPulse, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { loginPhysio, physioAccountsList, usePhysio, hydratePhysio } from "@/lib/physio-store";
 
 export const Route = createFileRoute("/physio/login")({
@@ -59,14 +61,14 @@ function PhysioLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-10 sm:px-6">
+    <PageShell crumbs={navCrumbs.physioLogin()} showFooter={false}>
+      <div className="mx-auto flex max-w-6xl flex-col justify-center">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="rounded-[2rem] border border-border bg-card p-10 shadow-lg shadow-black/5">
             <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Physiotherapist login
             </span>
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+            <h1 className="type-page mt-6 text-foreground">
               Manage your sessions, client assessments, and availability in one place.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">
@@ -144,6 +146,6 @@ function PhysioLoginPage() {
           </section>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }

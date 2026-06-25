@@ -3,6 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Activity, CheckCircle2, ClipboardList, HeartPulse, ArrowRight, Star, MapPin, CalendarCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PhysioShell } from "@/components/physio/PhysioShell";
+import { navCrumbs } from "@/lib/navigation";
 import { completeSession, hydratePhysio, logoutPhysio, toggleAvailability, usePhysio, acceptSession } from "@/lib/physio-store";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +51,7 @@ function PhysioDashboardPage() {
       user={physio.user}
       availability={physio.availability}
       onToggleAvailability={() => toggleAvailability()}
+      crumbs={navCrumbs.physioDashboard()}
       onLogout={() => {
         logoutPhysio();
         navigate({ to: "/physio/login" });

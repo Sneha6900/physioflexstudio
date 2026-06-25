@@ -26,7 +26,7 @@ export function SectionHeading({
         <Reveal>
           <span
             className={cn(
-              "inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.22em]",
+              "inline-flex items-center gap-2.5 type-label font-semibold uppercase tracking-[0.18em]",
               dark ? "text-accent" : "text-primary",
             )}
           >
@@ -38,8 +38,7 @@ export function SectionHeading({
       <Reveal delay={0.05}>
         <h2
           className={cn(
-            "mt-4 font-display text-4xl font-bold tracking-tight text-balance sm:text-5xl",
-            "text-foreground",
+            "type-section mt-2 text-balance text-foreground sm:mt-3",
           )}
         >
           {title}
@@ -49,8 +48,7 @@ export function SectionHeading({
         <Reveal delay={0.1}>
           <p
             className={cn(
-              "mt-4 text-lg leading-relaxed text-balance",
-              "text-muted-foreground",
+              "type-body mt-2 text-balance text-muted-foreground sm:mt-3",
             )}
           >
             {description}

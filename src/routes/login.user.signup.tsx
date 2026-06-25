@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useClientAuth } from "@/lib/client-auth-store";
@@ -64,8 +66,8 @@ function ClientSignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md">
+    <PageShell crumbs={navCrumbs.loginSignup()} showFooter={false} contentClassName="flex min-h-[calc(100dvh-var(--site-nav-height)-var(--site-nav-gap)-2.5rem)] items-center">
+      <div className="w-full max-w-md mx-auto">
         {method ? (
           <div>
             <button
@@ -183,6 +185,6 @@ function ClientSignupPage() {
           </div>
         )}
       </div>
-    </div>
+    </PageShell>
   );
 }

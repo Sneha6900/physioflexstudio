@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Activity, ArrowLeft, DollarSign, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Breadcrumbs, type BreadcrumbItem } from "@/components/site/Breadcrumbs";
 import { cn } from "@/lib/utils";
 import type { PhysioProfile } from "@/lib/physio-store";
 
@@ -12,6 +13,7 @@ export function PhysioShell({
   availability,
   onToggleAvailability,
   onLogout,
+  crumbs,
   children,
 }: {
   title: string;
@@ -20,51 +22,62 @@ export function PhysioShell({
   availability: boolean;
   onToggleAvailability: () => void;
   onLogout: () => void;
+  crumbs?: BreadcrumbItem[];
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-clip bg-background">
       <div className="pointer-events-none fixed inset-0 opacity-[0.03]" style={{
         backgroundImage:
           "linear-gradient(to right, var(--foreground) 1px, transparent 1px), linear-gradient(to bottom, var(--foreground) 1px, transparent 1px)",
         backgroundSize: "64px 64px",
       }} />
       <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2 rounded-3xl border border-border/80 bg-background/90 px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-secondary">
-              <Activity className="size-5 text-accent" />
-              PhysioFlex
-            </Link>
-            <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Physiotherapist dashboard</p>
-              <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{title}</h1>
-              <p className="max-w-xl text-sm text-muted-foreground">{subtitle}</p>
+        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                to="/"
+                className="flex w-fit shrink-0 items-center gap-2 rounded-3xl border border-border/80 bg-background/90 px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-secondary"
+              >
+                <Activity className="size-5 text-accent" />
+                PhysioFlex
+              </Link>
+              <div className="min-w-0">
+                <p className="type-label font-semibold uppercase text-muted-foreground">
+                  Physiotherapist dashboard
+                </p>
+                <h1 className="type-page text-foreground">{title}</h1>
+                <p className="type-body max-w-xl text-muted-foreground">{subtitle}</p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <button
-              type="button"
-              onClick={onToggleAvailability}
-              className={cn(
-                "rounded-full px-4 py-2 text-sm font-semibold transition",
-                availability
-                  ? "bg-accent text-charcoal"
-                  : "border border-border bg-muted/70 text-muted-foreground hover:bg-muted",
-              )}
-            >
-              {availability ? "Available now" : "Offline"}
-            </button>
-            <Button variant="outline" size="sm" onClick={onLogout}>
-              Log out
-            </Button>
+            <div className="flex shrink-0 flex-wrap gap-2 sm:flex-col sm:items-end">
+              <button
+                type="button"
+                onClick={onToggleAvailability}
+                className={cn(
+                  "h-11 min-h-11 rounded-full px-4 text-sm font-semibold transition",
+                  availability
+                    ? "bg-accent text-charcoal"
+                    : "border border-border bg-muted/70 text-muted-foreground hover:bg-muted",
+                )}
+              >
+                {availability ? "Available now" : "Offline"}
+              </button>
+              <Button variant="outline" size="sm" className="h-11 min-h-11" onClick={onLogout}>
+                Log out
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(360px,0.8fr)]">
+      <main className="relative mx-auto w-full max-w-6xl min-w-0 px-4 pb-8 pt-6 sm:px-6 sm:pb-12 sm:pt-8">
+        {crumbs && crumbs.length > 0 && (
+          <Breadcrumbs items={crumbs} className="mb-[var(--site-breadcrumb-gap)]" />
+        )}
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,18rem)] xl:grid-cols-[minmax(0,1.4fr)_minmax(0,20rem)]">
           <section className="space-y-6">{children}</section>
 
           <aside className="space-y-6">

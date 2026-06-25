@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import {
   Select,
   SelectContent,
@@ -169,16 +171,14 @@ function ClientBookingPage() {
     setStep("confirmation");
   };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 px-4 py-8">
+    <PageShell crumbs={navCrumbs.booking()} showFooter={false}>
       <div className="mx-auto max-w-2xl">
-        {step !== "confirmation" && (
+        {step !== "confirmation" && step !== "mode" && (
           <button
             onClick={() =>
-              step === "mode"
-                ? navigate({ to: "/assessment/results" })
-                : setStep(step === "details" ? "physio" : "mode")
+              setStep(step === "details" ? "physio" : "mode")
             }
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
+            className="mb-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="size-4" />
             Back
@@ -484,6 +484,6 @@ function ClientBookingPage() {
           </div>
         )}
       </div>
-    </div>
+    </PageShell>
   );
 }

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlowShell } from "@/components/flow/FlowShell";
+import { navCrumbs } from "@/lib/navigation";
 import { setAssessment, useAssessment } from "@/lib/assessment-store";
 import { getExercises, dailyGoals } from "@/lib/exercises";
 import { cn } from "@/lib/utils";
@@ -45,16 +46,14 @@ function RecoveryPage() {
   const progress = Math.round((completedCount / exercises.length) * 100);
 
   return (
-    <FlowShell step={4}>
+    <FlowShell step={4} crumbs={navCrumbs.recovery()}>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             Self-Guided Recovery
           </span>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Today's recovery session
-          </h1>
-          <p className="mt-3 max-w-xl text-lg text-muted-foreground">
+          <h1 className="type-page mt-4 text-foreground">Today's recovery session</h1>
+          <p className="type-body mt-3 max-w-xl text-muted-foreground">
             Your {(data.area ?? "mobility").toLowerCase()} program for today. Complete each exercise and log your progress.
           </p>
         </div>
@@ -71,7 +70,7 @@ function RecoveryPage() {
       </div>
 
       {/* top stats */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         <StatCard icon={Flame} label="Day streak" value="1" />
         <StatCard icon={Target} label="Session progress" value={`${progress}%`} />
         <StatCard icon={CalendarDays} label="This week" value="1 / 7" />
@@ -102,7 +101,7 @@ function RecoveryPage() {
                 <div
                   key={ex.name}
                   className={cn(
-                    "flex items-center gap-4 rounded-2xl border p-3 transition-all",
+                    "flex flex-col gap-3 rounded-2xl border p-3 transition-all sm:flex-row sm:items-center",
                     isDone ? "border-accent/40 bg-accent/[0.06]" : "border-border bg-muted/30",
                   )}
                 >
@@ -117,12 +116,12 @@ function RecoveryPage() {
                     <p className="text-xs text-muted-foreground">
                       {ex.duration} · {ex.difficulty}
                     </p>
-                    <p className="mt-1 truncate text-xs text-muted-foreground">{ex.benefits}</p>
+                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{ex.benefits}</p>
                   </div>
                   <Button
                     variant={isDone ? "hero" : "heroOutline"}
                     size="sm"
-                    className="rounded-full"
+                    className="h-11 min-h-11 w-full shrink-0 rounded-full sm:w-auto"
                     onClick={() => setDone((d) => ({ ...d, [ex.name]: !d[ex.name] }))}
                   >
                     {isDone ? <Check className="size-4" /> : "Start"}
@@ -136,7 +135,7 @@ function RecoveryPage() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 flex items-center justify-between rounded-2xl border border-accent/40 bg-accent/[0.08] p-5"
+              className="mt-6 flex flex-col gap-4 rounded-2xl border border-accent/40 bg-accent/[0.08] p-5 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex items-center gap-3">
                 <Trophy className="size-6 text-accent" />
@@ -179,18 +178,18 @@ function RecoveryPage() {
 
           <div className="rounded-[2rem] border border-border bg-card p-6">
             <h2 className="font-display text-lg font-bold text-foreground">This week</h2>
-            <div className="mt-4 flex justify-between">
+            <div className="mt-4 grid grid-cols-7 gap-1 sm:flex sm:justify-between">
               {week.map((d, i) => (
-                <div key={d} className="flex flex-col items-center gap-2">
+                <div key={d} className="flex flex-col items-center gap-1.5 sm:gap-2">
                   <span
                     className={cn(
-                      "grid size-9 place-items-center rounded-xl text-xs font-bold",
+                      "grid size-8 place-items-center rounded-xl text-xs font-bold sm:size-9",
                       i === 0 ? "bg-accent text-charcoal" : "bg-muted/50 text-muted-foreground",
                     )}
                   >
                     {i === 0 ? <Check className="size-4" /> : ""}
                   </span>
-                  <span className="text-[10px] text-muted-foreground">{d}</span>
+                  <span className="text-[0.65rem] text-muted-foreground sm:text-xs">{d}</span>
                 </div>
               ))}
             </div>

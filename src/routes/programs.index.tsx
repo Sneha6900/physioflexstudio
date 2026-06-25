@@ -1,16 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Clock, Flame, Target, Search, ChevronRight } from "lucide-react";
+import { Clock, ShieldCheck, Target, Search, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { itemVariants, Stagger } from "@/components/site/Reveal";
-import { getExercises } from "@/lib/exercises";
-import exHip from "@/assets/ex-hip.jpg";
-import exBack from "@/assets/ex-back.jpg";
-import exShoulder from "@/assets/ex-shoulder.jpg";
-import studio from "@/assets/studio.jpg";
-import hero from "@/assets/hero.jpg";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
+import { allRecoveryPrograms } from "@/lib/recovery-programs";
 
 export const Route = createFileRoute("/programs/")({
   head: () => ({
@@ -18,147 +15,14 @@ export const Route = createFileRoute("/programs/")({
       { title: "All Programs — PhysioFlex Studio" },
       {
         name: "description",
-        content: "Browse all guided exercise programs designed for recovery and mobility.",
+        content: "Browse therapist-guided recovery programs for mobility, pain relief, and rehabilitation.",
       },
     ],
   }),
   component: ProgramsIndex,
 });
 
-const allPrograms = [
-  {
-    title: "Deep Hip Flexor Release",
-    level: "Beginner",
-    area: "Hip",
-    duration: "8 min",
-    benefit: "Improves hip mobility and reduces lower-body stiffness.",
-    img: exHip,
-    category: "hip",
-    description:
-      "Targeted release sequence specifically designed to open up tight hip flexors, a common source of lower back pain.",
-  },
-  {
-    title: "Spinal Mobility Flow",
-    level: "Intermediate",
-    area: "Lower Back",
-    duration: "12 min",
-    benefit: "Restores spinal range of motion and eases back tension.",
-    img: exShoulder,
-    category: "back",
-    description:
-      "Dynamic flow combining extension, flexion, and rotation to restore full spinal movement patterns.",
-  },
-  {
-    title: "Shoulder Band Activation",
-    level: "Advanced",
-    area: "Shoulder",
-    duration: "10 min",
-    benefit: "Builds shoulder stability and corrects posture.",
-    img: exShoulder,
-    category: "shoulder",
-    description:
-      "Comprehensive shoulder strengthening routine focusing on rotator cuff and stabilizer activation.",
-  },
-  {
-    title: "Cat-Cow Mobilization",
-    level: "Beginner",
-    area: "Lower Back",
-    duration: "4 min",
-    benefit: "Restores spinal flexion & extension",
-    img: exBack,
-    category: "back",
-    description:
-      "Gentle spinal articulation exercise that mobilizes the entire spine through flexion and extension.",
-  },
-  {
-    title: "Bird-Dog Hold",
-    level: "Intermediate",
-    area: "Lower Back",
-    duration: "6 min",
-    benefit: "Builds deep core & spinal stability",
-    img: studio,
-    category: "back",
-    description:
-      "Foundational core stability exercise that teaches anti-rotation control and spinal neutrality.",
-  },
-  {
-    title: "90/90 Hip Switches",
-    level: "Intermediate",
-    area: "Hip",
-    duration: "6 min",
-    benefit: "Improves internal & external rotation",
-    img: exHip,
-    category: "hip",
-    description:
-      "Advanced hip mobility drill that trains independent hip rotation in both directions.",
-  },
-  {
-    title: "Wall Slides",
-    level: "Beginner",
-    area: "Shoulder",
-    duration: "4 min",
-    benefit: "Restores overhead range of motion",
-    img: exShoulder,
-    category: "shoulder",
-    description:
-      "Simple yet effective shoulder mobility exercise for improving overhead position.",
-  },
-  {
-    title: "Couch Stretch",
-    level: "Beginner",
-    area: "Hip",
-    duration: "4 min",
-    benefit: "Releases hip flexors & quads",
-    img: hero,
-    category: "hip",
-    description:
-      "Deep passive stretch targeting chronically tight hip flexors and anterior chain.",
-  },
-  {
-    title: "Band Pull-Aparts",
-    level: "Beginner",
-    area: "Shoulder",
-    duration: "5 min",
-    benefit: "Strengthens upper back & rotator cuff",
-    img: studio,
-    category: "shoulder",
-    description:
-      "Postural strengthening exercise that activates the upper back and improves shoulder blade stability.",
-  },
-  {
-    title: "Cossack Squat",
-    level: "Advanced",
-    area: "Hip",
-    duration: "5 min",
-    benefit: "Builds lateral hip mobility & strength",
-    img: exHip,
-    category: "hip",
-    description:
-      "Challenging lateral mobility pattern that combines strength and flexibility in the frontal plane.",
-  },
-  {
-    title: "Scapular CARs",
-    level: "Intermediate",
-    area: "Shoulder",
-    duration: "6 min",
-    benefit: "Improves controlled shoulder mobility",
-    img: exShoulder,
-    category: "shoulder",
-    description:
-      "Advanced shoulder mobility work using controlled articular rotations for maximum range.",
-  },
-  {
-    title: "Glute Bridge Series",
-    level: "Beginner",
-    area: "Lower Back",
-    duration: "5 min",
-    benefit: "Activates glutes, offloads lumbar spine",
-    img: hero,
-    category: "back",
-    description:
-      "Essential glute activation sequence that reduces lower back strain and improves hip extension.",
-  },
-];
+const allPrograms = allRecoveryPrograms;
 
 const levelColor: Record<string, string> = {
   Beginner: "bg-accent/15 text-primary",
@@ -188,18 +52,17 @@ function ProgramsIndex() {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <PageShell crumbs={navCrumbs.programs()}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
+          className="mb-12"
         >
-          <h1 className="text-4xl font-bold text-foreground md:text-5xl">All Programs</h1>
+          <h1 className="type-section text-foreground">All Programs</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Discover our complete library of guided exercises, carefully designed for your recovery journey.
+            Therapist-guided recovery programs for adults 40+ — mobility, pain relief, and rehabilitation.
           </p>
         </motion.div>
 
@@ -319,7 +182,7 @@ function ProgramsIndex() {
                       <Clock className="size-4 text-primary" /> {program.duration}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Flame className="size-4 text-primary" /> {program.level}
+                      <ShieldCheck className="size-4 text-primary" /> Guided
                     </span>
                   </div>
                 </div>
@@ -343,7 +206,6 @@ function ProgramsIndex() {
             </p>
           </motion.div>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 }

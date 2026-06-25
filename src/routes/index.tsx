@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
+import { HomeScrollRestore } from "@/components/site/HomeScrollRestore";
 import { Hero } from "@/components/sections/Hero";
-import { TrustBar } from "@/components/sections/TrustBar";
-import { Features } from "@/components/sections/Features";
 import { Journey } from "@/components/sections/Journey";
 import { Assessment } from "@/components/sections/Assessment";
 import { Exercises } from "@/components/sections/Exercises";
@@ -11,23 +10,25 @@ import { Experts } from "@/components/sections/Experts";
 import { Progress } from "@/components/sections/Progress";
 import { Locations } from "@/components/sections/Locations";
 import { FinalCta } from "@/components/sections/FinalCta";
+import heroBg from "@/assets/hero-physio-clinic.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PhysioFlex Studio — Move Better. Feel Better." },
+      { title: "PhysioFlex Studio — Regain Mobility. Reduce Pain." },
       {
         name: "description",
         content:
-          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and mobility improvement.",
+          "Professional physiotherapy for adults 40+. Pain relief, assisted stretching, posture correction, and mobility recovery — designed for neck pain, back pain, and joint stiffness.",
       },
-      { property: "og:title", content: "PhysioFlex Studio — Move Better. Feel Better." },
+      { property: "og:title", content: "PhysioFlex Studio — Regain Mobility. Reduce Pain." },
       {
         property: "og:description",
         content:
-          "A physiotherapist-supervised studio delivering clinical assessment, assisted stretching, and measurable mobility gains.",
+          "A trusted mobility and recovery studio helping adults move confidently again with licensed physiotherapists and evidence-based treatment.",
       },
     ],
+    links: [{ rel: "preload", as: "image", href: heroBg, type: "image/webp" }],
   }),
   component: Index,
 });
@@ -35,11 +36,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <Nav />
+      <HomeScrollRestore />
+      <Nav hero />
       <main>
         <Hero />
-        <TrustBar />
-        <Features />
         <Journey />
         <Assessment />
         <Exercises />

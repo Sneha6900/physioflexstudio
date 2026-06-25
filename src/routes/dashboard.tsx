@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useNavigate } from "@tanstack/react-router";
 import { useClientAuth } from "@/lib/client-auth-store";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { useClientAssessment } from "@/lib/client-assessment-store";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -47,22 +49,18 @@ function ClientDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 px-4 py-8">
+    <PageShell crumbs={navCrumbs.dashboard()} showFooter={false}>
       <div className="mx-auto max-w-4xl">
         {/* Header */}
-        <div className="flex items-start justify-between mb-8">
-          <div>
-            <h1 className="font-display text-4xl font-bold text-foreground">
-              Dashboard
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Welcome back, {profile.name}
-            </p>
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <h1 className="type-page text-foreground">Dashboard</h1>
+            <p className="mt-1 text-muted-foreground">Welcome back, {profile.name}</p>
           </div>
           <Button
             variant="outline"
             onClick={handleLogout}
-            className="gap-2"
+            className="h-11 min-h-11 shrink-0 gap-2 self-start"
           >
             <LogOut className="size-4" />
             Logout
@@ -77,8 +75,8 @@ function ClientDashboard() {
           className="mb-8"
         >
           <Card className="p-6">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex min-w-0 items-start gap-4">
                 <div className="rounded-full bg-primary/20 p-3">
                   <User className="size-6 text-primary" />
                 </div>
@@ -112,7 +110,7 @@ function ClientDashboard() {
                 variant="outline"
                 size="sm"
                 onClick={() => navigate({ to: "/login/user/profile" })}
-                className="gap-2"
+                className="h-11 min-h-11 shrink-0 gap-2 self-start"
               >
                 <Edit className="size-4" />
                 Edit
@@ -342,6 +340,6 @@ function ClientDashboard() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </PageShell>
   );
 }

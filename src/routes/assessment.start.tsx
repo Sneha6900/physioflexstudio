@@ -1,9 +1,16 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { BodyModel } from "@/components/site/BodyModel";
+import { PainAreaSelector } from "@/components/site/PainAreaSelector";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { useClientAssessment } from "@/lib/client-assessment-store";
-import { ArrowLeft } from "lucide-react";
+import {
+  bodyPartToSlug,
+  bodyParts,
+  slugToBodyPart,
+  type BodyPart,
+} from "@/lib/journey-body";
 
 export const Route = createFileRoute("/assessment/start")({
   component: AssessmentStartPage,
@@ -15,81 +22,78 @@ export const Route = createFileRoute("/assessment/start")({
   ],
 });
 
+function toBodyParts(areas: string[]): BodyPart[] {
+  return areas
+    .map((a) => {
+      const bySlug = slugToBodyPart(a);
+      if (bySlug) return bySlug;
+      return bodyParts.includes(a as BodyPart) ? (a as BodyPart) : null;
+    })
+    .filter((p): p is BodyPart => p !== null);
+}
+
 function AssessmentStartPage() {
   const navigate = useNavigate();
-  const {
-    selectedAreas,
-    addSelectedArea,
-    removeSelectedArea,
-    setCurrentStep,
-  } = useClientAssessment();
-  const [viewMode, setViewMode] = useState<"front" | "back">("front");
+  const { selectedAreas, setCurrentStep } = useClientAssessment();
+
+  const selectedParts = useMemo(() => toBodyParts(selectedAreas), [selectedAreas]);
+
+  const handleChange = (parts: BodyPart[]) => {
+    useClientAssessment.setState({ selectedAreas: parts });
+  };
 
   const handleContinue = () => {
-    if (selectedAreas.length > 0) {
+    if (selectedParts.length > 0) {
       setCurrentStep("pain-details");
-      navigate({ to: `/assessment/pain-details/${selectedAreas[0]}` });
+      navigate({ to: `/assessment/pain-details/${bodyPartToSlug(selectedParts[0])}` });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 px-4 py-8">
+    <PageShell crumbs={navCrumbs.assessmentStart()} showFooter={false}>
       <div className="mx-auto max-w-4xl">
-        {/* Header */}
-        <button
-          onClick={() => navigate({ to: "/dashboard" })}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
-        >
-          <ArrowLeft className="size-4" />
-          Back to Dashboard
-        </button>
-
         <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold text-foreground mb-2">
-            Start Your Assessment
-          </h1>
-          <p className="text-muted-foreground">
+          <h1 className="type-page mb-2 text-foreground">Start Your Assessment</h1>
+          <p className="type-body text-muted-foreground">
             Select up to 3 pain areas on your body to help us understand your condition
           </p>
         </div>
 
-        {/* Body Model */}
-        <div className="rounded-2xl bg-card border border-border p-6 md:p-8">
-          <BodyModel
-            selectedAreas={selectedAreas}
-            onAreaSelect={addSelectedArea}
-            onAreaDeselect={removeSelectedArea}
-            maxSelections={3}
-            viewMode={viewMode}
-            onViewChange={setViewMode}
+        <div className="rounded-2xl border border-border bg-card p-4 sm:p-6 md:p-8">
+          <PainAreaSelector
+            selected={selectedParts}
+            onChange={handleChange}
+            showHelp={false}
+            title="Select your pain areas"
+            description="Tap the body illustration or choose regions below — up to 3 areas"
           />
 
-          {/* Action Buttons */}
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Button
               variant="outline"
               onClick={() => navigate({ to: "/dashboard" })}
-              className="flex-1 rounded-lg"
+              className="h-11 min-h-11 flex-1 rounded-lg"
             >
               Cancel
             </Button>
             <Button
               onClick={handleContinue}
-              disabled={selectedAreas.length === 0}
-              className="flex-1 rounded-lg"
+              disabled={selectedParts.length === 0}
+              className="h-11 min-h-11 flex-1 rounded-lg"
             >
-              Continue ({selectedAreas.length}/3)
+              Continue ({selectedParts.length}/3)
             </Button>
           </div>
         </div>
 
-        {/* Info Box */}
-        <div className="mt-6 rounded-lg bg-blue-50 border border-blue-200 p-4 dark:bg-blue-900/30 dark:border-blue-800">
-          <p className="text-sm text-blue-900 dark:text-blue-200">
-            <strong>Tip:</strong> Select your primary pain areas. You can view both front and back of your body to accurately locate pain points.
+        <div className="mt-6 rounded-lg border border-[#91ddcf]/25 bg-[#91ddcf]/10 p-4">
+          <p className="text-sm text-muted-foreground">
+            <strong className="text-foreground">Tip:</strong> Many patients feel pain in more than
+            one area — for example neck and shoulder, or lower back and hip. Select all regions
+            that apply.
           </p>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }

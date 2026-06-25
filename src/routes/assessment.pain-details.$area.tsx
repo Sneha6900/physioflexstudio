@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { PageShell } from "@/components/site/PageShell";
+import { navCrumbs } from "@/lib/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +16,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useClientAssessment } from "@/lib/client-assessment-store";
 import { Slider } from "@/components/ui/slider";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { bodyPartToSlug, slugToBodyPart } from "@/lib/journey-body";
 
 export const Route = createFileRoute("/assessment/pain-details/$area")({
   component: PainDetailsPage,
@@ -28,11 +31,14 @@ export const Route = createFileRoute("/assessment/pain-details/$area")({
 
 function PainDetailsPage() {
   const navigate = useNavigate();
-  const { area } = Route.useParams();
+  const { area: areaParam } = Route.useParams();
   const { selectedAreas, setPainDetails } = useClientAssessment();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const currentIndex = selectedAreas.indexOf(area);
+  const areaName = slugToBodyPart(areaParam) ?? decodeURIComponent(areaParam);
+  const currentIndex = selectedAreas.findIndex(
+    (a) => a === areaName || decodeURIComponent(a) === areaName,
+  );
   const isLastArea = currentIndex === selectedAreas.length - 1;
   const nextArea = !isLastArea ? selectedAreas[currentIndex + 1] : null;
 
@@ -68,8 +74,8 @@ function PainDetailsPage() {
   const handleContinue = () => {
     if (validateForm()) {
       setPainDetails({
-        id: area,
-        area,
+        id: areaName,
+        area: areaName,
         level: formData.level as any,
         duration: formData.duration,
         type: formData.type as any,
@@ -81,46 +87,20 @@ function PainDetailsPage() {
       if (isLastArea) {
         navigate({ to: "/assessment/results" });
       } else {
-        navigate({ to: `/assessment/pain-details/${nextArea}` });
+        navigate({ to: `/assessment/pain-details/${bodyPartToSlug(nextArea)}` });
       }
     }
   };
 
-  const getBodyPartDisplayName = (areaId: string) => {
-    const names: Record<string, string> = {
-      head: "Head/Neck",
-      shoulder: "Shoulders",
-      chest: "Chest",
-      upper_back: "Upper Back",
-      arm: "Arms",
-      elbow: "Elbow",
-      forearm: "Forearm",
-      wrist: "Wrist",
-      hand: "Hand",
-      abdomen: "Abdomen",
-      lower_back: "Lower Back",
-      hip: "Hip",
-      thigh: "Thigh",
-      knee: "Knee",
-      calf: "Calf",
-      ankle: "Ankle",
-      foot: "Foot",
-    };
-    return names[areaId] || areaId;
-  };
+  const getBodyPartDisplayName = (areaId: string) =>
+    slugToBodyPart(areaId) ?? decodeURIComponent(areaId);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 px-4 py-8">
+    <PageShell
+      crumbs={navCrumbs.assessmentPainDetails(getBodyPartDisplayName(areaParam))}
+      showFooter={false}
+    >
       <div className="mx-auto max-w-2xl">
-        {/* Header */}
-        <button
-          onClick={() => navigate({ to: "/assessment/start" })}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
-        >
-          <ArrowLeft className="size-4" />
-          Back
-        </button>
-
         {/* Progress */}
         <div className="mb-8">
           <div className="flex gap-2 mb-4">
@@ -135,7 +115,7 @@ function PainDetailsPage() {
           </div>
           <div>
             <h1 className="font-display text-2xl font-bold text-foreground mb-2">
-              {getBodyPartDisplayName(area)} Pain Details
+              {getBodyPartDisplayName(areaParam)} Pain Details
             </h1>
             <p className="text-muted-foreground">
               Area {currentIndex + 1} of {selectedAreas.length}
@@ -273,6 +253,6 @@ function PainDetailsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }
