@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Activity, Menu, X } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
@@ -72,6 +72,8 @@ function NavSectionLink({
 export function Nav({ hero = false }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
   const onHero = hero && !scrolled;
 
   useEffect(() => {
@@ -88,10 +90,18 @@ export function Nav({ hero = false }: NavProps) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (menuRef.current?.contains(target)) return;
+      if (menuToggleRef.current?.contains(target)) return;
+      setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointerDown);
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [open]);
 
@@ -150,6 +160,7 @@ export function Nav({ hero = false }: NavProps) {
             </div>
 
             <button
+              ref={menuToggleRef}
               type="button"
               className={cn(
                 "touch-target grid size-11 place-items-center rounded-full lg:hidden",
@@ -174,6 +185,7 @@ export function Nav({ hero = false }: NavProps) {
             aria-label="Close menu"
           />
           <div
+            ref={menuRef}
             className={cn(
               "fixed inset-x-4 top-[calc(var(--site-nav-height)+0.35rem)] z-50 max-h-[calc(100dvh-var(--site-nav-height)-1rem)] overflow-y-auto rounded-3xl p-4 shadow-[var(--shadow-card)] backdrop-blur-xl sm:inset-x-6 lg:hidden",
               onHero

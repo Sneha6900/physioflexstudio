@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
 import { CalendarCheck, Check, Clock, MapPin, Navigation, Phone, Star, Users } from "lucide-react";
-import { LeavingHomeLink } from "@/components/site/LeavingHomeLink";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
 import { StudioWhyChoose } from "@/components/sections/StudioWhyChoose";
 import { Button } from "@/components/ui/button";
@@ -106,34 +105,34 @@ function StudioCard({ studio }: { studio: Studio }) {
 
         <div className="mt-auto flex flex-col gap-2 pt-5">
           <Button
-            className="type-button h-11 w-full rounded-full bg-accent font-semibold text-accent-foreground shadow-[var(--shadow-glow)] transition-all group-hover:brightness-105 hover:bg-accent/90"
-            asChild
+            type="button"
+            aria-disabled="true"
+            tabIndex={-1}
+            className="type-button h-11 w-full cursor-default rounded-full bg-accent font-semibold text-accent-foreground shadow-[var(--shadow-glow)] transition-all group-hover:brightness-105 hover:bg-accent/90"
           >
-            <LeavingHomeLink to="/specialists/" homeSection="locations">
-              <CalendarCheck className="size-4" />
-              Book Session
-            </LeavingHomeLink>
+            <CalendarCheck className="size-4" />
+            Book Session
           </Button>
           <div className="grid grid-cols-2 gap-2">
             <Button
+              type="button"
               variant="outline"
-              className="type-button h-10 rounded-full border-border transition-colors group-hover:border-accent/40"
-              asChild
+              aria-disabled="true"
+              tabIndex={-1}
+              className="type-button h-10 cursor-default rounded-full border-border transition-colors group-hover:border-accent/40"
             >
-              <a href={`tel:${studio.phone.replace(/\s/g, "")}`}>
-                <Phone className="size-4" />
-                Call Studio
-              </a>
+              <Phone className="size-4" />
+              Call Studio
             </Button>
             <Button
+              type="button"
               variant="outline"
-              className="type-button h-10 rounded-full border-border transition-colors group-hover:border-accent/40"
-              asChild
+              aria-disabled="true"
+              tabIndex={-1}
+              className="type-button h-10 cursor-default rounded-full border-border transition-colors group-hover:border-accent/40"
             >
-              <a href={studio.directionsUrl} target="_blank" rel="noreferrer">
-                <Navigation className="size-4" />
-                Directions
-              </a>
+              <Navigation className="size-4" />
+              Directions
             </Button>
           </div>
         </div>

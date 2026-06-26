@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "motion/react";
 import {
   ArrowRight,
   Award,
@@ -11,9 +11,9 @@ import {
   Star,
   User,
 } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import { LeavingHomeLink } from "@/components/site/LeavingHomeLink";
 import { Reveal } from "@/components/site/Reveal";
+import { useCountUp } from "@/components/showcase/useCountUp";
 import { Button } from "@/components/ui/button";
 import {
   expertStats,
@@ -24,6 +24,32 @@ import {
 import type { Specialist } from "@/lib/specialists";
 import { studios } from "@/lib/studios";
 import { cn } from "@/lib/utils";
+
+function ExpertStatCard({
+  stat,
+  active,
+}: {
+  stat: (typeof expertStats)[number];
+  active: boolean;
+}) {
+  const decimals = "decimals" in stat ? stat.decimals : 0;
+  const count = useCountUp(stat.target, active, { decimals });
+  const display =
+    "useGrouping" in stat && stat.useGrouping
+      ? `${Math.round(count).toLocaleString()}${stat.suffix}`
+      : decimals > 0
+        ? `${count.toFixed(decimals)}${stat.suffix}`
+        : `${count}${stat.suffix}`;
+
+  return (
+    <div className="rounded-xl border border-border bg-card px-3 py-2.5 text-center shadow-[var(--shadow-soft)]">
+      <p className="type-subheading font-bold tracking-tight tabular-nums text-foreground">
+        {display}
+      </p>
+      <p className="mt-0.5 type-label text-muted-foreground">{stat.label}</p>
+    </div>
+  );
+}
 
 function ExpertCard({
   expert,
@@ -134,20 +160,21 @@ function ExpertCard({
         )}
       >
         <Button
+          type="button"
           variant="outline"
           size="sm"
-          className="min-h-11 flex-1 rounded-full py-2.5 sm:flex-none"
-          asChild
+          aria-disabled="true"
+          tabIndex={-1}
+          className="min-h-11 flex-1 cursor-default rounded-full py-2.5 sm:flex-none"
         >
-          <LeavingHomeLink to="/specialists/$id" params={{ id: expert.id }} homeSection="experts">
-            View Profile
-          </LeavingHomeLink>
+          View Profile
         </Button>
         <Button
-          size="sm"
           type="button"
-          className="min-h-11 flex-1 rounded-full bg-accent py-2.5 font-semibold text-accent-foreground hover:bg-accent/90 sm:flex-none"
-          onClick={onSelect}
+          size="sm"
+          aria-disabled="true"
+          tabIndex={-1}
+          className="min-h-11 flex-1 cursor-default rounded-full bg-accent py-2.5 font-semibold text-accent-foreground hover:bg-accent/90 sm:flex-none"
         >
           Book Session
         </Button>
@@ -284,13 +311,13 @@ function BookingPanel({
 
         <div className="mt-auto space-y-2 pt-1">
           <Button
-            className="type-button w-full rounded-full bg-accent py-3.5 font-semibold text-accent-foreground hover:bg-accent/90"
-            asChild
+            type="button"
+            aria-disabled="true"
+            tabIndex={-1}
+            className="type-button w-full cursor-default rounded-full bg-accent py-3.5 font-semibold text-accent-foreground hover:bg-accent/90"
           >
-            <LeavingHomeLink to="/specialists/$id" params={{ id: expert.id }} homeSection="experts">
-              Confirm with {expert.name.split(" ")[1]}
-              <ChevronRight className="size-3.5" />
-            </LeavingHomeLink>
+            Confirm with {expert.name.split(" ")[1]}
+            <ChevronRight className="size-3.5" />
           </Button>
           <p className="flex items-center justify-center gap-1 text-center type-label text-muted-foreground">
             <User className="size-3" />
@@ -303,6 +330,8 @@ function BookingPanel({
 }
 
 export function Experts() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
   const [selectedId, setSelectedId] = useState(featuredSpecialists[0].id);
   const [studioId, setStudioId] = useState(studios[0].id);
   const [slot, setSlot] = useState(timeSlots[1].time);
@@ -328,17 +357,12 @@ export function Experts() {
                 </p>
               </div>
 
-              <div className="grid shrink-0 grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+              <div
+                ref={statsRef}
+                className="grid shrink-0 grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3"
+              >
                 {expertStats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-xl border border-border bg-card px-3 py-2.5 text-center shadow-[var(--shadow-soft)]"
-                  >
-                    <p className="type-subheading font-bold tracking-tight text-foreground">
-                      {stat.value}
-                    </p>
-                    <p className="mt-0.5 type-label text-muted-foreground">{stat.label}</p>
-                  </div>
+                  <ExpertStatCard key={stat.label} stat={stat} active={statsInView} />
                 ))}
               </div>
             </div>

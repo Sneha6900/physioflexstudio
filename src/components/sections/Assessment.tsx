@@ -1,5 +1,4 @@
-import { ArrowRight, Check } from "lucide-react";
-import { LeavingHomeLink } from "@/components/site/LeavingHomeLink";
+import { Check } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { AssessmentPreview } from "@/components/showcase/AssessmentPreview";
 import { GlassDeviceFrame } from "@/components/showcase/GlassDeviceFrame";
@@ -52,16 +51,6 @@ export function Assessment() {
                   </li>
                 ))}
               </ul>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <LeavingHomeLink
-                to="/assessment/start"
-                className="btn-mint type-button group mt-10 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-6 py-2.5 text-center font-semibold"
-              >
-                Explore Assessment
-                <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
-              </LeavingHomeLink>
             </Reveal>
           </div>
 

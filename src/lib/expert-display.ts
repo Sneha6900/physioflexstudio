@@ -4,11 +4,11 @@ import { specialists } from "@/lib/specialists";
 export type ExpertBadge = "verified" | "available-today" | "top-rated";
 
 export const expertStats = [
-  { value: "5,000+", label: "Successful Sessions" },
-  { value: "95%", label: "Recovery Satisfaction" },
-  { value: "15+", label: "Certified Specialists" },
-  { value: "4.9★", label: "Average Client Rating" },
-];
+  { target: 5000, suffix: "+", label: "Successful Sessions", useGrouping: true },
+  { target: 95, suffix: "%", label: "Recovery Satisfaction" },
+  { target: 15, suffix: "+", label: "Certified Specialists" },
+  { target: 4.9, suffix: "★", label: "Average Client Rating", decimals: 1 },
+] as const;
 
 export const trustPoints = [
   "Licensed Physiotherapists",

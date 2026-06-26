@@ -1,11 +1,10 @@
 import { Activity, ArrowRight, BookOpen, ClipboardList, ShieldCheck, Users } from "lucide-react";
-import { LeavingHomeLink } from "@/components/site/LeavingHomeLink";
 import { cn } from "@/lib/utils";
 import heroBg from "@/assets/hero-physio-clinic.webp";
 
 const trustBadges = [
   { icon: ShieldCheck, label: "Licensed Physiotherapists", detail: "Expert-led recovery" },
-  { icon: ClipboardList, label: "Personalized Recovery Plans", detail: "Tailored to your needs" },
+  { icon: ClipboardList, label: "Personalized Recovery", detail: "Tailored to your needs" },
   { icon: Activity, label: "Joint & Mobility Specialists", detail: "Back, neck & joints" },
   { icon: BookOpen, label: "Evidence-Based Treatment", detail: "Clinically proven care" },
   { icon: Users, label: "Trusted By 5,000+ Clients", detail: "All ages welcome" },
@@ -90,23 +89,27 @@ export function Hero() {
 
           <p className="type-body mt-[var(--space-heading-gap)] max-w-md text-white/80">
             Professional physiotherapy for neck pain, back pain, joint stiffness, and mobility
-            limitations — so you can move confidently again.
+            limitations, so you can move confidently again.
           </p>
 
           <div className="mt-[var(--space-stack-sm)] flex flex-col gap-2 sm:flex-row sm:gap-2.5">
-            <LeavingHomeLink
-              to="/assessment/start"
-              className="btn-mint type-button group inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full px-5 py-2.5 text-center font-semibold sm:w-auto sm:px-6"
+            <button
+              type="button"
+              aria-disabled="true"
+              tabIndex={-1}
+              className="btn-mint type-button group inline-flex min-h-11 w-full cursor-default items-center justify-center gap-1.5 rounded-full px-5 py-2.5 text-center font-semibold sm:w-auto sm:px-6"
             >
               Book Your Assessment
               <ArrowRight className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 sm:size-4" />
-            </LeavingHomeLink>
-            <a
-              href="#exercises"
-              className="type-button inline-flex min-h-11 w-full items-center justify-center rounded-full border border-white/35 bg-white/5 px-5 py-2.5 text-center font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/55 hover:bg-white/10 sm:w-auto sm:px-6"
+            </button>
+            <button
+              type="button"
+              aria-disabled="true"
+              tabIndex={-1}
+              className="type-button inline-flex min-h-11 w-full cursor-default items-center justify-center rounded-full border border-white/35 bg-white/5 px-5 py-2.5 text-center font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/55 hover:bg-white/10 sm:w-auto sm:px-6"
             >
               Explore Recovery Programs
-            </a>
+            </button>
           </div>
         </div>
 

@@ -1,4 +1,7 @@
+import { useRef } from "react";
+import { useInView } from "motion/react";
 import { Activity, ArrowUpRight, History } from "lucide-react";
+import { useCountUp } from "@/components/showcase/useCountUp";
 
 const points = [30, 38, 35, 48, 52, 60, 58, 70, 78, 88];
 
@@ -50,8 +53,12 @@ function RecoveryChart() {
 }
 
 export function ProgressPreview() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const recoveryValue = useCountUp(88, inView);
+
   return (
-    <div className="min-w-0 p-3 sm:p-6 lg:p-7">
+    <div ref={ref} className="min-w-0 p-3 sm:p-6 lg:p-7">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
           <div className="type-label font-semibold uppercase tracking-wider text-muted-foreground">
@@ -69,7 +76,7 @@ export function ProgressPreview() {
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="type-caption text-muted-foreground">Recovery Progress</div>
-              <div className="type-stat text-foreground">88%</div>
+              <div className="type-stat tabular-nums text-foreground">{recoveryValue}%</div>
             </div>
           </div>
           <div className="mt-5">
