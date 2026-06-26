@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Activity, Menu, X } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
+import { DownloadAppButton } from "@/components/site/DownloadAppButton";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
 import { prepareHomeScroll, type HomeSection } from "@/lib/home-scroll";
 import { cn } from "@/lib/utils";
@@ -69,36 +70,6 @@ function NavSectionLink({
   );
 }
 
-function DownloadAppButton({
-  onHero,
-  mobile = false,
-}: {
-  onHero: boolean;
-  mobile?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      aria-disabled="true"
-      aria-label="Download App"
-      tabIndex={-1}
-      className={cn(
-        "nav-download-cta cursor-default border backdrop-blur-md transition-all duration-300",
-        mobile
-          ? "mb-4 flex w-full items-center justify-center rounded-2xl px-4 py-3.5 type-button font-semibold"
-          : "hidden shrink-0 items-center rounded-full px-3 py-2 type-nav font-semibold whitespace-nowrap lg:inline-flex lg:px-3.5 xl:px-4",
-        onHero
-          ? mobile
-            ? "border-white/15 bg-white/10 text-white shadow-[0_8px_24px_-16px_rgba(0,0,0,0.45)] hover:border-white/25 hover:bg-white/14 hover:shadow-[0_10px_28px_-14px_rgba(0,0,0,0.5)]"
-            : "border-white/20 bg-white/10 text-white shadow-[0_4px_20px_-12px_rgba(0,0,0,0.35)] hover:-translate-y-px hover:border-white/30 hover:bg-white/14 hover:shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)]"
-          : "glass-card border-border/80 text-foreground shadow-[var(--shadow-soft)] hover:-translate-y-px hover:border-accent/28 hover:shadow-[var(--shadow-card)]",
-      )}
-    >
-      Download App
-    </button>
-  );
-}
-
 export function Nav({ hero = false }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -148,7 +119,7 @@ export function Nav({ hero = false }: NavProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div
           className={cn(
-            "flex items-center justify-between gap-2 rounded-full px-3 py-2.5 transition-all duration-500 sm:px-4",
+            "flex items-center justify-between gap-2 overflow-visible rounded-full px-3 py-2.5 transition-all duration-500 sm:px-4",
             onHero
               ? "border border-white/15 bg-black/20 shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-xl"
               : scrolled
@@ -184,9 +155,9 @@ export function Nav({ hero = false }: NavProps) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1 sm:gap-1.5 lg:gap-2">
-            <DownloadAppButton onHero={onHero} />
-            <div className="hidden lg:block">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="hidden shrink-0 items-center gap-2 overflow-visible lg:flex">
+              <DownloadAppButton onHero={onHero} />
               <ThemeToggle onHero={onHero} />
             </div>
 
@@ -224,8 +195,6 @@ export function Nav({ hero = false }: NavProps) {
                 : "border border-border/70 bg-background/98",
             )}
           >
-            <DownloadAppButton onHero={onHero} mobile />
-
             <div className="mb-3 flex items-center justify-between border-b border-border/40 pb-3">
               <span
                 className={cn(
@@ -249,6 +218,10 @@ export function Nav({ hero = false }: NavProps) {
                 />
               ))}
             </nav>
+
+            <div className="mt-5 border-t border-border/40 pt-5">
+              <DownloadAppButton fullWidth onHero={onHero} />
+            </div>
           </div>
         </>
       )}
