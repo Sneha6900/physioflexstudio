@@ -99,7 +99,7 @@ function BentoIllustration({ kind }: { kind: IllustrationKind }) {
   );
 }
 
-function WhyChooseBentoCard({ item }: { item: StudioWhyChooseItem }) {
+function WhyChooseCard({ item }: { item: StudioWhyChooseItem }) {
   const config = whyChooseConfig[item.title] ?? {
     icon: Sparkles,
     accent: "from-secondary/30 to-transparent",
@@ -108,17 +108,17 @@ function WhyChooseBentoCard({ item }: { item: StudioWhyChooseItem }) {
   const Icon = config.icon;
 
   return (
-    <motion.article variants={itemVariants} className="studio-bento-card group relative min-w-0">
+    <motion.article variants={itemVariants} className="studio-bento-card group relative h-full min-w-0">
       <div
         className={cn(
-          "studio-bento-card-inner relative flex flex-col rounded-[1.75rem] border border-[color:var(--glass-border)] p-4 transition-all duration-400 ease-out sm:rounded-[2rem] sm:p-4 lg:p-5",
+          "studio-bento-card-inner relative flex h-full flex-col rounded-[1.75rem] border border-[color:var(--glass-border)] p-5 transition-all duration-400 ease-out sm:rounded-[2rem] sm:p-6",
           "lg:hover:-translate-y-1 lg:hover:border-accent/30",
           "lg:hover:shadow-[0_16px_40px_-24px_rgba(91,169,154,0.3)]",
         )}
       >
         <div
           className={cn(
-            "pointer-events-none absolute inset-0 bg-gradient-to-br opacity-75 transition-opacity duration-400 group-hover:opacity-100",
+            "pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br opacity-75 transition-opacity duration-400 group-hover:opacity-100",
             config.accent,
           )}
           aria-hidden
@@ -134,11 +134,11 @@ function WhyChooseBentoCard({ item }: { item: StudioWhyChooseItem }) {
             {item.title}
           </h4>
 
-          <p className="type-body mt-1.5 text-pretty text-muted-foreground">
+          <p className="type-body mt-1.5 flex-1 text-pretty text-muted-foreground">
             {item.description}
           </p>
 
-          <ul className="mt-3 flex flex-wrap gap-1">
+          <ul className="mt-4 flex flex-wrap gap-1.5">
             {item.chips.map((chip) => (
               <li
                 key={chip}
@@ -155,47 +155,46 @@ function WhyChooseBentoCard({ item }: { item: StudioWhyChooseItem }) {
   );
 }
 
-const topRow = studioWhyChoose.slice(0, 3);
-const bottomRow = studioWhyChoose.slice(3);
-
 export function StudioWhyChoose() {
   return (
-    <div className="studio-bento-section relative mt-8 sm:mt-10">
-      <div className="studio-bento-ambient pointer-events-none absolute -inset-x-4 inset-y-0 sm:-inset-x-6" aria-hidden />
+    <section className="studio-bento-section relative mt-14 py-14 sm:mt-16 sm:py-16 lg:mt-20 lg:py-20" aria-labelledby="studio-why-heading">
+      <div
+        className="studio-bento-ambient pointer-events-none absolute inset-0"
+        aria-hidden
+      />
 
-      <div className="studio-bento-panel relative overflow-hidden rounded-[1.75rem] px-5 py-10 sm:rounded-[2rem] sm:px-6 sm:py-11 lg:px-8 lg:py-12">
-        <div className="studio-bento-vignette pointer-events-none absolute inset-0" aria-hidden />
+      <Reveal>
+        <div className="studio-bento-header relative mx-auto max-w-2xl text-center">
+          <span className="studio-bento-badge brand-badge inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold uppercase tracking-[0.16em]">
+            <Sparkles className="size-3" />
+            Studio Experience
+          </span>
+          <h3
+            id="studio-why-heading"
+            className="studio-bento-title mt-3 text-balance font-bold tracking-tight text-foreground"
+          >
+            Why Choose Our Studios?
+          </h3>
+          <p className="studio-bento-desc mx-auto mt-3 max-w-lg text-muted-foreground">
+            Every PhysioFlex Studio location is built for people who want professional care in a
+            space that feels warm, modern, and trustworthy.
+          </p>
+        </div>
+      </Reveal>
 
-        <Reveal>
-          <div className="studio-bento-header relative mx-auto max-w-2xl text-center">
-            <span className="studio-bento-badge brand-badge inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold uppercase tracking-[0.16em]">
-              <Sparkles className="size-3" />
-              Studio experience
-            </span>
-            <h3 className="studio-bento-title mt-3 text-balance font-bold tracking-tight text-foreground">
-              Why Choose Our Studios?
-            </h3>
-            <p className="studio-bento-desc mx-auto mt-3 max-w-lg text-muted-foreground">
-              Every PhysioFlex Studio location is built for people who want professional care in a
-              space that feels warm, modern, and trustworthy.
-            </p>
+      <Stagger className="studio-bento-grid relative mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:mt-12 lg:grid-cols-6 lg:gap-8">
+        {studioWhyChoose.map((item, index) => (
+          <div
+            key={item.title}
+            className={cn(
+              "flex h-full min-w-0 lg:col-span-2",
+              index === 3 && "lg:col-start-2",
+            )}
+          >
+            <WhyChooseCard item={item} />
           </div>
-        </Reveal>
-
-        <Stagger className="studio-bento-grid-top relative mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3 lg:mt-9 lg:grid-cols-3 lg:gap-3">
-          {topRow.map((item) => (
-            <WhyChooseBentoCard key={item.title} item={item} />
-          ))}
-        </Stagger>
-
-        <Stagger className="studio-bento-grid-bottom relative mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3 lg:mt-3 lg:grid-cols-6 lg:gap-3">
-          {bottomRow.map((item) => (
-            <div key={item.title} className="min-w-0 lg:col-span-2 lg:first:col-start-2">
-              <WhyChooseBentoCard item={item} />
-            </div>
-          ))}
-        </Stagger>
-      </div>
-    </div>
+        ))}
+      </Stagger>
+    </section>
   );
 }

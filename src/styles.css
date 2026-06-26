@@ -1027,72 +1027,11 @@ html.theme-transitioning *:not(.hero-bg-wrap):not(.hero-bg-img):not(.showcase-de
     inset 0 1px 0 rgb(255 255 255 / 0.06);
 }
 
-/* Studio bento — compact premium "Why Choose" showcase */
-.studio-bento-section {
-  margin-top: 2rem;
-}
-
+/* Studio "Why Choose" — standalone feature cards on page background */
 .studio-bento-ambient {
   background:
-    radial-gradient(ellipse 70% 55% at 12% 15%, rgba(145, 221, 207, 0.12) 0%, transparent 52%),
-    radial-gradient(ellipse 55% 45% at 88% 85%, rgba(232, 197, 229, 0.08) 0%, transparent 48%);
-}
-
-.studio-bento-ambient::before,
-.studio-bento-ambient::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.35;
-}
-
-.studio-bento-ambient::before {
-  width: 9rem;
-  height: 9rem;
-  top: 8%;
-  left: 4%;
-  background: rgba(145, 221, 207, 0.18);
-}
-
-.studio-bento-ambient::after {
-  width: 7.5rem;
-  height: 7.5rem;
-  bottom: 6%;
-  right: 6%;
-  background: rgba(232, 197, 229, 0.14);
-}
-
-.studio-bento-panel {
-  border: 1px solid oklch(1 0 0 / 0.5);
-  background: linear-gradient(
-    165deg,
-    oklch(1 0 0 / 0.72) 0%,
-    oklch(0.98 0.01 165 / 0.42) 48%,
-    oklch(0.97 0.01 120 / 0.5) 100%
-  );
-  backdrop-filter: blur(16px);
-  box-shadow:
-    0 1px 3px oklch(0.18 0.01 256 / 0.03),
-    0 16px 40px -28px oklch(0.18 0.02 165 / 0.14),
-    inset 0 1px 0 oklch(1 0 0 / 0.55);
-}
-
-.studio-bento-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.32;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
-
-.studio-bento-vignette {
-  background: radial-gradient(
-    ellipse 85% 75% at 50% 45%,
-    transparent 58%,
-    oklch(0.18 0.01 256 / 0.035) 100%
-  );
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(145, 221, 207, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 100% 100%, rgba(232, 197, 229, 0.05) 0%, transparent 48%);
 }
 
 .studio-bento-badge {
@@ -1124,38 +1063,18 @@ html.theme-transitioning *:not(.hero-bg-wrap):not(.hero-bg-img):not(.showcase-de
   min-height: 0;
 }
 
-.studio-bento-grid-top .studio-bento-card-inner,
-.studio-bento-grid-bottom .studio-bento-card-inner {
+.studio-bento-grid > * {
+  display: flex;
+}
+
+.studio-bento-grid .studio-bento-card {
+  flex: 1;
+  min-width: 0;
+}
+
+.studio-bento-grid .studio-bento-card-inner {
+  width: 100%;
   height: 100%;
-}
-
-@media (min-width: 64rem) {
-  .studio-bento-grid-top .studio-bento-card-inner,
-  .studio-bento-grid-bottom .studio-bento-card-inner {
-    min-height: 0;
-  }
-}
-
-@media (min-width: 40rem) and (max-width: 63.99rem) {
-  .studio-bento-grid-top .studio-bento-card-inner,
-  .studio-bento-grid-bottom .studio-bento-card-inner {
-    min-height: 0;
-  }
-}
-
-.dark .studio-bento-panel {
-  border-color: rgb(255 255 255 / 0.08);
-  background: linear-gradient(
-    165deg,
-    rgb(29 37 46 / 0.92) 0%,
-    rgb(23 30 37 / 0.78) 100%
-  );
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-.dark .studio-bento-panel::before {
-  content: none;
 }
 
 .dark .studio-bento-card-inner {
@@ -1171,17 +1090,8 @@ html.theme-transitioning *:not(.hero-bg-wrap):not(.hero-bg-img):not(.showcase-de
 
 .dark .studio-bento-ambient {
   background:
-    radial-gradient(ellipse 70% 55% at 12% 15%, rgb(145 221 207 / 0.08) 0%, transparent 52%),
-    radial-gradient(ellipse 55% 45% at 88% 85%, rgb(232 197 229 / 0.05) 0%, transparent 48%);
-}
-
-.dark .studio-bento-ambient::before,
-.dark .studio-bento-ambient::after {
-  content: none;
-}
-
-.dark .studio-bento-vignette {
-  opacity: 0.5;
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(145 221 207 / 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 100% 100%, rgb(232 197 229 / 0.04) 0%, transparent 48%);
 }
 
 .dark .app-journey-section {
