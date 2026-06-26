@@ -1,10 +1,8 @@
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
 import { ArrowDownRight, ArrowUpRight, Quote, Star } from "lucide-react";
-import { Reveal } from "@/components/site/Reveal";
+import { motion } from "motion/react";
+import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
 import { GlassDeviceFrame } from "@/components/showcase/GlassDeviceFrame";
 import { ProgressPreview } from "@/components/showcase/ProgressPreview";
-import { useCountUp } from "@/components/showcase/useCountUp";
 
 const stats = [
   { label: "Pain Reduced", value: 64, prefix: "−", suffix: "%", up: false },
@@ -40,30 +38,16 @@ const testimonials = [
   },
 ];
 
-function StatCard({
-  stat,
-  index,
-}: {
-  stat: (typeof stats)[number];
-  index: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const count = useCountUp(stat.value, inView);
-
+function StatCard({ stat }: { stat: (typeof stats)[number] }) {
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      variants={itemVariants}
       className="showcase-stat-card group rounded-2xl border border-border/80 bg-card/80 p-[var(--space-card-pad)] shadow-[var(--shadow-soft)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_12px_40px_-16px_rgba(145,221,207,0.35)]"
     >
       <div className="flex items-center justify-between gap-2">
         <span className="type-stat text-foreground">
           {stat.prefix}
-          {count}
+          {stat.value}
           {stat.suffix}
         </span>
         {stat.up ? (
@@ -118,9 +102,11 @@ export function Progress() {
             </Reveal>
 
             <div className="mt-8 grid grid-cols-2 gap-3">
-              {stats.map((s, i) => (
-                <StatCard key={s.label} stat={s} index={i} />
-              ))}
+              <Stagger className="contents">
+                {stats.map((s) => (
+                  <StatCard key={s.label} stat={s} />
+                ))}
+              </Stagger>
             </div>
           </div>
         </div>

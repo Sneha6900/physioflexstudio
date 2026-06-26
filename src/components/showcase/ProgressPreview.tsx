@@ -1,7 +1,4 @@
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
 import { Activity, ArrowUpRight, History } from "lucide-react";
-import { useCountUp } from "@/components/showcase/useCountUp";
 
 const points = [30, 38, 35, 48, 52, 60, 58, 70, 78, 88];
 
@@ -11,7 +8,7 @@ const history = [
   { date: "Jun 15", label: "Hip Flexor Release", tag: "Assisted" },
 ];
 
-function RecoveryChart({ active }: { active: boolean }) {
+function RecoveryChart() {
   const w = 520;
   const h = 160;
   const max = Math.max(...points);
@@ -29,25 +26,16 @@ function RecoveryChart({ active }: { active: boolean }) {
           <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
         </linearGradient>
       </defs>
-      <motion.path
-        d={area}
-        fill="url(#showcase-prog)"
-        initial={{ opacity: 0 }}
-        animate={active ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
-      />
-      <motion.path
+      <path d={area} fill="url(#showcase-prog)" />
+      <path
         d={line}
         fill="none"
         stroke="var(--accent)"
         strokeWidth="3"
         strokeLinecap="round"
-        initial={{ pathLength: 0 }}
-        animate={active ? { pathLength: 1 } : { pathLength: 0 }}
-        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
       />
       {coords.map(([cx, cy], i) => (
-        <motion.circle
+        <circle
           key={i}
           cx={cx}
           cy={cy}
@@ -55,9 +43,6 @@ function RecoveryChart({ active }: { active: boolean }) {
           fill="var(--accent)"
           stroke="var(--card)"
           strokeWidth="2"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-          transition={{ duration: 0.35, delay: 0.5 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
         />
       ))}
     </svg>
@@ -65,12 +50,8 @@ function RecoveryChart({ active }: { active: boolean }) {
 }
 
 export function ProgressPreview() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const recoveryValue = useCountUp(88, inView);
-
   return (
-    <div ref={ref} className="min-w-0 p-3 sm:p-6 lg:p-7">
+    <div className="min-w-0 p-3 sm:p-6 lg:p-7">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
           <div className="type-label font-semibold uppercase tracking-wider text-muted-foreground">
@@ -88,13 +69,11 @@ export function ProgressPreview() {
           <div className="flex items-center justify-between gap-3">
             <div>
               <div className="type-caption text-muted-foreground">Recovery Progress</div>
-              <div className="type-stat text-foreground">
-                {recoveryValue}%
-              </div>
+              <div className="type-stat text-foreground">88%</div>
             </div>
           </div>
           <div className="mt-5">
-            <RecoveryChart active={inView} />
+            <RecoveryChart />
           </div>
           <div className="mt-1 flex justify-between type-caption text-muted-foreground">
             <span>Week 1</span>
@@ -107,12 +86,9 @@ export function ProgressPreview() {
             <History className="size-4 text-forest" /> Session history
           </div>
           <ul className="mt-4 space-y-2">
-            {history.map((h, i) => (
-              <motion.li
+            {history.map((h) => (
+              <li
                 key={h.label}
-                initial={{ opacity: 0, x: -16 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.35 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 className="flex items-center gap-3 rounded-xl border border-border bg-card p-3"
               >
                 <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-secondary text-forest">
@@ -125,7 +101,7 @@ export function ProgressPreview() {
                 <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 type-caption font-medium text-muted-foreground">
                   {h.tag}
                 </span>
-              </motion.li>
+              </li>
             ))}
           </ul>
         </div>

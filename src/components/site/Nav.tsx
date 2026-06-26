@@ -6,7 +6,7 @@ import { prepareHomeScroll, type HomeSection } from "@/lib/home-scroll";
 import { cn } from "@/lib/utils";
 
 const links: { label: string; href: string; section: HomeSection }[] = [
-  { label: "How it works", href: "#journey", section: "journey" },
+  { label: "How it works", href: "#how-it-works", section: "how-it-works" },
   { label: "Programs", href: "#exercises", section: "exercises" },
   { label: "Experts", href: "#experts", section: "experts" },
   { label: "Studios", href: "#locations", section: "locations" },

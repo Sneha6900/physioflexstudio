@@ -1,6 +1,6 @@
 const STORAGE_KEY = "physioflex-home-scroll";
 
-export type HomeSection = "journey" | "exercises" | "experts" | "locations" | "booking";
+export type HomeSection = "how-it-works" | "journey" | "exercises" | "experts" | "locations" | "booking";
 
 type ScrollState = {
   y?: number;

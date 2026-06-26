@@ -12,14 +12,9 @@ export function getStoredTheme(): Theme | null {
   }
 }
 
-export function getSystemTheme(): Theme {
-  if (typeof window === "undefined") return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-/** Stored preference wins; otherwise follow system preference. */
+/** Stored preference wins; otherwise always light (no system detection). */
 export function resolveTheme(): Theme {
-  return getStoredTheme() ?? getSystemTheme();
+  return getStoredTheme() ?? "light";
 }
 
 export function applyTheme(theme: Theme) {
@@ -48,5 +43,5 @@ export function enableThemeTransition() {
   document.documentElement.classList.add("theme-transitioning");
   window.setTimeout(() => {
     document.documentElement.classList.remove("theme-transitioning");
-  }, 320);
+  }, 260);
 }

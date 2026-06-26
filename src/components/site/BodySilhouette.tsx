@@ -20,15 +20,8 @@ export { bodyParts, MAX_PAIN_AREA_SELECTIONS, togglePainAreaSelection };
 /** 8–12px clinical pain marker — visible only when region is selected. */
 function PainMarker({ compact }: { compact?: boolean }) {
   return (
-    <motion.span
+    <span
       className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2"
-      initial={{ opacity: 0, scale: 0.6 }}
-      animate={{ opacity: 1, scale: [1, 1.06, 1] }}
-      exit={{ opacity: 0, scale: 0.6 }}
-      transition={{
-        opacity: { duration: 0.2 },
-        scale: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
-      }}
       aria-hidden
     >
       <span
@@ -39,7 +32,7 @@ function PainMarker({ compact }: { compact?: boolean }) {
       >
         <span className="size-1 rounded-full bg-white" />
       </span>
-    </motion.span>
+    </span>
   );
 }
 

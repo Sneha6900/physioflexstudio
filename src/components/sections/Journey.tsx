@@ -3,13 +3,9 @@ import {
   Activity,
   BrainCircuit,
   LineChart,
-  ShieldCheck,
   Sparkles,
-  Stethoscope,
   Target,
-  TrendingUp,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
 import { AnatomyInfographic } from "@/components/showcase/AnatomyInfographic";
 
@@ -44,24 +40,6 @@ const appSteps = [
   },
 ] as const;
 
-const infoCards = [
-  {
-    title: "Clinical Accuracy",
-    description: "Designed with physiotherapists for reliable pain assessment.",
-    icon: Stethoscope,
-  },
-  {
-    title: "Evidence-Based Recovery",
-    description: "Recommendations follow clinically proven rehabilitation methods.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Continuous Progress Tracking",
-    description: "Patients and therapists monitor improvements through visual analytics.",
-    icon: TrendingUp,
-  },
-] as const;
-
 function StepCard({ item }: { item: (typeof appSteps)[number] }) {
   const Icon = item.icon;
 
@@ -87,33 +65,6 @@ function StepCard({ item }: { item: (typeof appSteps)[number] }) {
         </div>
       </div>
     </motion.div>
-  );
-}
-
-function InfoCard({
-  item,
-  icon: Icon,
-}: {
-  item: (typeof infoCards)[number];
-  icon: LucideIcon;
-}) {
-  return (
-    <motion.article
-      variants={itemVariants}
-      className="app-journey-feature group glass-card relative flex flex-col rounded-2xl transition-all duration-300 lg:hover:-translate-y-0.5 lg:hover:border-accent/25 lg:hover:shadow-[var(--shadow-card)]"
-    >
-      <div className="flex h-full flex-col p-[var(--space-card-pad)]">
-        <span className="brand-icon-surface inline-grid size-8 place-items-center rounded-full">
-          <Icon className="size-4" strokeWidth={1.65} />
-        </span>
-          <h4 className="type-card-title mt-2 font-bold tracking-tight text-foreground">
-            {item.title}
-          </h4>
-          <p className="type-caption mt-1 flex-1 text-pretty text-muted-foreground">
-          {item.description}
-        </p>
-      </div>
-    </motion.article>
   );
 }
 
@@ -153,12 +104,6 @@ export function Journey() {
             ))}
           </Stagger>
         </div>
-
-        <Stagger className="app-journey-features mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-2.5 lg:mt-7 lg:grid-cols-3">
-          {infoCards.map((item) => (
-            <InfoCard key={item.title} item={item} icon={item.icon} />
-          ))}
-        </Stagger>
       </div>
     </section>
   );

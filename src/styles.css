@@ -217,7 +217,7 @@
   --border: rgb(255 255 255 / 0.08);
   --input: #171e25;
   --ring: #91ddcf;
-  --glass-bg: rgb(23 30 37 / 0.72);
+  --glass-bg: rgb(23 30 37 / 0.94);
   --glass-border: rgb(255 255 255 / 0.08);
   --scrollbar-track: #11171d;
   --scrollbar-thumb: #3a4958;
@@ -329,17 +329,21 @@
   }
 }
 
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
+html.theme-transitioning body {
   transition:
-    background-color 0.3s ease-in-out,
-    border-color 0.3s ease-in-out,
-    color 0.3s ease-in-out,
-    fill 0.3s ease-in-out,
-    stroke 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out !important;
+    background-color 0.25s ease-in-out,
+    color 0.25s ease-in-out;
+}
+
+html.theme-transitioning,
+html.theme-transitioning *:not(.hero-bg-wrap):not(.hero-bg-img):not(.showcase-device-glow) {
+  transition:
+    background-color 0.25s ease-in-out,
+    border-color 0.25s ease-in-out,
+    color 0.25s ease-in-out,
+    fill 0.25s ease-in-out,
+    stroke 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out !important;
 }
 
 @utility text-balance {
@@ -576,15 +580,15 @@ html.theme-transitioning *::after {
 }
 
 @utility hero-float {
-  animation: hero-float 5s ease-in-out infinite;
+  animation: none;
 }
 
 @utility hero-float-delayed {
-  animation: hero-float 5s ease-in-out 1.2s infinite;
+  animation: none;
 }
 
 @utility hero-float-slow {
-  animation: hero-float 6.5s ease-in-out 0.6s infinite;
+  animation: none;
 }
 
 /* Hero background — responsive focal point & sizing per breakpoint */
@@ -937,7 +941,7 @@ html.theme-transitioning *::after {
 }
 
 @utility showcase-device-float {
-  animation: showcase-float 6s ease-in-out infinite;
+  animation: none;
 }
 
 @utility showcase-device-frame {
@@ -955,15 +959,6 @@ html.theme-transitioning *::after {
     0 24px 64px -16px oklch(0.18 0.02 165 / 0.22),
     0 0 0 1px oklch(0.82 0.06 165 / 0.12),
     inset 0 1px 0 oklch(1 0 0 / 0.5);
-
-  .dark & {
-    border-color: oklch(1 0 0 / 0.12);
-    background: linear-gradient(
-      145deg,
-      oklch(0.25 0.01 256 / 0.7) 0%,
-      oklch(0.2 0.01 256 / 0.5) 100%
-    );
-  }
 }
 
 @utility showcase-device-screen {
@@ -1012,7 +1007,7 @@ html.theme-transitioning *::after {
 }
 
 .dark .showcase-section::before {
-  opacity: 0.2;
+  content: none;
 }
 
 .dark .showcase-device-frame {
@@ -1023,6 +1018,8 @@ html.theme-transitioning *::after {
     rgb(23 30 37 / 0.72) 45%,
     rgb(17 23 29 / 0.85) 100%
   );
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   box-shadow:
     0 4px 6px rgb(0 0 0 / 0.22),
     0 24px 64px -16px rgb(0 0 0 / 0.45),
@@ -1153,6 +1150,12 @@ html.theme-transitioning *::after {
     rgb(29 37 46 / 0.92) 0%,
     rgb(23 30 37 / 0.78) 100%
   );
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.dark .studio-bento-panel::before {
+  content: none;
 }
 
 .dark .studio-bento-card-inner {
@@ -1162,12 +1165,23 @@ html.theme-transitioning *::after {
     rgb(23 30 37 / 0.65) 100%
   );
   border-color: rgb(255 255 255 / 0.08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .dark .studio-bento-ambient {
   background:
     radial-gradient(ellipse 70% 55% at 12% 15%, rgb(145 221 207 / 0.08) 0%, transparent 52%),
     radial-gradient(ellipse 55% 45% at 88% 85%, rgb(232 197 229 / 0.05) 0%, transparent 48%);
+}
+
+.dark .studio-bento-ambient::before,
+.dark .studio-bento-ambient::after {
+  content: none;
+}
+
+.dark .studio-bento-vignette {
+  opacity: 0.5;
 }
 
 .dark .app-journey-section {
@@ -1457,11 +1471,61 @@ html.theme-transitioning *::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app-journey-anatomy-card {
-    transition: none;
+  html {
+    scroll-behavior: auto;
   }
 
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .app-journey-anatomy-card,
   .app-journey-anatomy-img {
     transition: none !important;
   }
+}
+
+/* Dark mode — remove GPU-heavy filters while preserving palette */
+.dark body {
+  transition: none;
+}
+
+.dark .glass-card,
+.dark .glass,
+.dark .brand-badge {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.dark .showcase-stat-card::before {
+  content: none;
+}
+
+.dark .showcase-device-glow {
+  display: none;
+}
+
+.dark .final-cta-blob {
+  filter: none;
+  opacity: 0.3;
+}
+
+.dark .showcase-section,
+.dark .app-journey-section,
+.dark .platform-journey-section,
+.dark .studio-bento-section,
+.dark .final-cta-inner {
+  isolation: isolate;
+}
+
+.dark .hero-overlay {
+  backface-visibility: hidden;
+}
+
+.dark .platform-journey-section {
+  isolation: isolate;
 }

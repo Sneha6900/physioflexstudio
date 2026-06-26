@@ -126,7 +126,7 @@ function WhyChooseBentoCard({ item }: { item: StudioWhyChooseItem }) {
         <BentoIllustration kind={config.illustration} />
 
         <div className="relative flex min-h-0 flex-1 flex-col">
-          <span className="studio-bento-icon brand-icon-surface inline-grid size-10 place-items-center rounded-full shadow-[var(--shadow-soft)] backdrop-blur-md transition-transform duration-400 lg:group-hover:rotate-[5deg] lg:group-hover:scale-105">
+          <span className="studio-bento-icon brand-icon-surface inline-grid size-10 place-items-center rounded-full shadow-[var(--shadow-soft)] backdrop-blur-md">
             <Icon className="size-5" strokeWidth={1.6} />
           </span>
 

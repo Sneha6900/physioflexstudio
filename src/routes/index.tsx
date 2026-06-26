@@ -3,6 +3,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { HomeScrollRestore } from "@/components/site/HomeScrollRestore";
 import { Hero } from "@/components/sections/Hero";
+import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Journey } from "@/components/sections/Journey";
 import { Assessment } from "@/components/sections/Assessment";
 import { Exercises } from "@/components/sections/Exercises";
@@ -40,6 +41,7 @@ function Index() {
       <Nav hero />
       <main>
         <Hero />
+        <HowItWorks />
         <Journey />
         <Assessment />
         <Exercises />
