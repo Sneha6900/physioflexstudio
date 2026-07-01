@@ -14,7 +14,7 @@ export const Route = createFileRoute("/specialists/$id")({
         { title: `${s?.name ?? "Specialist"} — PhysioFlex Studio` },
         {
           name: "description",
-          content: s?.bio ?? "Certified recovery specialist at PhysioFlex Studio.",
+          content: s?.bio ?? "Certified specialist at PhysioFlex Studio.",
         },
         ...(s ? [{ property: "og:image", content: s.img }] : []),
       ],

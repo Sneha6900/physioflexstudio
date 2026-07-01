@@ -23,8 +23,8 @@ export const Route = createFileRoute("/assessment/pain-details/$area")({
   component: PainDetailsPage,
   meta: () => [
     {
-      title: "Pain Details — PhysioFlex Studio",
-      description: "Provide details about your pain",
+      title: "Details — PhysioFlex Studio",
+      description: "Provide details about your symptoms",
     },
   ],
 });
@@ -62,7 +62,7 @@ function PainDetailsPage() {
     const newErrors: Record<string, string> = {};
 
     if (!formData.duration.trim()) newErrors.duration = "Duration is required";
-    if (!formData.type) newErrors.type = "Pain type is required";
+    if (!formData.type) newErrors.type = "Type is required";
     if (formData.hasInjury && !formData.injuryDescription.trim()) {
       newErrors.injuryDescription = "Please describe the injury";
     }
@@ -115,7 +115,7 @@ function PainDetailsPage() {
           </div>
           <div>
             <h1 className="font-display text-2xl font-bold text-foreground mb-2">
-              {getBodyPartDisplayName(areaParam)} Pain Details
+              {getBodyPartDisplayName(areaParam)} Details
             </h1>
             <p className="text-muted-foreground">
               Area {currentIndex + 1} of {selectedAreas.length}
@@ -127,7 +127,7 @@ function PainDetailsPage() {
         <div className="rounded-2xl bg-card border border-border p-6 md:p-8 space-y-6">
           {/* Pain Level Slider */}
           <div>
-            <Label className="mb-3 block">Pain Level: {formData.level}/10</Label>
+            <Label className="mb-3 block">Intensity Level: {formData.level}/10</Label>
             <Slider
               value={[formData.level]}
               onValueChange={(value) => handleInputChange("level", value[0])}
@@ -145,7 +145,7 @@ function PainDetailsPage() {
 
           {/* Duration */}
           <div>
-            <Label htmlFor="duration">How long have you had this pain? *</Label>
+            <Label htmlFor="duration">How long have you had this discomfort? *</Label>
             <Select
               value={formData.duration}
               onValueChange={(value) => handleInputChange("duration", value)}
@@ -168,13 +168,13 @@ function PainDetailsPage() {
 
           {/* Pain Type */}
           <div>
-            <Label htmlFor="type">Type of pain *</Label>
+            <Label htmlFor="type">Type of discomfort *</Label>
             <Select
               value={formData.type}
               onValueChange={(value) => handleInputChange("type", value)}
             >
               <SelectTrigger id="type" className={errors.type ? "border-red-500" : ""}>
-                <SelectValue placeholder="Select pain type" />
+                <SelectValue placeholder="Select type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="sharp">Sharp (stabbing)</SelectItem>
@@ -220,7 +220,7 @@ function PainDetailsPage() {
             <Label htmlFor="notes">Additional Notes (Optional)</Label>
             <Textarea
               id="notes"
-              placeholder="Any other relevant information about your pain..."
+              placeholder="Any other relevant information about your symptoms..."
               value={formData.additionalNotes}
               onChange={(e) => handleInputChange("additionalNotes", e.target.value)}
               className="min-h-[80px]"

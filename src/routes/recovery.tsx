@@ -22,11 +22,11 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/recovery")({
   head: () => ({
     meta: [
-      { title: "Self-Guided Recovery — PhysioFlex Studio" },
+      { title: "Self-Guided Program — PhysioFlex Studio" },
       {
         name: "description",
         content:
-          "Your daily exercise schedule, guided videos, recovery goals and weekly reports — all in one self-guided dashboard.",
+          "Your daily exercise schedule, guided videos, program goals and weekly reports — all in one self-guided dashboard.",
       },
     ],
   }),
@@ -50,9 +50,9 @@ function RecoveryPage() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-            Self-Guided Recovery
+            Self-Guided Program
           </span>
-          <h1 className="type-page mt-4 text-foreground">Today's recovery session</h1>
+          <h1 className="type-page mt-4 text-foreground">Today's program session</h1>
           <p className="type-body mt-3 max-w-xl text-muted-foreground">
             Your {(data.area ?? "mobility").toLowerCase()} program for today. Complete each exercise
             and log your progress.
@@ -158,7 +158,7 @@ function RecoveryPage() {
         {/* side: goals + week + reports */}
         <div className="space-y-6">
           <div className="rounded-[2rem] border border-border bg-card p-6">
-            <h2 className="font-display text-lg font-bold text-foreground">Recovery goals</h2>
+            <h2 className="font-display text-lg font-bold text-foreground">Program goals</h2>
             <ul className="mt-4 space-y-3">
               {dailyGoals.map((g, i) => (
                 <li key={g}>
@@ -214,7 +214,7 @@ function RecoveryPage() {
               <h2 className="font-display text-lg font-bold text-foreground">Weekly report</h2>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
-              Complete your sessions to unlock a detailed weekly report with mobility and pain
+              Complete your sessions to unlock a detailed weekly report with mobility and progress
               trends.
             </p>
             <Button variant="heroOutline" className="mt-4 w-full rounded-full" asChild>

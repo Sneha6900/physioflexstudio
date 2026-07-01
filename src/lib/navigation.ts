@@ -36,7 +36,7 @@ export const navCrumbs = {
   recovery: (): BreadcrumbItem[] => [
     { label: "Home", to: "/", homeSection: "journey" },
     { label: "Assessment", to: "/assessment" },
-    { label: "Recovery" },
+    { label: "Program" },
   ],
   booking: (): BreadcrumbItem[] => [
     { label: "Home", to: "/" },
@@ -68,5 +68,9 @@ export const navCrumbs = {
     { label: "Home", to: "/" },
     { label: "Physiotherapist Login", to: "/physio/login" },
     { label: "Dashboard" },
+  ],
+  studios: (): BreadcrumbItem[] => [
+    { label: "Home", to: "/", homeSection: "locations" },
+    { label: "Studios" },
   ],
 };

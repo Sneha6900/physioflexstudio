@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Activity, Menu, X } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { DownloadAppButton } from "@/components/site/DownloadAppButton";
+import { BookNowButton } from "@/components/site/DownloadAppButton";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
 import { prepareHomeScroll, type HomeSection } from "@/lib/home-scroll";
 import { cn } from "@/lib/utils";
+import logoImg from "@/assets/physioflex-logo.jpeg";
 
 const links: { label: string; href: string; section: HomeSection }[] = [
-  { label: "How it works", href: "#how-it-works", section: "how-it-works" },
+  { label: "Approach", href: "#how-it-works", section: "how-it-works" },
+  { label: "Platform", href: "#journey", section: "journey" },
   { label: "Programs", href: "#exercises", section: "exercises" },
   { label: "Experts", href: "#experts", section: "experts" },
   { label: "Studios", href: "#locations", section: "locations" },
@@ -25,6 +27,7 @@ function NavSectionLink({
   onHero,
   onNavigate,
   mobile = false,
+  isActive = false,
 }: {
   label: string;
   href: string;
@@ -32,19 +35,24 @@ function NavSectionLink({
   onHero: boolean;
   onNavigate?: () => void;
   mobile?: boolean;
+  isActive?: boolean;
 }) {
   const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
   const className = cn(
     mobile
-      ? "block rounded-2xl px-4 py-3.5 type-nav font-medium touch-target"
-      : "type-nav rounded-full px-3 py-2 font-medium xl:px-4",
+      ? "block rounded-2xl px-4 py-3.5 type-nav font-bold touch-target transition-all duration-300"
+      : "type-nav rounded-full px-3 py-2 font-bold xl:px-4 transition-all duration-300",
     onHero
-      ? mobile
-        ? "text-white hover:bg-white/10"
-        : "text-white/75 hover:bg-white/10 hover:text-white"
-      : mobile
-        ? "text-foreground hover:bg-secondary"
-        : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+      ? isActive
+        ? "bg-white/20 text-accent shadow-sm"
+        : mobile
+          ? "text-white hover:bg-white/10"
+          : "text-white/75 hover:bg-white/10 hover:text-white"
+      : isActive
+        ? "bg-accent/15 text-forest"
+        : mobile
+          ? "text-foreground hover:bg-secondary"
+          : "text-muted-foreground hover:bg-secondary hover:text-foreground",
   );
 
   if (isHome) {
@@ -75,13 +83,54 @@ export function Nav({ hero = false }: NavProps) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
-  const onHero = hero && !scrolled;
+  const [pastHero, setPastHero] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("top");
+  const onHero = hero && !pastHero;
+
+  // Active section scroll spy using IntersectionObserver
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-45% 0px -45% 0px", // triggers when center of viewport hits element
+      threshold: 0.05,
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+    const ids = ["top", "how-it-works", "journey", "assessment", "motus-ai", "exercises", "experts", "locations", "final-cta"];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setPastHero(window.scrollY >= window.innerHeight - 80);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -108,6 +157,16 @@ export function Nav({ hero = false }: NavProps) {
 
   const closeMenu = () => setOpen(false);
 
+  const getIsActive = (sect: string) => {
+    if (sect === "how-it-works") return activeSection === "how-it-works";
+    if (sect === "journey") return activeSection === "journey" || activeSection === "assessment" || activeSection === "motus-ai";
+    if (sect === "exercises") return activeSection === "exercises";
+    if (sect === "experts") return activeSection === "experts";
+    if (sect === "locations") return activeSection === "locations";
+    if (sect === "booking") return activeSection === "final-cta";
+    return false;
+  };
+
   return (
     <header
       className={cn(
@@ -130,13 +189,13 @@ export function Nav({ hero = false }: NavProps) {
           <Link to="/" className="flex min-w-0 shrink items-center gap-2" onClick={closeMenu}>
             <span
               className={cn(
-                "grid size-9 shrink-0 place-items-center rounded-xl transition-colors duration-500 sm:size-9",
+                "grid size-9 sm:size-10 shrink-0 place-items-center overflow-hidden rounded-full border shadow-sm transition-colors duration-500",
                 onHero
-                  ? "bg-white/15 text-accent"
-                  : "bg-primary text-primary-foreground",
+                  ? "border-white/20 bg-white/10"
+                  : "border-border/60 bg-background",
               )}
             >
-              <Activity className="size-4 sm:size-5" />
+              <img src={logoImg} alt="PhysioFlex Studio Logo" className="size-full object-contain" />
             </span>
             <span
               className={cn(
@@ -149,15 +208,15 @@ export function Nav({ hero = false }: NavProps) {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-0.5 lg:flex">
+          <nav className="hidden items-center gap-0.5 lg:flex ml-auto mr-4">
             {links.map((l) => (
-              <NavSectionLink key={l.href} {...l} onHero={onHero} />
+              <NavSectionLink key={l.label} {...l} onHero={onHero} isActive={getIsActive(l.section)} />
             ))}
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             <div className="hidden shrink-0 items-center gap-2 overflow-visible lg:flex">
-              <DownloadAppButton onHero={onHero} />
+              <BookNowButton onHero={onHero} />
               <ThemeToggle onHero={onHero} />
             </div>
 
@@ -215,12 +274,13 @@ export function Nav({ hero = false }: NavProps) {
                   onHero={onHero}
                   mobile
                   onNavigate={closeMenu}
+                  isActive={getIsActive(l.section)}
                 />
               ))}
             </nav>
 
             <div className="mt-5 border-t border-border/40 pt-5">
-              <DownloadAppButton fullWidth onHero={onHero} />
+              <BookNowButton fullWidth onHero={onHero} />
             </div>
           </div>
         </>

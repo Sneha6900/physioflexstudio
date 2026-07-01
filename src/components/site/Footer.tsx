@@ -1,11 +1,12 @@
 import { Activity } from "lucide-react";
 import { FooterDownload } from "@/components/site/FooterDownload";
 import { FooterFollowUs } from "@/components/site/FooterFollowUs";
+import logoImg from "@/assets/physioflex-logo.jpeg";
 
 const groups = [
   {
     title: "Platform",
-    links: ["Mobility Assessment", "Recovery Programs", "Progress Tracking", "Assisted Recovery"],
+    links: ["Mobility Assessment", "Programs", "Progress Tracking", "Assisted Care"],
   },
   {
     title: "Company",
@@ -24,8 +25,8 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.05fr] lg:items-start">
           <div className="footer-brand-column min-w-0">
             <div className="flex items-center gap-2">
-              <span className="grid size-9 place-items-center rounded-xl bg-primary/10">
-                <Activity className="size-5 text-primary" />
+              <span className="grid size-10 place-items-center overflow-hidden rounded-full border border-border/60 bg-background shadow-sm">
+                <img src={logoImg} alt="PhysioFlex Studio Logo" className="size-full object-contain" />
               </span>
               <span className="type-card-title font-bold text-foreground">
                 PhysioFlex <span className="text-accent">Studio</span>
@@ -59,7 +60,7 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-center type-footer text-muted-foreground sm:flex-row sm:text-left">
           <p className="text-balance">© {new Date().getFullYear()} PhysioFlex Studio. Bangalore, India.</p>
-          <p className="shrink-0 text-balance">Built for performance. Designed for recovery.</p>
+          <p className="shrink-0 text-balance">Built for performance. Designed for progress.</p>
         </div>
       </div>
     </footer>

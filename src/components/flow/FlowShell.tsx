@@ -5,11 +5,11 @@ import { Breadcrumbs, type BreadcrumbItem } from "@/components/site/Breadcrumbs"
 import { cn } from "@/lib/utils";
 
 export const FLOW_STEPS = [
-  "Pain Area",
-  "Pain Details",
+  "Area",
+  "Details",
   "Clinical Evaluation",
-  "Recovery Plan",
-  "Recovery",
+  "Plan",
+  "Program",
 ] as const;
 
 export function FlowShell({

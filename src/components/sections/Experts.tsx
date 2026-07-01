@@ -205,7 +205,7 @@ function BookingPanel({
           <Sparkles className="size-3" />
           Premium Scheduling
         </div>
-        <h3 className="type-caption mt-1 font-semibold text-foreground">Book your recovery session</h3>
+        <h3 className="type-caption mt-1 font-semibold text-foreground">Book your session</h3>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
@@ -347,13 +347,13 @@ export function Experts() {
               <div className="max-w-xl">
                 <span className="inline-flex items-center gap-1.5 type-label font-semibold uppercase tracking-[0.16em] text-primary">
                   <BadgeCheck className="size-3.5" />
-                  Licensed recovery specialists
+                  Licensed specialists
                 </span>
                 <h2 className="type-section mt-2 text-balance text-foreground">
-                  Meet The Experts Behind Your Recovery
+                  Meet The Experts
                 </h2>
                 <p className="type-body mt-2 text-muted-foreground">
-                  Licensed physiotherapists dedicated to helping you move better and live pain-free.
+                  Licensed physiotherapists dedicated to helping you move better and live active lives.
                 </p>
               </div>
 

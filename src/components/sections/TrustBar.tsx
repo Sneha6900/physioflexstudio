@@ -15,7 +15,7 @@ export function TrustBar() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         <Reveal>
           <p className="type-label text-center font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-            One seamless recovery ecosystem
+            One seamless care ecosystem
           </p>
         </Reveal>
         <Stagger className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">

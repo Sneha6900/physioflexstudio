@@ -357,7 +357,7 @@ export function BodyModel({
         </p>
         {selectedAreas.length === 0 && (
           <p className="text-xs text-muted-foreground mt-2">
-            Click on body parts to select pain areas
+            Click on body parts to select areas
           </p>
         )}
       </div>

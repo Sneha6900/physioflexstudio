@@ -15,39 +15,27 @@ import { cn } from "@/lib/utils";
 
 const steps = [
   {
-    title: "Tell Us Your Pain",
-    description:
-      "Open the app and answer a few AI-powered questions about your pain and mobility.",
-    icon: ClipboardList,
-  },
-  {
-    title: "Get Your Recovery Plan",
-    description:
-      "AI analyzes your responses and recommends exercises plus the best physiotherapist for you.",
-    icon: BrainCircuit,
-  },
-  {
     title: "Book Your Session",
     description:
-      "Reserve a session with your recommended physiotherapist at your preferred PhysioFlex Studio.",
+      "Reserve your slot online or through the app in under a minute at your preferred studio location.",
     icon: CalendarCheck,
   },
   {
-    title: "Visit & Scan QR",
+    title: "Clinical Assessment",
     description:
-      "At the studio, scan a QR code to check in and load your personalized exercise program.",
-    icon: QrCode,
+      "Our licensed physiotherapist conducts a thorough physical assessment of your mobility, posture, and symptoms.",
+    icon: ClipboardList,
   },
   {
-    title: "Train With Your Physiotherapist",
+    title: "Custom Stretch Session",
     description:
-      "Your physiotherapist guides you through recommended exercises while tracking progress.",
+      "Experience a personalized, one-on-one assisted stretching and rehabilitation session tailored to your body's needs.",
     icon: Dumbbell,
   },
   {
-    title: "Recovery Complete",
+    title: "Post-Assessment Report",
     description:
-      "Your session is saved and AI updates future recommendations based on your improvement.",
+      "Receive a detailed digital report of your joint angles, mobility scores, and a custom home exercise plan.",
     icon: BadgeCheck,
   },
 ] as const;
@@ -142,27 +130,27 @@ export function HowItWorks() {
         aria-hidden
       />
 
-      <div className="section-shell relative">
+      <div className="section-shell relative !pb-4 sm:!pb-6 lg:!pb-8">
         <SectionHeading
           eyebrow="How it works"
-          title={<>Your path from pain to recovery</>}
-          description="Six simple steps — from AI assessment to in-studio care — designed to make recovery clear, personal, and effortless."
+          title={<>Your path to wellness</>}
+          description="Four simple steps — from booking to customized rehabilitation — designed to make progress clear, personal, and effortless."
         />
 
         <div className="relative mt-10 hidden lg:block xl:mt-12">
           <div
-            className="pointer-events-none absolute left-[8.3%] right-[8.3%] top-[3.25rem] h-0.5 rounded-full bg-gradient-to-r from-accent/80 via-forest/80 to-accent/80"
+            className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[3.25rem] h-0.5 rounded-full bg-gradient-to-r from-accent/80 via-forest/80 to-accent/80"
             aria-hidden
           />
 
-          <Stagger className="relative flex list-none gap-4 xl:gap-5" role="list">
+          <Stagger className="relative flex list-none gap-4 xl:gap-5">
             {steps.map((step, index) => (
               <DesktopStep key={step.title} step={step} index={index} />
             ))}
           </Stagger>
         </div>
 
-        <Stagger className="relative mt-8 list-none lg:hidden" role="list">
+        <Stagger className="relative mt-8 list-none lg:hidden">
           {steps.map((step, index) => (
             <MobileStep key={step.title} step={step} index={index} total={steps.length} />
           ))}

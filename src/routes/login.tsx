@@ -62,7 +62,7 @@ function LoginLayout() {
               </div>
               <div className="text-left">
                 <h2 className="font-semibold text-foreground">Client</h2>
-                <p className="text-sm text-muted-foreground">Book sessions and track recovery</p>
+                <p className="text-sm text-muted-foreground">Book sessions and track progress</p>
               </div>
             </div>
           </button>

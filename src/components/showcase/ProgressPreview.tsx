@@ -64,7 +64,7 @@ export function ProgressPreview() {
           <div className="type-label font-semibold uppercase tracking-wider text-muted-foreground">
             Progress Dashboard
           </div>
-          <div className="type-subheading font-bold text-foreground">Recovery Tracking</div>
+          <div className="type-subheading font-bold text-foreground">Progress Tracking</div>
         </div>
         <span className="flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-2.5 py-1 type-label font-semibold text-forest">
           <ArrowUpRight className="size-3.5" /> On track
@@ -75,7 +75,7 @@ export function ProgressPreview() {
         <div className="rounded-[1.5rem] border border-border bg-background p-4 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <div className="type-caption text-muted-foreground">Recovery Progress</div>
+              <div className="type-caption text-muted-foreground">Overall Progress</div>
               <div className="type-stat tabular-nums text-foreground">{recoveryValue}%</div>
             </div>
           </div>

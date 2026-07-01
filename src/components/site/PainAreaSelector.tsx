@@ -90,7 +90,7 @@ function SelectedAreasPanel({
           {parts.length === 1 ? (
             <>
               <div>
-                <p className="text-muted-foreground">Pain</p>
+                <p className="text-muted-foreground">Intensity</p>
                 <p className="mt-0.5 font-semibold text-forest">
                   {areaMeta[parts[0]].painLevel}
                 </p>
@@ -100,7 +100,7 @@ function SelectedAreasPanel({
                 <p className="mt-0.5 font-semibold text-forest">{areaMeta[parts[0]].impact}</p>
               </div>
               <div>
-                <p className="text-muted-foreground">Recovery</p>
+                <p className="text-muted-foreground">Timeline</p>
                 <p className="mt-0.5 font-semibold text-forest">{areaMeta[parts[0]].recovery}</p>
               </div>
             </>
@@ -111,7 +111,7 @@ function SelectedAreasPanel({
                 <div key={`${part}-meta`} className="col-span-3 text-left text-muted-foreground">
                   <span className="font-semibold text-foreground">{part}</span>
                   <span className="mx-1">·</span>
-                  {meta.painLevel} pain · {meta.recovery} recovery
+                  Level {meta.painLevel} · {meta.recovery} timeline
                 </div>
               );
             })
@@ -136,7 +136,7 @@ export function PainAreaSelector({
   onChange,
   compact = false,
   showHelp = true,
-  title = "Where does it hurt?",
+  title = "Select your areas",
   description = "Tap up to 3 areas on the body map or select below",
 }: PainAreaSelectorProps) {
   const [limitMessage, setLimitMessage] = useState(false);
@@ -182,7 +182,7 @@ export function PainAreaSelector({
             className="rounded-lg border border-[#FECACA] bg-[#FEF2F2] px-3 py-2 text-xs text-foreground"
             role="status"
           >
-            You can select up to 3 pain areas. Deselect one to choose another.
+            You can select up to 3 areas. Deselect one to choose another.
           </motion.p>
         )}
       </AnimatePresence>

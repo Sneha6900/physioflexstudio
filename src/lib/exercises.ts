@@ -177,5 +177,5 @@ export const dailyGoals = [
   "Complete your guided mobility routine",
   "Hit 6,000 steps of light movement",
   "Hold 3 prescribed stretches (2 min total)",
-  "Log your pain & stiffness score",
+  "Log your intensity & stiffness score",
 ];

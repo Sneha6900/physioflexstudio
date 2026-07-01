@@ -7,9 +7,9 @@ import { ProgressPreview } from "@/components/showcase/ProgressPreview";
 import { useCountUp } from "@/components/showcase/useCountUp";
 
 const stats = [
-  { label: "Pain Reduced", value: 64, prefix: "−", suffix: "%", up: false },
+  { label: "Discomfort Reduced", value: 64, prefix: "−", suffix: "%", up: false },
   { label: "Mobility Increased", value: 38, prefix: "+", suffix: "%", up: true },
-  { label: "Recovery Progress", value: 88, prefix: "", suffix: "%", up: true },
+  { label: "Overall Progress", value: 88, prefix: "", suffix: "%", up: true },
   { label: "Posture Improved", value: 45, prefix: "+", suffix: "%", up: true },
 ] as const;
 
@@ -17,10 +17,10 @@ const testimonials = [
   {
     name: "Latha M.",
     age: "58",
-    focus: "Lower back recovery",
+    focus: "Lower back mobility",
     rating: 5,
     quote:
-      "After weeks of stiffness, I can bend and walk without dreading the pain. The team made me feel safe at every step.",
+      "After weeks of stiffness, I can bend and walk without dreading the discomfort. The team made me feel safe at every step.",
   },
   {
     name: "Deepak N.",
@@ -28,7 +28,7 @@ const testimonials = [
     focus: "Post-surgery rehab",
     rating: 5,
     quote:
-      "My knee replacement recovery was smoother than I expected. Clear milestones and compassionate physiotherapists throughout.",
+      "My knee replacement rehabilitation was smoother than I expected. Clear milestones and compassionate physiotherapists throughout.",
   },
   {
     name: "Sanjana R.",
@@ -36,7 +36,7 @@ const testimonials = [
     focus: "Neck & shoulder mobility",
     rating: 5,
     quote:
-      "Desk pain that lingered for years finally eased. I understand my body better and move with far more confidence.",
+      "Desk discomfort that lingered for years finally eased. I understand my body better and move with far more confidence.",
   },
 ];
 
@@ -102,7 +102,7 @@ export function Progress() {
 
             <Reveal delay={0.1}>
               <p className="showcase-body mt-[var(--space-stack-sm)] max-w-md text-muted-foreground">
-                Watch recovery trends unfold in real time — weekly improvements, pain reduction,
+                Watch progress trends unfold in real time — weekly improvements, discomfort reduction,
                 session history, and mobility growth — all in one living dashboard that proves your
                 plan is working.
               </p>
@@ -125,7 +125,7 @@ export function Progress() {
               <span className="type-label font-semibold uppercase tracking-[0.16em] text-forest">
                 Client stories
               </span>
-              <h3 className="showcase-heading mt-[var(--space-heading-gap)] text-foreground">Real recovery, real results</h3>
+              <h3 className="showcase-heading mt-[var(--space-heading-gap)] text-foreground">Real progress, real results</h3>
             </div>
           </Reveal>
           <div className="grid gap-4 md:grid-cols-3">

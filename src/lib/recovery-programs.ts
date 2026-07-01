@@ -39,14 +39,14 @@ export const featuredRecoveryPrograms: RecoveryProgram[] = [
   },
   {
     img: programBackRecovery,
-    title: "Back Pain Recovery",
+    title: "Back Care & Mobility",
     level: "Beginner",
     area: "Lower Back",
     duration: "12 min",
     benefit: "Gentle spinal mobility exercises for lasting relief from back and neck tension.",
     category: "back",
     description:
-      "Supervised spinal mobility session focused on safe, gradual improvement for chronic back pain and posture recovery.",
+      "Supervised spinal mobility session focused on safe, gradual improvement for chronic back discomfort and posture improvement.",
   },
   {
     img: programShoulderRehab,
@@ -72,14 +72,14 @@ export const featuredRecoveryPrograms: RecoveryProgram[] = [
   },
   {
     img: programKneeRecovery,
-    title: "Post-Surgery Recovery",
+    title: "Post-Surgery Rehabilitation",
     level: "Beginner",
     area: "Knee",
     duration: "14 min",
     benefit: "Gradual knee rehabilitation with supervised exercises for post-operative healing.",
     category: "hip",
     description:
-      "Structured post-surgery knee recovery with hands-on therapist support — paced for safe mobility gains after joint procedures.",
+      "Structured post-surgery knee rehabilitation with hands-on therapist support — paced for safe mobility gains after joint procedures.",
   },
   {
     img: programAssistedStretch,
@@ -108,14 +108,14 @@ export const homeRecoveryPrograms: RecoveryProgram[] = [
   },
   {
     img: programKneeRecovery,
-    title: "Post-Surgery Recovery",
+    title: "Post-Surgery Rehabilitation",
     level: "Beginner",
     area: "Knee",
     duration: "14 min",
     benefit: "Gradual knee rehabilitation with supervised exercises for post-operative healing.",
     category: "hip",
     description:
-      "Structured post-surgery knee recovery with hands-on therapist support — paced for safe mobility gains after joint procedures.",
+      "Structured post-surgery knee rehabilitation with hands-on therapist support — paced for safe mobility gains after joint procedures.",
   },
   {
     img: programAssistedStretch,
@@ -141,7 +141,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Restores gentle spinal flexion and extension with therapist guidance.",
     category: "back",
     description:
-      "Slow, controlled spinal articulation — a foundational recovery exercise for back pain and morning stiffness.",
+      "Slow, controlled spinal articulation — a foundational exercise for back discomfort and morning stiffness.",
   },
   {
     img: programBackRecovery,
@@ -152,7 +152,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Builds deep core stability while protecting the lumbar spine.",
     category: "back",
     description:
-      "Supervised core stability work that strengthens the back without aggravating existing pain or mobility limits.",
+      "Supervised core stability work that strengthens the back without aggravating existing discomfort or mobility limits.",
   },
   {
     img: programBackRecovery,
@@ -185,7 +185,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Restores comfortable overhead range of motion.",
     category: "shoulder",
     description:
-      "Gentle shoulder mobility exercise for people recovering from stiffness, strain, or postural neck-and-shoulder pain.",
+      "Gentle shoulder mobility exercise for people healing from stiffness, strain, or postural neck-and-shoulder discomfort.",
   },
   {
     img: programAssistedStretch,
@@ -229,7 +229,7 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Improves controlled shoulder mobility and joint health.",
     category: "shoulder",
     description:
-      "Supervised controlled articular rotations for shoulder recovery — restoring smooth, pain-free movement patterns.",
+      "Supervised controlled articular rotations for shoulder progress — restoring smooth, effortless movement patterns.",
   },
   {
     img: programKneeRecovery,
@@ -240,6 +240,6 @@ export const allRecoveryPrograms: RecoveryProgram[] = [
     benefit: "Activates glutes and reduces strain on the lumbar spine.",
     category: "back",
     description:
-      "Essential glute activation sequence for back pain recovery — reduces lower back load and supports hip extension.",
+      "Essential glute activation sequence for back progress — reduces lower back load and supports hip extension.",
   },
 ];

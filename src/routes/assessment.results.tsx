@@ -121,7 +121,7 @@ function AssessmentResultsPage() {
         <div className="grid gap-4 md:grid-cols-3 mb-8">
           {/* Pain Areas */}
           <div className="rounded-lg bg-card border border-border p-4">
-            <p className="text-sm font-medium text-muted-foreground mb-2">Pain Areas Identified</p>
+            <p className="text-sm font-medium text-muted-foreground mb-2">Areas Identified</p>
             <p className="font-display text-2xl font-bold text-foreground">
               {assessment.painPoints.length}
             </p>
@@ -129,7 +129,7 @@ function AssessmentResultsPage() {
 
           {/* Average Pain Level */}
           <div className="rounded-lg bg-card border border-border p-4">
-            <p className="text-sm font-medium text-muted-foreground mb-2">Average Pain Level</p>
+            <p className="text-sm font-medium text-muted-foreground mb-2">Average Intensity Level</p>
             <p className="font-display text-2xl font-bold text-foreground">{averagePainLevel}/10</p>
           </div>
 
@@ -152,7 +152,7 @@ function AssessmentResultsPage() {
 
         {/* Pain Points Details */}
         <div className="rounded-lg bg-card border border-border p-6 mb-8">
-          <h2 className="font-display text-xl font-bold text-foreground mb-4">Your Pain Points</h2>
+          <h2 className="font-display text-xl font-bold text-foreground mb-4">Your Selected Areas</h2>
           <div className="space-y-4">
             {assessment.painPoints.map((point, idx) => (
               <div key={point.area} className="border-l-4 border-primary pl-4 py-2">

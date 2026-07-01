@@ -16,7 +16,7 @@ export const Route = createFileRoute("/programs/")({
       {
         name: "description",
         content:
-          "Browse therapist-guided recovery programs for mobility, pain relief, and rehabilitation.",
+          "Browse therapist-guided programs for mobility, relief, and rehabilitation.",
       },
     ],
   }),
@@ -63,7 +63,7 @@ function ProgramsIndex() {
       >
         <h1 className="type-section text-foreground">All Programs</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Therapist-guided recovery programs for all ages — mobility, pain relief, and
+          Therapist-guided programs for all ages — mobility, relief, and
           rehabilitation.
         </p>
       </motion.div>

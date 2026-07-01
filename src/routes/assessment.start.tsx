@@ -12,7 +12,7 @@ export const Route = createFileRoute("/assessment/start")({
   meta: () => [
     {
       title: "Start Assessment — PhysioFlex Studio",
-      description: "Select your pain areas to get started with assessment",
+      description: "Select your areas to get started with assessment",
     },
   ],
 });
@@ -50,7 +50,7 @@ function AssessmentStartPage() {
         <div className="mb-8">
           <h1 className="type-page mb-2 text-foreground">Start Your Assessment</h1>
           <p className="type-body text-muted-foreground">
-            Select up to 3 pain areas on your body to help us understand your condition
+            Select up to 3 areas on your body to help us understand your condition
           </p>
         </div>
 
@@ -59,7 +59,7 @@ function AssessmentStartPage() {
             selected={selectedParts}
             onChange={handleChange}
             showHelp={false}
-            title="Select your pain areas"
+            title="Select your areas"
             description="Tap the body illustration or choose regions below — up to 3 areas"
           />
 
@@ -83,7 +83,7 @@ function AssessmentStartPage() {
 
         <div className="mt-6 rounded-lg border border-accent/25 bg-accent/10 p-4">
           <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">Tip:</strong> Many patients feel pain in more than
+            <strong className="text-foreground">Tip:</strong> Many patients feel discomfort in more than
             one area — for example neck and shoulder, or lower back and hip. Select all regions that
             apply.
           </p>

@@ -24,13 +24,13 @@ export const Route = createFileRoute("/assessment")({
       {
         name: "description",
         content:
-          "Complete our clinically-led mobility assessment: identify your pain points, share your profile, and receive a physiotherapist-informed recovery program.",
+          "Complete our clinically-led mobility assessment: identify your areas of concern, share your profile, and receive a physiotherapist-informed program.",
       },
       { property: "og:title", content: "Clinical Mobility Assessment — PhysioFlex Studio" },
       {
         property: "og:description",
         content:
-          "Clinically-informed pain assessment and a personalized recovery plan designed by physiotherapists.",
+          "Clinically-informed assessment and a personalized plan designed by physiotherapists.",
       },
     ],
   }),
@@ -286,7 +286,7 @@ function StepMarkers({
     <div>
       <Heading
         eyebrow="Step 2"
-        title="Map your pain points"
+        title="Map your discomfort areas"
         sub="Tap the body model to place up to three markers for your main areas of discomfort."
       />
 
@@ -301,9 +301,9 @@ function StepMarkers({
           <Card>
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-foreground">Pain marker summary</p>
+                <p className="text-sm font-semibold text-foreground">Marker summary</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Each marker captures a separate pain point for your personalized program.
+                  Each marker captures a separate area for your personalized program.
                 </p>
               </div>
               <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">
@@ -328,7 +328,7 @@ function StepMarkers({
                     <div>
                       <p className="font-semibold text-foreground">{marker.part}</p>
                       <p className="text-sm text-muted-foreground">
-                        Pain level {marker.painLevel}, {marker.mobility} mobility
+                        Intensity level {marker.painLevel}, {marker.mobility} mobility
                       </p>
                     </div>
                     <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
@@ -348,8 +348,8 @@ function StepMarkers({
             <div className="text-sm font-semibold text-foreground">Marker workflow</div>
             <ol className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li>1. Place markers on the model.</li>
-              <li>2. Select a marker to enter pain details.</li>
-              <li>3. Generate a clinician-led recovery plan tailored to your markers.</li>
+              <li>2. Select a marker to enter details.</li>
+              <li>3. Generate a clinician-led plan tailored to your markers.</li>
             </ol>
           </div>
         </div>
@@ -397,7 +397,7 @@ function StepMarkerDetails({
       <Heading
         eyebrow="Step 3"
         title="Capture marker details"
-        sub="Describe pain intensity, stiffness, mobility, and how each point affects your movement."
+        sub="Describe intensity, stiffness, mobility, and how each point affects your movement."
       />
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
@@ -420,7 +420,7 @@ function StepMarkerDetails({
 
               <div className="mt-6 space-y-6">
                 <Slider
-                  label="Pain level"
+                  label="Intensity"
                   value={marker.painLevel}
                   onChange={(value) => onUpdate(marker.id, { painLevel: value })}
                   hint={["Mild", "Severe"]}
@@ -459,7 +459,7 @@ function StepMarkerDetails({
             </Card>
           ) : (
             <div className="rounded-3xl border border-border bg-card p-10 text-center text-sm text-muted-foreground">
-              Select a marker to add detailed pain information.
+              Select a marker to add detailed information.
             </div>
           )}
         </div>
@@ -529,7 +529,7 @@ function StepPlan({ area, onBack }: { area: PainArea | null; onBack: () => void 
     <div>
       <Heading
         eyebrow="Step 4"
-        title="Your personalized recovery plan"
+        title="Your personalized plan"
         sub={`A focused program for your ${(area ?? "movement").toLowerCase()} — estimated ${scores.weeks}-week timeline.`}
       />
 
@@ -607,14 +607,14 @@ function StepPlan({ area, onBack }: { area: PainArea | null; onBack: () => void 
       </div>
 
       <h3 className="mt-14 text-center font-display text-2xl font-bold text-foreground">
-        Recommended recovery path
+        Recommended care path
       </h3>
       <div className="mx-auto mt-6 max-w-4xl">
         <div className="rounded-3xl border border-border bg-muted/40 p-6 text-sm text-muted-foreground">
-          <p className="font-semibold text-foreground">Expert Assisted Recovery</p>
+          <p className="font-semibold text-foreground">Expert Assisted Care</p>
           <p className="mt-3">
             We recommend specialist-led rehabilitation for the most reliable, clinically supported
-            recovery.
+            progress.
           </p>
           <Button
             variant="hero"

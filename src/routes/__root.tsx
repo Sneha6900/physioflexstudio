@@ -74,13 +74,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement.",
+          "Physiotherapist-led assisted stretching and mobility studio focused on relief, posture correction, and measurable mobility improvement.",
       },
       { property: "og:title", content: "PhysioFlex Studio" },
       {
         property: "og:description",
         content:
-          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement.",
+          "Physiotherapist-led assisted stretching and mobility studio focused on relief, posture correction, and measurable mobility improvement.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -88,7 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "twitter:description",
         content:
-          "Physiotherapist-led assisted stretching and mobility studio focused on pain relief, posture correction, and measurable mobility improvement.",
+          "Physiotherapist-led assisted stretching and mobility studio focused on relief, posture correction, and measurable mobility improvement.",
       },
       {
         property: "og:image",

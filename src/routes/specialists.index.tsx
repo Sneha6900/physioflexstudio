@@ -12,18 +12,18 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/specialists/")({
   head: () => ({
     meta: [
-      { title: "Certified Recovery Specialists — PhysioFlex Studio" },
+      { title: "Certified Specialists — PhysioFlex Studio" },
       {
         name: "description",
         content:
-          "Browse certified recovery specialists. Filter by rating, experience and specialization, then book a studio session in Bangalore.",
+          "Browse certified specialists. Filter by rating, experience and specialization, then book a studio session in Bangalore.",
       },
     ],
   }),
   component: SpecialistsPage,
 });
 
-const specs = ["All", "Sports Recovery", "Mobility Coaching", "Post-Surgery", "Posture Correction"];
+const specs = ["All", "Sports Rehabilitation", "Mobility Coaching", "Post-Surgery", "Posture Correction"];
 const sorts = ["Rating", "Experience", "Sessions"] as const;
 
 function SpecialistsPage() {
@@ -49,11 +49,11 @@ function SpecialistsPage() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="inline-flex rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-            Expert Assisted Recovery
+            Expert Assisted Care
           </span>
           <h1 className="type-page mt-4 text-foreground">Choose your specialist</h1>
           <p className="type-body mt-3 max-w-xl text-muted-foreground">
-            Certified recovery specialists for your {(data.area ?? "recovery").toLowerCase()} —
+            Certified specialists for your ${(data.area ?? "wellness").toLowerCase()} —
             hands-on, supervised and safe.
           </p>
         </div>

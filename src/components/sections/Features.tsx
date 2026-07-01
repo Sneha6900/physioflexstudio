@@ -16,7 +16,7 @@ const cards: {
 }[] = [
   {
     icon: ScanLine,
-    title: "Pain Assessment",
+    title: "Assessment",
     desc: "Pinpoint discomfort on an interactive body map and capture intensity, duration and stiffness.",
     className: "md:col-span-2",
     feature: true,
@@ -25,7 +25,7 @@ const cards: {
   {
     icon: BrainCircuit,
     title: "Clinical Assessment & Plan",
-    desc: "Physiotherapists interpret pain, posture and mobility to design a safe, personalized plan.",
+    desc: "Physiotherapists interpret posture, symptoms and mobility to design a safe, personalized plan.",
     className: "md:col-span-1",
     preview: "report",
   },
@@ -39,7 +39,7 @@ const cards: {
   {
     icon: CalendarHeart,
     title: "Physiotherapist-Supervised Sessions",
-    desc: "Book one-on-one assisted stretching sessions for safe pain relief and recovery.",
+    desc: "Book one-on-one assisted stretching sessions for safe relief and progress.",
     className: "md:col-span-2",
     feature: true,
     preview: "calendar",
@@ -54,7 +54,7 @@ const cards: {
   {
     icon: Activity,
     title: "Progress Reports",
-    desc: "Clear, weekly recovery reports that show exactly how far you've come.",
+    desc: "Clear, weekly progress reports that show exactly how far you've come.",
     className: "md:col-span-2",
     preview: "chart",
   },
@@ -88,7 +88,7 @@ function CardPreview({ type }: { type: PreviewType }) {
       <div className={cn(shell, "flex-col gap-1.5 px-4 py-3")}>
         {[
           { label: "Mobility", w: "72%" },
-          { label: "Pain level", w: "38%" },
+          { label: "Intensity", w: "38%" },
           { label: "Posture", w: "61%" },
         ].map((row) => (
           <div key={row.label} className="flex w-full items-center gap-2">
@@ -176,8 +176,8 @@ export function Features() {
       <div className="section-shell">
         <SectionHeading
           eyebrow="The platform"
-          title={<>Everything your recovery needs, in one place</>}
-          description="A complete toolkit that turns pain into a precise, measurable recovery plan."
+          title={<>Everything you need, in one place</>}
+          description="A complete toolkit that turns symptoms into a precise, measurable progress plan."
         />
 
         <Stagger className="mt-10 grid gap-4 md:grid-cols-3">

@@ -186,7 +186,7 @@ export function computeScores(d: AssessmentData): Scores {
 
 export function clinicalInsight(d: AssessmentData): string {
   if (!d.markers.length) {
-    return "Complete your pain markers to unlock a personalized clinical summary focused on mobility and pain relief.";
+    return "Complete your markers to unlock a personalized clinical summary focused on mobility and relief.";
   }
 
   const [first] = d.markers;
@@ -194,5 +194,5 @@ export function clinicalInsight(d: AssessmentData): string {
   const sevWord = first.painLevel >= 7 ? "significant" : first.painLevel >= 4 ? "moderate" : "mild";
   const mobWord = mobilityLabel(first.mobility);
 
-  return `Based on your assessment, ${sevWord} ${area} discomfort and ${mobWord} range of motion were observed. Your recovery program prioritizes targeted assisted stretching, posture correction, and progressive mobility work to relieve pain safely.`;
+  return `Based on your assessment, ${sevWord} ${area} discomfort and ${mobWord} range of motion were observed. Your program prioritizes targeted assisted stretching, posture correction, and progressive mobility work to relieve discomfort safely.`;
 }

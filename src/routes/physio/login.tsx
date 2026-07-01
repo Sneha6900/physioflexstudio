@@ -72,7 +72,7 @@ function PhysioLoginPage() {
               Manage your sessions, client assessments, and availability in one place.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">
-              Access the physio dashboard to accept assigned sessions, preview client pain areas,
+              Access the physio dashboard to accept assigned sessions, preview client discomfort areas,
               and hit daily and weekly performance targets.
             </p>
             <div className="mt-10 grid gap-4">

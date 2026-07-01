@@ -31,7 +31,7 @@ export const Route = createFileRoute("/physio/dashboard")({
       {
         name: "description",
         content:
-          "Accept assigned sessions, review client pain assessments, manage availability, and track daily and weekly targets from the PhysioFlex Studio physiotherapist dashboard.",
+          "Accept assigned sessions, review client assessments, manage availability, and track daily and weekly targets from the PhysioFlex Studio physiotherapist dashboard.",
       },
     ],
   }),
@@ -68,7 +68,7 @@ function PhysioDashboardPage() {
   return (
     <PhysioShell
       title="Your clinic on the go"
-      subtitle="Accept sessions, preview pain assessments, and keep your availability and targets on track."
+      subtitle="Accept sessions, preview assessments, and keep your availability and targets on track."
       user={physio.user}
       availability={physio.availability}
       onToggleAvailability={() => toggleAvailability()}
@@ -321,7 +321,7 @@ function SessionRow({
       </div>
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <div className="rounded-3xl border border-border bg-card p-4">
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Pain areas</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Areas</p>
           <p className="mt-2 font-semibold text-foreground">{session.painZones.join(", ")}</p>
         </div>
         <div className="rounded-3xl border border-border bg-card p-4">

@@ -17,9 +17,9 @@ export function Exercises() {
     <section id="exercises" className="bg-secondary/40">
       <div className="section-shell">
         <SectionHeading
-          eyebrow="Recovery programs"
+          eyebrow="Programs"
           title="Physiotherapy programs for every stage of healing"
-          description="Therapist-guided routines for all ages — focused on mobility, pain relief, and confident recovery, not gym workouts."
+          description="Therapist-guided routines for all ages — focused on mobility, relief, and confident progress, not gym workouts."
         />
 
         <Stagger className="mt-10 grid items-stretch gap-5 md:grid-cols-3">
@@ -31,8 +31,8 @@ export function Exercises() {
             >
               <div className="relative h-48 shrink-0 overflow-hidden bg-gradient-to-br from-primary/8 to-accent/8 sm:h-52">
                 <img
-                  src={e.img}
-                  alt={`${e.title} — physiotherapist-guided recovery session`}
+                   src={e.img}
+                   alt={`${e.title} — physiotherapist-guided session`}
                   loading="lazy"
                   className="size-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />

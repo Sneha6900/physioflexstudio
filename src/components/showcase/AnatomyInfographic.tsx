@@ -6,7 +6,7 @@ import { useTheme } from "@/hooks/use-theme";
 import type { Theme } from "@/lib/theme";
 
 const ALT_TEXT =
-  "Medical infographic showing front and back human anatomy with three highlighted pain regions, demonstrating how the PhysioFlex app maps areas of discomfort during clinical assessment";
+  "Medical infographic showing front and back human anatomy with three highlighted regions, demonstrating how the PhysioFlex app maps areas of discomfort during clinical assessment";
 
 const ANATOMY_BY_THEME: Record<Theme, { src: string; width: number; height: number }> = {
   light: { src: anatomyLight, width: 640, height: 800 },
@@ -37,7 +37,7 @@ export function AnatomyInfographic() {
     <Reveal as="div">
       <figure
         className="app-journey-anatomy-card"
-        aria-label="PhysioFlex mobile app pain assessment anatomy infographic"
+        aria-label="PhysioFlex mobile app assessment anatomy infographic"
       >
         <div className="app-journey-anatomy-stage">
           <img

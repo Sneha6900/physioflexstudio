@@ -50,7 +50,7 @@ const PHYSIOTHERAPISTS = [
   {
     id: "physio-3",
     name: "Anjali Gupta",
-    specialization: "Pain Management",
+    specialization: "Symptom Management",
     experience: "7 years",
     rating: 4.7,
     reviews: 98,
@@ -194,7 +194,7 @@ function ClientBookingPage() {
                   <div>
                     <h2 className="font-semibold text-foreground">Auto Assign (Recommended)</h2>
                     <p className="text-sm text-muted-foreground">
-                      We'll match you with the best physiotherapist based on your pain areas and
+                      We'll match you with the best physiotherapist based on your areas and
                       their expertise
                     </p>
                   </div>
@@ -269,7 +269,7 @@ function ClientBookingPage() {
             {bookingMode === "auto" && selectedPhysioData && (
               <div className="mb-8 rounded-lg border border-primary/25 bg-primary/10 p-4">
                 <p className="text-sm text-foreground">
-                  <strong>{selectedPhysioData.name}</strong> is recommended for your pain areas and
+                  <strong>{selectedPhysioData.name}</strong> is recommended for your areas and
                   has excellent reviews for this type of condition.
                 </p>
               </div>

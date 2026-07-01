@@ -31,9 +31,9 @@ export const specialists: Specialist[] = [
     reviews: 312,
     sessions: 1200,
     years: 8,
-    spec: "Sports Recovery",
+    spec: "Sports Rehabilitation",
     available: "Today",
-    bio: "Former national-level athlete turned sports physiotherapist, Arjun specializes in returning athletes and active individuals to peak performance after injury. His approach blends movement science with data-driven progress tracking.",
+    bio: "Sports physiotherapist specializing in returning athletes and active individuals to peak performance using movement science and data-driven tracking.",
     certifications: [
       "MPT Sports Medicine",
       "Certified Strength & Conditioning Specialist",
@@ -44,7 +44,7 @@ export const specialists: Specialist[] = [
       {
         name: "Rohan S.",
         rating: 5,
-        text: "Got me back to running pain-free in 6 weeks. Incredible attention to detail.",
+        text: "Got me back to running freely in 6 weeks. Incredible attention to detail.",
       },
       {
         name: "Meera K.",
@@ -68,7 +68,7 @@ export const specialists: Specialist[] = [
     years: 6,
     spec: "Mobility Coaching",
     available: "Tomorrow",
-    bio: "Priya focuses on functional mobility for desk-bound professionals and ageing adults. She designs gentle, sustainable routines that rebuild range of motion without strain.",
+    bio: "Specialist in functional mobility for desk professionals and seniors. Designs gentle, sustainable routines to restore range of motion.",
     certifications: ["MPT Musculoskeletal", "FMS Certified", "Yoga Therapy Diploma"],
     studios: ["Whitefield", "Indiranagar"],
     reviewList: [
@@ -99,7 +99,7 @@ export const specialists: Specialist[] = [
     years: 11,
     spec: "Post-Surgery",
     available: "Today",
-    bio: "With over a decade in post-operative rehabilitation, Karan guides patients through safe, supervised recovery after knee, hip, and spinal surgeries. Safety and measurable milestones define his practice.",
+    bio: "Rehabilitation specialist with 11+ years guiding safe recovery milestones after knee, hip, and spinal surgeries.",
     certifications: [
       "MPT Orthopaedics",
       "Post-Surgical Rehab Specialist",
@@ -110,7 +110,7 @@ export const specialists: Specialist[] = [
       {
         name: "Deepak N.",
         rating: 5,
-        text: "Post knee-replacement recovery was smooth thanks to Karan. A true expert.",
+        text: "Post knee-replacement rehabilitation was smooth thanks to Karan. A true expert.",
       },
       { name: "Anita G.", rating: 5, text: "Careful, knowledgeable and reassuring at every step." },
       {
@@ -130,7 +130,7 @@ export const specialists: Specialist[] = [
     years: 5,
     spec: "Posture Correction",
     available: "This week",
-    bio: "Sneha helps clients undo years of poor posture through targeted corrective exercise and ergonomic coaching. Her sessions are practical, friendly, and built around real daily habits.",
+    bio: "Corrects posture and alignment issues through targeted exercise, ergonomic coaching, and building healthy movement habits.",
     certifications: [
       "MPT Musculoskeletal",
       "Postural Restoration Trained",
@@ -147,7 +147,7 @@ export const specialists: Specialist[] = [
       {
         name: "Rahul V.",
         rating: 5,
-        text: "Back pain from sitting all day is finally manageable.",
+        text: "Back stiffness from sitting all day is finally manageable.",
       },
     ],
   },

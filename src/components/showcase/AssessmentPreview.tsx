@@ -31,7 +31,7 @@ function RecoveryRing({ active }: { active: boolean }) {
       <div className="relative z-10 flex w-[62%] flex-col items-center justify-center text-center">
         <div className="type-stat tabular-nums leading-none text-foreground">{value}</div>
         <div className="mt-1 text-[0.58rem] font-semibold leading-tight tracking-wide text-muted-foreground uppercase sm:text-[0.62rem]">
-          <span className="block">Recovery</span>
+          <span className="block">Progress</span>
           <span className="block">Index</span>
         </div>
       </div>
@@ -43,7 +43,7 @@ const metrics = [
   { icon: Move, label: "Mobility Score", value: 82, suffix: "/ 100" },
   { icon: Activity, label: "Flexibility Score", value: 74, suffix: "/ 100" },
   { icon: ShieldCheck, label: "Posture Analysis", value: 68, suffix: "%", displaySuffix: "Good" },
-  { icon: Gauge, label: "Pain Severity", value: 28, suffix: "%", displaySuffix: "Low" },
+  { icon: Gauge, label: "Intensity", value: 28, suffix: "%", displaySuffix: "Low" },
 ] as const;
 
 function MetricCard({
@@ -102,8 +102,8 @@ export function AssessmentPreview() {
         </span>
       </div>
 
-      <div className="grid gap-4 rounded-[1.5rem] border border-border bg-gradient-to-br from-secondary/50 to-background p-4 sm:grid-cols-[auto_1fr] sm:gap-5 sm:p-5">
-        <div className="flex flex-col items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-secondary/70 to-background p-5 sm:p-6">
+      <div className="grid gap-4 rounded-[1.5rem] border border-border bg-gradient-to-br from-secondary/50 dark:from-card to-background dark:to-background p-4 sm:grid-cols-[auto_1fr] sm:gap-5 sm:p-5">
+        <div className="flex flex-col items-center justify-center gap-3 rounded-2xl bg-gradient-to-br from-secondary/70 dark:from-elevated to-background dark:to-card p-5 sm:p-6">
           <RecoveryRing active={inView} />
           <div className="flex items-center gap-1.5 rounded-full bg-accent/15 px-3 py-1 type-label font-semibold text-forest">
             <TrendingUp className="size-3.5" /> +12% this month

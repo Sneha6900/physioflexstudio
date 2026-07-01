@@ -134,7 +134,7 @@ function ClientDashboard() {
                     <span className="font-semibold text-foreground">Assessment Completed</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    {assessment.painPoints?.length || 0} pain point
+                    {assessment.painPoints?.length || 0} area
                     {(assessment.painPoints?.length || 0) !== 1 ? "s" : ""} identified
                   </p>
                   <div className="mt-4 space-y-2 text-sm">
@@ -288,9 +288,9 @@ function ClientDashboard() {
           <h2 className="font-display text-2xl font-bold text-foreground mb-4">Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card className="p-6 cursor-pointer hover:shadow-lg transition-all">
-              <h3 className="font-semibold text-foreground mb-2">Common Pain Management Tips</h3>
+              <h3 className="font-semibold text-foreground mb-2">Common Self-Care Tips</h3>
               <p className="text-sm text-muted-foreground">
-                Learn best practices for managing pain during daily activities
+                Learn best practices for comfort during daily activities
               </p>
             </Card>
             <Card className="p-6 cursor-pointer hover:shadow-lg transition-all">

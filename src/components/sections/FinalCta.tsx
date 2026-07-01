@@ -36,7 +36,7 @@ export function FinalCta() {
               <div className="relative mx-auto max-w-2xl text-center">
                 <span className="brand-badge type-label inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-semibold uppercase tracking-[0.16em] shadow-[var(--shadow-soft)]">
                   <span className="inline-flex size-2 rounded-full bg-accent" />
-                  Start your recovery
+                  Start your journey
                 </span>
 
                 <h2 className="type-hero mt-5 font-display font-bold text-foreground">
@@ -64,7 +64,7 @@ export function FinalCta() {
 
                 <p className="type-body mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">
                   Clinical assessment, hands-on assisted stretching, and physiotherapist supervision —
-                  start with a consultation focused on pain relief and mobility improvement.
+                  start with a consultation focused on relief and mobility improvement.
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">

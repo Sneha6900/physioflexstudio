@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as RecoveryRouteImport } from './routes/recovery'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -27,6 +28,11 @@ import { Route as LoginUserSignupRouteImport } from './routes/login.user.signup'
 import { Route as LoginUserProfileRouteImport } from './routes/login.user.profile'
 import { Route as AssessmentPainDetailsAreaRouteImport } from './routes/assessment.pain-details.$area'
 
+const StudiosRoute = StudiosRouteImport.update({
+  id: '/studios',
+  path: '/studios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RecoveryRoute = RecoveryRouteImport.update({
   id: '/recovery',
   path: '/recovery',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
+  '/studios': typeof StudiosRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
   '/login/user': typeof LoginUserRouteWithChildren
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
+  '/studios': typeof StudiosRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
   '/login/user': typeof LoginUserRouteWithChildren
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRouteWithChildren
   '/recovery': typeof RecoveryRoute
+  '/studios': typeof StudiosRoute
   '/assessment/results': typeof AssessmentResultsRoute
   '/assessment/start': typeof AssessmentStartRoute
   '/login/user': typeof LoginUserRouteWithChildren
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/recovery'
+    | '/studios'
     | '/assessment/results'
     | '/assessment/start'
     | '/login/user'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/recovery'
+    | '/studios'
     | '/assessment/results'
     | '/assessment/start'
     | '/login/user'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/recovery'
+    | '/studios'
     | '/assessment/results'
     | '/assessment/start'
     | '/login/user'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRouteWithChildren
   RecoveryRoute: typeof RecoveryRoute
+  StudiosRoute: typeof StudiosRoute
   PhysioDashboardRoute: typeof PhysioDashboardRoute
   PhysioLoginRoute: typeof PhysioLoginRoute
   SpecialistsIdRoute: typeof SpecialistsIdRoute
@@ -248,6 +261,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/studios': {
+      id: '/studios'
+      path: '/studios'
+      fullPath: '/studios'
+      preLoaderRoute: typeof StudiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/recovery': {
       id: '/recovery'
       path: '/recovery'
@@ -417,6 +437,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRouteWithChildren,
   RecoveryRoute: RecoveryRoute,
+  StudiosRoute: StudiosRoute,
   PhysioDashboardRoute: PhysioDashboardRoute,
   PhysioLoginRoute: PhysioLoginRoute,
   SpecialistsIdRoute: SpecialistsIdRoute,

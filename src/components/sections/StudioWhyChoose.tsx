@@ -1,200 +1,382 @@
-import type { ReactNode } from "react";
-import { motion } from "motion/react";
-import type { LucideIcon } from "lucide-react";
-import { Award, Check, DoorOpen, HeartHandshake, Sparkles, Zap } from "lucide-react";
-import { Reveal, Stagger, itemVariants } from "@/components/site/Reveal";
-import { studioWhyChoose, type StudioWhyChooseItem } from "@/lib/studios";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { 
+  Sparkles, 
+  DoorOpen, 
+  Award, 
+  HeartHandshake, 
+  Zap, 
+  Check, 
+  ChevronLeft, 
+  ChevronRight 
+} from "lucide-react";
+import { Reveal } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
 
-type IllustrationKind = "clinic" | "consultation" | "expert" | "lounge" | "equipment";
+// Assets imports
+import studioIndiranagar from "@/assets/studio-indiranagar.webp";
+import studioKoramangala from "@/assets/studio-koramangala.webp";
+import studioWhitefield from "@/assets/studio-whitefield.webp";
+import heroPhysioClinic from "@/assets/hero-physio-clinic.webp";
+import programAssistedStretch from "@/assets/program-assisted-stretch.webp";
 
-const whyChooseConfig: Record<
-  string,
-  {
-    icon: LucideIcon;
-    accent: string;
-    illustration: IllustrationKind;
-  }
-> = {
-  "Modern Recovery Spaces": {
-    icon: Sparkles,
-    accent: "from-[#91ddcf]/14 to-[#91ddcf]/3",
-    illustration: "clinic",
-  },
-  "Private Consultation Rooms": {
-    icon: DoorOpen,
-    accent: "from-[#e8c5e5]/22 to-[#e8c5e5]/5",
-    illustration: "consultation",
-  },
-  "Certified Physiotherapists": {
-    icon: Award,
-    accent: "from-[#91ddcf]/12 to-transparent",
-    illustration: "expert",
-  },
-  "Comfortable Environment": {
-    icon: HeartHandshake,
-    accent: "from-[#f19ed2]/14 to-transparent",
-    illustration: "lounge",
-  },
-  "State-of-the-Art Equipment": {
-    icon: Zap,
-    accent: "from-[#5ba99a]/12 to-transparent",
-    illustration: "equipment",
-  },
+type ShowcaseItem = {
+  number: string;
+  title: string;
+  description: string;
+  icon: any;
+  image: string;
+  overlayTitle: string;
+  overlayDesc: string;
+  floatingPanels: string[];
 };
 
-function BentoIllustration({ kind }: { kind: IllustrationKind }) {
-  const paths: Record<IllustrationKind, ReactNode> = {
-    clinic: (
-      <>
-        <rect x="12" y="28" width="56" height="40" rx="4" />
-        <path d="M20 68V48h16v20M44 68V40h12v28" />
-        <circle cx="52" cy="32" r="6" />
-      </>
-    ),
-    consultation: (
-      <>
-        <rect x="16" y="24" width="48" height="44" rx="6" />
-        <path d="M28 44h24M28 52h16" />
-        <circle cx="56" cy="36" r="4" />
-      </>
-    ),
-    expert: (
-      <>
-        <circle cx="40" cy="30" r="10" />
-        <path d="M24 68c0-12 8-18 16-18s16 6 16 18" />
-        <path d="M58 36l8 6-8 6" />
-      </>
-    ),
-    lounge: (
-      <>
-        <path d="M16 52h48v16H16z" />
-        <path d="M20 52V40c0-6 6-10 12-10h16c6 0 12 4 12 10v12" />
-        <path d="M32 68v-8M48 68v-8" />
-      </>
-    ),
-    equipment: (
-      <>
-        <rect x="20" y="36" width="40" height="28" rx="4" />
-        <path d="M28 36V28h24v8" />
-        <circle cx="40" cy="50" r="8" />
-        <path d="M36 50h8" />
-      </>
-    ),
-  };
-
-  return (
-    <svg
-      viewBox="0 0 80 80"
-      className="studio-bento-illustration pointer-events-none absolute bottom-0 right-0 size-[4.25rem] text-forest opacity-[0.08] sm:size-[4.75rem]"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      {paths[kind]}
-    </svg>
-  );
-}
-
-function WhyChooseCard({ item }: { item: StudioWhyChooseItem }) {
-  const config = whyChooseConfig[item.title] ?? {
+const showcaseItems: ShowcaseItem[] = [
+  {
+    number: "01",
+    title: "Performance Training Spaces",
+    description: "Open environment suites equipped for functional mobility and active movement.",
     icon: Sparkles,
-    accent: "from-secondary/30 to-transparent",
-    illustration: "clinic" as IllustrationKind,
-  };
-  const Icon = config.icon;
-
-  return (
-    <motion.article variants={itemVariants} className="studio-bento-card group relative h-full min-w-0">
-      <div
-        className={cn(
-          "studio-bento-card-inner relative flex h-full flex-col rounded-[1.75rem] border border-[color:var(--glass-border)] p-5 transition-all duration-400 ease-out sm:rounded-[2rem] sm:p-6",
-          "lg:hover:-translate-y-1 lg:hover:border-accent/30",
-          "lg:hover:shadow-[0_16px_40px_-24px_rgba(91,169,154,0.3)]",
-        )}
-      >
-        <div
-          className={cn(
-            "pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br opacity-75 transition-opacity duration-400 group-hover:opacity-100",
-            config.accent,
-          )}
-          aria-hidden
-        />
-        <BentoIllustration kind={config.illustration} />
-
-        <div className="relative flex min-h-0 flex-1 flex-col">
-          <span className="studio-bento-icon brand-icon-surface inline-grid size-10 place-items-center rounded-full shadow-[var(--shadow-soft)] backdrop-blur-md">
-            <Icon className="size-5" strokeWidth={1.6} />
-          </span>
-
-          <h4 className="type-card-title mt-3 font-bold leading-snug tracking-tight text-foreground">
-            {item.title}
-          </h4>
-
-          <p className="type-body mt-1.5 flex-1 text-pretty text-muted-foreground">
-            {item.description}
-          </p>
-
-          <ul className="mt-4 flex flex-wrap gap-1.5">
-            {item.chips.map((chip) => (
-              <li
-                key={chip}
-                className="studio-bento-chip glass-card type-badge inline-flex items-center gap-0.5 rounded-full border border-accent/12 px-2 py-0.5 font-medium leading-tight text-forest"
-              >
-                <Check className="size-2.5 shrink-0 opacity-65" strokeWidth={2.5} />
-                {chip}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </motion.article>
-  );
-}
+    image: studioKoramangala,
+    overlayTitle: "Performance Training Spaces",
+    overlayDesc: "Designed to inspire movement, build strength, and accelerate your progress.",
+    floatingPanels: ["Modern Equipment", "Open Today", "Premium Studio"]
+  },
+  {
+    number: "02",
+    title: "Private Treatment Rooms",
+    description: "Quiet, sound-insulated rooms for personalized physical adjustments.",
+    icon: DoorOpen,
+    image: studioIndiranagar,
+    overlayTitle: "Private Treatment Rooms",
+    overlayDesc: "Dedicated suites ensuring absolute focus and comfort during your therapy.",
+    floatingPanels: ["Personalized Care", "Dignified Suites"]
+  },
+  {
+    number: "03",
+    title: "Certified Physiotherapists",
+    description: "Licensed mobility experts who guide your path back to healthy motion.",
+    icon: Award,
+    image: heroPhysioClinic,
+    overlayTitle: "Certified Physiotherapists",
+    overlayDesc: "Expert clinical therapists managing your posture, angles, and joint reload.",
+    floatingPanels: ["Certified Experts", "Clinical Progress"]
+  },
+  {
+    number: "04",
+    title: "Comfort & Wellness",
+    description: "Warm, custom lighting, climate control, and welcoming lounges.",
+    icon: HeartHandshake,
+    image: studioWhitefield,
+    overlayTitle: "Comfort & Wellness",
+    overlayDesc: "Soothing clinical environments built for patient relaxation and comfort.",
+    floatingPanels: ["Welcoming Staff", "Premium Spaces"]
+  },
+  {
+    number: "05",
+    title: "Advanced Mobility Equipment",
+    description: "Professional tools for decompression, stretching, and stability.",
+    icon: Zap,
+    image: programAssistedStretch,
+    overlayTitle: "Advanced Mobility Equipment",
+    overlayDesc: "Utilizing professional medical-grade therapy tools for fast healing.",
+    floatingPanels: ["Assisted Stretching", "Advanced Gear"]
+  }
+];
 
 export function StudioWhyChoose() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const nextStep = () => {
+    setActiveStep((prev) => (prev + 1) % showcaseItems.length);
+  };
+
+  const prevStep = () => {
+    setActiveStep((prev) => (prev - 1 + showcaseItems.length) % showcaseItems.length);
+  };
+
+  const currentItem = showcaseItems[activeStep];
+
   return (
-    <section className="studio-bento-section relative mt-14 py-14 sm:mt-16 sm:py-16 lg:mt-20 lg:py-20" aria-labelledby="studio-why-heading">
-      <div
-        className="studio-bento-ambient pointer-events-none absolute inset-0"
-        aria-hidden
-      />
+    <section 
+      className="relative w-full border-t border-border/40 bg-white dark:bg-background py-14 sm:py-16 lg:py-20 overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(145,221,207,0.03)_0%,transparent_60%)] pointer-events-none" />
 
-      <Reveal>
-        <div className="studio-bento-header relative mx-auto max-w-2xl text-center">
-          <span className="studio-bento-badge brand-badge inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold uppercase tracking-[0.16em]">
-            <Sparkles className="size-3" />
-            Studio Experience
-          </span>
-          <h3
-            id="studio-why-heading"
-            className="studio-bento-title mt-3 text-balance font-bold tracking-tight text-foreground"
-          >
-            Why Choose Our Studios?
-          </h3>
-          <p className="studio-bento-desc mx-auto mt-3 max-w-lg text-muted-foreground">
-            Every PhysioFlex Studio location is built for people who want professional care in a
-            space that feels warm, modern, and trustworthy.
-          </p>
-        </div>
-      </Reveal>
+      {/* Outer Wrapper */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        
+        {/* ====================================================
+            DESKTOP LAYOUT (1024px and above)
+            ==================================================== */}
+        <div className="hidden lg:grid grid-cols-12 gap-8 items-center">
+          
+          {/* LEFT SIDE (35% space) */}
+          <div className="col-span-4 flex flex-col justify-center">
+            <span className="brand-badge w-fit inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-secondary/50 dark:bg-elevated border border-border/60 mb-4">
+              <Sparkles className="size-3.5 text-accent animate-pulse" />
+              <span className="type-label font-bold uppercase tracking-[0.16em] text-foreground/80 sm:tracking-[0.2em] text-[9px]">
+                STUDIO EXPERIENCE
+              </span>
+            </span>
 
-      <Stagger className="studio-bento-grid relative mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:mt-12 lg:grid-cols-6 lg:gap-8">
-        {studioWhyChoose.map((item, index) => (
-          <div
-            key={item.title}
-            className={cn(
-              "flex h-full min-w-0 lg:col-span-2",
-              index === 3 && "lg:col-start-2",
-            )}
-          >
-            <WhyChooseCard item={item} />
+            <h3 className="type-section font-black tracking-tight text-foreground leading-[1.1]">
+              Built for Better<br />
+              <span className="bg-gradient-to-r from-forest to-accent bg-clip-text text-transparent">
+                Movement.
+              </span>
+            </h3>
+            <p className="mt-3 text-xs text-muted-foreground leading-relaxed max-w-sm">
+              Explore our purpose-built environments designed to bridge the gap between active clinical therapy and premium comfort.
+            </p>
+
+            {/* Interactive Vertical Timeline */}
+            <div className="relative mt-8 flex flex-col gap-6 pl-6">
+              {/* Timeline vertical connector line */}
+              <div className="absolute left-[8px] top-4 bottom-4 w-[2px] bg-border/40 rounded-full" />
+              
+              {/* Progress Line */}
+              <motion.div 
+                className="absolute left-[8px] top-4 w-[2px] bg-accent rounded-full"
+                animate={{
+                  height: `${(activeStep / (showcaseItems.length - 1)) * 92}%`
+                }}
+                transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                style={{ transformOrigin: "top" }}
+              />
+
+              {showcaseItems.map((item, idx) => {
+                const isActive = idx === activeStep;
+
+                return (
+                  <button
+                    key={item.number}
+                    onClick={() => setActiveStep(idx)}
+                    className="group relative flex items-start text-left focus:outline-none"
+                  >
+                    {/* Circle Dot wrapper */}
+                    <div className="absolute left-[-24px] top-1 flex items-center justify-center">
+                      <motion.div
+                        animate={{
+                          scale: isActive ? 1.25 : 0.8,
+                          backgroundColor: isActive ? "var(--accent)" : "rgb(var(--color-background))"
+                        }}
+                        className={cn(
+                          "size-3 rounded-full border-2 transition-colors duration-300 z-10",
+                          isActive ? "border-accent shadow-[0_0_12px_rgba(145,221,207,0.7)]" : "border-muted-foreground/30"
+                        )}
+                      />
+                    </div>
+
+                    <div className="pl-3">
+                      <span className={cn(
+                        "type-label text-[10px] font-bold tracking-wider transition-colors duration-300",
+                        isActive ? "text-forest" : "text-muted-foreground/60"
+                      )}>
+                        {item.number}
+                      </span>
+                      <h4 className={cn(
+                        "text-[13px] font-bold leading-tight transition-colors duration-300 group-hover:text-forest",
+                        isActive ? "text-foreground font-black" : "text-muted-foreground"
+                      )}>
+                        {item.title}
+                      </h4>
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.p
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-xs overflow-hidden"
+                          >
+                            {item.description}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        ))}
-      </Stagger>
+
+          {/* RIGHT SIDE (65% space) */}
+          <div className="col-span-8 flex flex-col gap-4 overflow-visible h-full justify-center">
+            
+            {/* Massive Showcase Image Container */}
+            <div className="relative w-full aspect-[16/10] rounded-[32px] overflow-hidden border border-white/20 dark:border-white/10 shadow-card bg-card">
+              
+              {/* Crossfading Images */}
+              {showcaseItems.map((item, idx) => (
+                <img
+                  key={item.number}
+                  src={item.image}
+                  alt={item.title}
+                  className={cn(
+                    "absolute inset-0 size-full object-cover transition-all duration-1000 ease-out",
+                    idx === activeStep ? "opacity-100 scale-100" : "opacity-0 scale-[1.03]"
+                  )}
+                />
+              ))}
+
+              {/* Dark Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
+
+              {/* Bottom Left Content Overlay */}
+              <div className="absolute bottom-6 left-6 right-6 text-white z-10">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeStep}
+                    initial={{ y: 15, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -15, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <h4 className="text-xl font-bold tracking-tight text-white mb-1.5">
+                      {currentItem.overlayTitle}
+                    </h4>
+                    <p className="text-xs text-white/70 max-w-lg leading-relaxed font-medium">
+                      {currentItem.overlayDesc}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Gently Floating Glass Cards */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {currentItem.floatingPanels.map((label, idx) => {
+                  const offsets = [
+                    "top-[12%] left-[8%]",
+                    "top-[15%] right-[10%]",
+                    "bottom-[22%] right-[8%]"
+                  ];
+                  const animationDurations = [4, 4.5, 3.8];
+                  
+                  return (
+                    <motion.div
+                      key={label}
+                      animate={{ y: [-5, 5, -5] }}
+                      transition={{
+                        duration: animationDurations[idx % animationDurations.length],
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: idx * 0.4
+                      }}
+                      className={cn(
+                        "absolute z-20 pointer-events-auto",
+                        offsets[idx % offsets.length]
+                      )}
+                    >
+                      <div className="backdrop-blur-md bg-white/40 dark:bg-[var(--glass-bg)] border border-white/25 dark:border-white/10 rounded-2xl px-4 py-2 text-[10px] sm:text-xs font-bold text-foreground sm:text-white flex items-center gap-1.5 shadow-soft hover:shadow-card hover:-translate-y-0.5 transition-all duration-300">
+                        <Check className="size-3.5 text-forest sm:text-accent shrink-0" strokeWidth={2.8} />
+                        {label}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Horizontal Image Filmstrip */}
+            <div className="flex items-center gap-3 mt-2 select-none justify-center">
+              {showcaseItems.map((item, idx) => (
+                <button
+                  key={item.number}
+                  onClick={() => setActiveStep(idx)}
+                  className={cn(
+                    "relative aspect-[16/10] w-[90px] rounded-xl overflow-hidden cursor-pointer transition-all border-2 duration-300",
+                    idx === activeStep 
+                      ? "border-accent scale-105 shadow-[0_0_12px_rgba(145,221,207,0.4)]" 
+                      : "border-transparent opacity-60 hover:opacity-100 hover:scale-[1.02]"
+                  )}
+                >
+                  <img src={item.image} alt="" className="size-full object-cover" />
+                </button>
+              ))}
+            </div>
+
+          </div>
+        </div>
+
+        {/* ====================================================
+            TABLET / MOBILE LAYOUT (Below 1024px)
+            ==================================================== */}
+        <div className="lg:hidden w-full">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <span className="brand-badge inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-secondary/50 dark:bg-elevated border border-border/60">
+              <Sparkles className="size-3.5 text-accent animate-pulse" />
+              <span className="type-label font-bold uppercase tracking-[0.16em] text-foreground/80 text-[9px]">
+                STUDIO EXPERIENCE
+              </span>
+            </span>
+            <h3 className="mt-3 font-bold tracking-tight text-foreground type-section text-center leading-tight">
+              Built for Better <span className="bg-gradient-to-r from-forest to-accent bg-clip-text text-transparent">Movement.</span>
+            </h3>
+            <p className="mx-auto mt-2 text-xs text-muted-foreground leading-relaxed max-w-md">
+              Explore our purpose-built environments designed to bridge the gap between active clinical therapy and premium comfort.
+            </p>
+          </div>
+
+          {/* Swipeable Showcase Card */}
+          <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-[24px] overflow-hidden border border-border shadow-soft bg-card max-w-2xl mx-auto">
+            <img
+              src={currentItem.image}
+              alt={currentItem.title}
+              className="size-full object-cover transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
+
+            {/* Overlay text */}
+            <div className="absolute bottom-4 left-4 right-4 text-white z-10">
+              <h4 className="text-base font-bold text-white mb-1">
+                {currentItem.overlayTitle}
+              </h4>
+              <p className="text-[10px] text-white/70 leading-relaxed font-medium">
+                {currentItem.overlayDesc}
+              </p>
+            </div>
+
+            {/* Mini navigation arrows */}
+            <div className="absolute right-4 top-4 flex items-center gap-1.5 z-20">
+              <button
+                onClick={prevStep}
+                className="size-8 rounded-full bg-black/45 backdrop-blur-md flex items-center justify-center text-white border border-white/10"
+              >
+                <ChevronLeft className="size-4.5" />
+              </button>
+              <button
+                onClick={nextStep}
+                className="size-8 rounded-full bg-black/45 backdrop-blur-md flex items-center justify-center text-white border border-white/10"
+              >
+                <ChevronRight className="size-4.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Horizontal Feature Chips Slider */}
+          <div className="flex items-center gap-2 overflow-x-auto py-4 scrollbar-none snap-x snap-mandatory justify-start max-w-2xl mx-auto">
+            {showcaseItems.map((item, idx) => {
+              const isActive = idx === activeStep;
+              return (
+                <button
+                  key={item.number}
+                  onClick={() => setActiveStep(idx)}
+                  className={cn(
+                    "snap-center shrink-0 rounded-full px-4 py-2 border text-[11px] font-bold shadow-sm transition-all duration-300",
+                    isActive 
+                      ? "bg-accent/25 border-accent text-forest" 
+                      : "bg-card border-border text-muted-foreground"
+                  )}
+                >
+                  {item.title}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

@@ -41,7 +41,7 @@ export const studios: Studio[] = [
     amenities: [
       "Treatment Tables",
       "Stretching Area",
-      "Recovery Equipment",
+      "Therapeutic Equipment",
       "Mobility Training",
       "Wooden Flooring",
       "Natural Lighting",
@@ -89,7 +89,7 @@ export const studios: Studio[] = [
     availability: "Open this weekend",
     badge: "Best Rated",
     rating: 5.0,
-    highlights: ["State-of-the-Art Equipment", "Senior Wellness Lounge", "Premium Recovery Spaces"],
+    highlights: ["State-of-the-Art Equipment", "Senior Wellness Lounge", "Premium Wellness Spaces"],
     amenities: [
       "Reception & Lounge",
       "Rehab Equipment",
@@ -107,7 +107,7 @@ export const studios: Studio[] = [
 
 export const studioWhyChoose = [
   {
-    title: "Modern Recovery Spaces",
+    title: "Modern Wellness Spaces",
     description: "Bright, calm studios designed for comfort — not clinical coldness.",
     chips: ["Natural lighting", "Calm interiors", "Wooden flooring"],
   },
@@ -118,7 +118,7 @@ export const studioWhyChoose = [
   },
   {
     title: "Certified Physiotherapists",
-    description: "Licensed experts focused on pain-led recovery for all ages.",
+    description: "Licensed experts focused on progress for all ages.",
     chips: ["Licensed experts", "All ages welcome", "Evidence-based care"],
   },
   {

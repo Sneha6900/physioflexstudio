@@ -1,53 +1,5 @@
-import { Activity, ArrowRight, BookOpen, ClipboardList, ShieldCheck, Users } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 import heroBg from "@/assets/hero-physio-clinic.webp";
-
-const trustBadges = [
-  { icon: ShieldCheck, label: "Licensed Physiotherapists", detail: "Expert-led recovery" },
-  { icon: ClipboardList, label: "Personalized Recovery", detail: "Tailored to your needs" },
-  { icon: Activity, label: "Joint & Mobility Specialists", detail: "Back, neck & joints" },
-  { icon: BookOpen, label: "Evidence-Based Treatment", detail: "Clinically proven care" },
-  { icon: Users, label: "Trusted By 5,000+ Clients", detail: "All ages welcome" },
-];
-
-function TrustPill({
-  icon: Icon,
-  label,
-  detail,
-  compact = false,
-  className,
-}: {
-  icon: typeof ShieldCheck;
-  label: string;
-  detail: string;
-  compact?: boolean;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        "hero-glass flex shrink-0 items-center gap-2 rounded-xl",
-        compact ? "px-2.5 py-2" : "gap-2.5 rounded-2xl px-3 py-2.5 sm:px-3.5 sm:py-2.5",
-        className,
-      )}
-    >
-      <span
-        className={cn(
-          "grid shrink-0 place-items-center rounded-lg bg-white/10 text-accent",
-          compact ? "size-7" : "size-8 sm:size-9 rounded-xl",
-        )}
-      >
-        <Icon className={compact ? "size-3" : "size-3.5 sm:size-4"} />
-      </span>
-      <div className="min-w-0">
-        <div className={cn("font-bold leading-tight text-white", compact ? "type-badge" : "type-caption")}>
-          {label}
-        </div>
-        {!compact && <div className="type-caption text-white/55">{detail}</div>}
-      </div>
-    </div>
-  );
-}
 
 export function Hero() {
   return (
@@ -68,63 +20,53 @@ export function Hero() {
       <div className="hero-overlay z-[1]" aria-hidden />
 
       <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_18%_50%,rgba(145,221,207,0.07)_0%,transparent_50%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgba(145,221,207,0.08)_0%,transparent_50%)]"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-4 pt-[calc(var(--site-nav-height)+0.25rem)] sm:px-6 sm:pb-6 sm:pt-[calc(var(--site-nav-height)+0.5rem)] lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,15.5rem)] lg:items-center lg:gap-8 lg:pb-8 lg:pt-[calc(var(--site-nav-height)+0.75rem)] xl:grid-cols-[minmax(0,1fr)_minmax(0,17.5rem)]">
-        <div className="min-w-0">
-          <div className="hero-glass mb-2 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 sm:mb-3 sm:gap-2 sm:px-3 sm:py-1.5">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-4 pb-8 pt-[calc(var(--site-nav-height)+1.5rem)] sm:px-6 items-center">
+        {/* Top spacer for justify-between balance */}
+        <div className="hidden sm:block" />
+
+        {/* Text content in center area */}
+        <div className="max-w-2xl flex flex-col items-center text-center my-auto pt-24 xs:pt-32 sm:pt-0 sm:my-0">
+          <div className="hero-glass mb-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 sm:mb-4 sm:gap-2 sm:px-3 sm:py-1.5">
             <span className="size-1.5 rounded-full bg-accent" />
             <span className="type-label font-semibold uppercase tracking-[0.16em] text-white/90 sm:tracking-[0.2em]">
               Physiotherapy for Everyone
             </span>
           </div>
 
-          <h1 className="type-hero text-white">
-            <span className="hero-highlight-teal">Move</span> Better,
-            <br />
-            <span className="hero-highlight-lilac">Feel</span> Better.
+          <h1 className="text-white mb-4 text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05]">
+            <span className="hero-highlight-teal">Move</span> Better{" "}
+            <span className="hero-highlight-lilac">Feel</span> Better
           </h1>
 
-          <p className="type-body mt-[var(--space-heading-gap)] max-w-md text-white/80">
-            Professional physiotherapy for neck pain, back pain, joint stiffness, and mobility
-            limitations, so you can move confidently again.
+          <p className="max-w-xl text-white/90 leading-relaxed mb-6 sm:mb-8 text-[15px] xs:text-base sm:text-lg md:text-xl">
+            Professional physiotherapy for neck back joint stiffness and mobility
+            limitations so you can move confidently again
           </p>
-
-          <div className="mt-[var(--space-stack-sm)] flex flex-col gap-2 sm:flex-row sm:gap-2.5">
-            <button
-              type="button"
-              aria-disabled="true"
-              tabIndex={-1}
-              className="btn-mint type-button group inline-flex min-h-11 w-full cursor-default items-center justify-center gap-1.5 rounded-full px-5 py-2.5 text-center font-semibold sm:w-auto sm:px-6"
-            >
-              Book Your Assessment
-              <ArrowRight className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 sm:size-4" />
-            </button>
-            <button
-              type="button"
-              aria-disabled="true"
-              tabIndex={-1}
-              className="type-button inline-flex min-h-11 w-full cursor-default items-center justify-center rounded-full border border-white/35 bg-white/5 px-5 py-2.5 text-center font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/55 hover:bg-white/10 sm:w-auto sm:px-6"
-            >
-              Explore Recovery Programs
-            </button>
-          </div>
         </div>
 
-        <div className="hidden min-h-0 flex-col gap-2 lg:flex">
-          {trustBadges.map((badge) => (
-            <TrustPill key={badge.label} {...badge} />
-          ))}
-        </div>
-      </div>
-
-      <div className="relative z-10 shrink-0 px-4 pb-3 sm:px-6 sm:pb-4 lg:hidden">
-        <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {trustBadges.map((badge) => (
-            <TrustPill key={badge.label} {...badge} compact />
-          ))}
+        {/* Buttons placed neatly at the bottom of the viewport on mobile */}
+        <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3 w-full justify-center items-center mt-auto sm:mt-8 pb-4 sm:pb-0 z-20">
+          <button
+            type="button"
+            aria-disabled="true"
+            tabIndex={-1}
+            className="btn-mint type-button group inline-flex min-h-11 w-full cursor-default items-center justify-center gap-1.5 rounded-full px-6 py-2.5 text-center font-semibold sm:w-auto"
+          >
+            Book Your Assessment
+            <ArrowRight className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 sm:size-4" />
+          </button>
+          <button
+            type="button"
+            aria-disabled="true"
+            tabIndex={-1}
+            className="type-button inline-flex min-h-11 w-full cursor-default items-center justify-center rounded-full border border-white/35 bg-white/5 px-6 py-2.5 text-center font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/55 hover:bg-white/10 sm:w-auto"
+          >
+            Explore Programs
+          </button>
         </div>
       </div>
     </section>

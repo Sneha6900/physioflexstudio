@@ -364,10 +364,10 @@ function ClientProfilePage() {
               </div>
 
               <div>
-                <Label htmlFor="conditions">Any Existing Pain or Conditions (Optional)</Label>
+                <Label htmlFor="conditions">Any Existing Symptoms or Conditions (Optional)</Label>
                 <Textarea
                   id="conditions"
-                  placeholder="Describe any current pain or conditions..."
+                  placeholder="Describe any current symptoms or conditions..."
                   value={formData.existingConditions}
                   onChange={(e) => handleInputChange("existingConditions", e.target.value)}
                   className="min-h-[100px]"
